@@ -1,0 +1,31 @@
+网址大全
+1.
+JQuery:
+官网下载
+http://jquery.com/download/
+CDN
+	https://code.jquery.com/jquery-3.0.0.js
+	https://code.jquery.com/jquery-3.0.0.min.js
+2.
+插件:
+jqueryUI //官方插件，功能多且全面，官网：www.jqueryui.com
+jquery.validation //表单验证插件,官网：https://jqueryvalidation.org/
+jquery.easyUI //是一组基于jQuery的UI插件集合,Demo：http://www.jeasyui.net/
+bootstrap //是最受欢迎的 HTML、CSS 和 JS 框架，用于开发响应式布局、移动设备优先的 WEB 项目，官网：http://v3.bootcss.com/
+highcharts
+https://www.hcharts.cn
+
+3.requireJS
+官网：http://requirejs.org/
+中文网：http://www.requirejs.cn/
+
+4.
+官网：http://gulpjs.com/
+中文网：http://www.gulpjs.com.cn/
+
+5.模块应用商店
+大部分插件都可以在http://www.npmjs.com找到
+
+6.nodeJS官方API文档
+nodejs.cn/api
+
