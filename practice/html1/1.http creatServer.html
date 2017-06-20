@@ -11,8 +11,13 @@
 				console.log(xhr.responseText)
 			}
 		};
-		xhr.open('get',"http://localhost:12345/",true);
+		xhr.open('get',"http://localhost:12345?name=asdasd",true);
 		xhr.send();
+		/*知识点:
+		 1.node.js建立服务器; 
+		 2.设置响应头,解决跨域;
+		 3.引入 url模块 与 querystring模块 提取传递过来的参数;
+		*/  
 	</script>
 <body>
 	
