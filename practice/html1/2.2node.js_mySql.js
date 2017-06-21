@@ -1,3 +1,4 @@
+// 知识点:第三方模块mysql的使用教程;
 var mysql = require("mysql");
 //配置数据库的连接
 var connection = mysql.createConnection({
