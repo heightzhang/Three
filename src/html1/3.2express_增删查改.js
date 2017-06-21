@@ -9,7 +9,8 @@ var connection = mysql.createConnection({
 	user:"root",
 	password:"",
 	database:"login"
-});
+});	
+
 connection.connect();
 
 //处理post请求传递过来的参数,用bodyParser模块;
@@ -35,16 +36,11 @@ app.get('/f5',function(req,res){
 
 // ---------post请求-- 搜索-------------------
 app.post('/search',function(req,res){
-	var value = req.body.value;  //获取Post请求发送过来的参数;
 	//设置请求头;
-	res.append("Access-Control-Allow-Origin","*");
-	 //console.log('SELECT * FROM user where username="'+value+'"') //用这种打印方法判断输入的SQL命令是否正确;
-	//连接数据库并返回数据;
-	connection.query('SELECT * FROM user where username="'+value+'"', function(error, results, fields) {
-		if(error) throw error;
-		//results =>array类型
-		res.send(JSON.stringify(results));
-	});
+	res.append("Access-Control-Allow-Origin","*");	
+	
+	//search部分改为模块化开发;
+	require("./3.2search.js").search(req,res,connection);
 	
 });
 
