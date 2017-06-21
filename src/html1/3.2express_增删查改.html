@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>express的增删查改</title>
+	<link rel="stylesheet" href="../lib/bootstrap.min.css">
+	<script src="../js/jquery-3.2.1.js"></script>
+	<style>
+		div.button{
+			margin: 50px auto;
+			text-align: center;
+		}
+		button.btn{
+			margin-right: 20px;
+		}
+	</style>
+	<script>
+		$(function(){
+			// 经常要执行的js代码封装;
+			function ico(){
+				f5();
+				$('.info').hide();
+			};
+			ico();
+
+			// ---------刷新-----------------
+			$('.f5').on('click',function(){
+				ico()
+			});
+			
+			function f5(){
+				$.ajax({
+					type:'get',
+					data:{type:"get"},
+					url:"http://localhost:8081/f5",
+					dataType:"json",
+					async:true,
+					success:function(msg){
+						var tbody = '';
+						$.each(msg,function(idx,item){
+							tbody += `
+							<tr>
+				         		<th scope="row">${item.id}</th>
+				         		<td>${item.username}</td>
+				        		<td>${item.password}</td>
+				         		<td>${item.add_time}</td>
+				     		</tr>
+							`
+						});
+
+						$('.bs-example tbody').html(tbody);
+					}
+				});
+			};
+			
+			// ----------搜索-----------------
+			$('.search').on('click',function(){
+				$('.info').show(	);
+			 	var value =	$('#search').val();
+			 	search(value);
+			});
+
+			function search(value){
+				$.ajax({
+					type:'post',
+					data:{value:value},
+					url:"http://localhost:8081/search",
+					dataType:"json",
+					async:true,
+					success:function(msg){
+						var tbody = '';
+						$.each(msg,function(idx,item){
+							tbody += `
+							<tr>
+				         		<th scope="row">${item.id}</th>
+				         		<td>${item.username}</td>
+				        		<td>${item.password}</td>
+				         		<td>${item.add_time}</td>
+				     		</tr>
+							`
+						});
+
+						$('div.info tbody').html(tbody);
+					}
+				});
+			};
+			
+			// -----------添加---------------------
+			
+			$('.insert').on('click',function(){
+				var value = $('#insert').val();
+				insert(value);
+			});
+
+			function insert (value){
+				$.ajax({
+					type:'post',
+					data:{value:value},
+					url:"http://localhost:8081/insert",
+					dataType:"json",
+					async:true,
+					success:function(msg){
+						ico();
+					}
+				});
+			};
+
+			// -------------修改--------------------
+			$('.updata').on('click',function(){
+				var old = $('#updata_old').val();
+				var news =$('#updata_new').val();
+				updata(old,news);
+				
+			});
+
+			function updata(old,news){
+				$.ajax({
+					type:'post',
+					data:{
+						old:old,
+						news:news
+					},
+					url:"http://localhost:8081/updata",
+					dataType:"json",
+					async:true,
+					success:function(msg){
+						ico();
+					}
+				});
+			};
+			//--------------删除----------------
+			$('.del').on('click',function(){
+				var value = $('#del').val();
+				del(value);
+			});
+
+			function del(value){
+				$.ajax({
+					type:'post',
+					data:{
+						value:value
+					},
+					url:"http://localhost:8081/del",
+					dataType:"json",
+					async:true,
+					success:function(msg){
+						ico();
+					}
+				});
+			};
+		})
+	</script>
+</head>
+<body>
+	<div class="bs-example" data-example-id="striped-table">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Username</th>
+          <th>Password</th>
+          <th>add_time</th>
+        </tr>
+      </thead>
+      <tbody>
+   
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="info">
+  	<table class="table table-striped">
+      <thead>
+        <tr>
+          <th>结果</th>
+          <th>Username</th>
+          <th>Password</th>
+          <th>add_time</th>
+        </tr>
+      </thead>
+      <tbody>
+   
+      </tbody>
+    </table>
+  </div>
+
+  <div class="button">
+
+	<!-- 搜索 -->
+	<input type="text" id="search">
+	<button type="button" class="btn btn-primary search">搜索</button>
+
+	<!-- 添加 -->
+	<input type="text" id="insert">
+	<button type="button" class="btn btn-success insert">添加</button>
+
+	<!-- 修改 -->
+	<input type="text" id="updata_old">
+	<input type="text" id="updata_new">
+	<button type="button" class="btn btn-info updata">修改</button>
+
+	<!-- 删除 -->
+	<input type="text" id="del">
+	<button type="button" class="btn btn-warning del">删除</button>
+
+	<!-- 刷新 -->
+	<button type="button" class="btn btn-default f5">刷新</button>
+
+
+  </div>
+</body>
+</html>
