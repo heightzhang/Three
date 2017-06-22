@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({extended:false}));
 // ------------get请求--- 刷新----------------
 app.get('/f5',function(req,res){
 	//console.log(req.query); //获取get请求发送过来的参数;
-	//设置请求头;
+	//设置响应头;
 	res.append("Access-Control-Allow-Origin","*");
 
 	//连接数据库并返回数据;
