@@ -6,15 +6,15 @@ var app =express();
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended:false}));
 //处理JSON请求
-app.use(bodyParser.json());
+//app.use(bodyParser.json());
 
-// ------------get请求-------------------
+/*// ------------get请求-------------------
 app.get('/',function(req,res){
-	console.log(req.query); //获取get请求发送过来的参数;
+	//console.log(req.query)=>{name:heightzhang} 获取get请求发送过来的参数; 
 	//设置请求头;
 	res.append("Access-Control-Allow-Origin","*");
-
-	res.send('get')
+	var abc =req.query 
+	res.send(abc) //可以直接返回变量(数组或对象),不需要像原生一样JSON.stringify;
 	
 });
 // ---------post请求---------------------
@@ -25,12 +25,13 @@ app.post('/',function(req,res){
 
 	res.send('post')
 	
-});
+});*/
 // ----------All请求----------------------
 app.all('/',function(req,res){
 	//设置请求头;
 	res.append("Access-Control-Allow-Origin","*");
 
+	console.log(req.body);
 	res.send('all');
 })
 

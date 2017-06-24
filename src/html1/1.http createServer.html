@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>http请求</title>
+	<script src="../js/jquery-3.2.1.js"></script>
+</head>
+	<script>		
+		//-----post请求------
+	/*	$.ajax({
+			type:'post',
+			data:{
+				type:"post",
+				name:"heightzhang"
+			},
+			dataType:'json',
+			url:"http://localhost:12345",
+			async:false,
+			success:function(data){
+				console.log(data)
+			}
+		});*/
+		
+		// --------get请求
+		$.ajax({
+			type:'get',
+			data:{
+				type:"post",
+				name:"heightzhang"
+			},
+			dataType:'json',
+			url:"http://localhost:12345",
+			async:true,
+			success:function(data){
+				console.log(data)
+			}
+		});
+	</script>
+<body>
+		
+</body>
+</html>

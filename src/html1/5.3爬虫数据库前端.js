@@ -17,7 +17,7 @@ var connection = mysql.createConnection({
 });
 connection.connect();
 
-// ------一--创建服务器------------------
+// --------创建服务器------------------
 http.createServer(function(request,response){
     //设置响应头;
     response.setHeader("Access-Control-Allow-Origin","*");

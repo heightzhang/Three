@@ -4,7 +4,7 @@ var http = require("http");
 http.request({
 	hostname: 'www.tuling123.com',
 	port: '80',
-	path: '/openapi/api?key=c75ba576f50ddaa5fd2a87615d144ecf&info=%E8%AE%B2%E4%B8%AA%E7%AC%91%E8%AF%9D',
+	path: '/openapi/api?key=c75ba576f50ddaa5fd2a87615d144ecf&info=扑街',
 	method: 'GET'
 }, function(res) {
 	res.setEncoding('utf8');
@@ -19,3 +19,5 @@ http.request({
 }).on('error', function(e) {
 	console.log('problem with request: ' + e.message);
 }).end();
+
+//

@@ -17,9 +17,6 @@ var connection = mysql.createConnection({
 });
 connection.connect();
 
-var error = new Error('您访问的页面不存在');
-error.status = 404;
-
 http.get("http://www.mzitu.com/zipai/comment-page-1/",function(res){
 	var data = "";
 	res.on("data",function(chunk){
