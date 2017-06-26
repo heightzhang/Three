@@ -16,7 +16,7 @@
 	<script>
 		function doUpload() {
 			$.ajax({
-				url: 'http://localhost:3200/upload-single',
+				url: 'http://localhost:3200/upload-single/doUpload',
 				type: 'POST',
 				cache: false, //不必须
 				data: new FormData($('#uploadForm')[0]),
