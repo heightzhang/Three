@@ -16,10 +16,10 @@
 	<script>
 		function doUpload() {
 			$.ajax({
-				url: 'http://localhost:3200/upload-single/doUpload',
+				url: 'http://localhost:3200/upload-single',
 				type: 'POST',
 				cache: false, //不必须
-				data: new FormData($('#uploadForm')[0]),
+				data: new FormData($('#uploadForm')[0]),//获取form表单节点
 				processData: false,
 				contentType: false,
 				success: function(data) {

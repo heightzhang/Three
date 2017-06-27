@@ -149,24 +149,10 @@
 				`;
 				$("#content").html(html);
 
-				/*var input =`
-				<form id="uploadForm">
-					<p><input type="file" id ='file' name="file" multiple="multiple" /></ p>
-					<input type="button" value="确定" onclick="doUpload()" />
-				</form>`
-				//上传简历功能;
-				$('#deliver_resume').html(input)
-				console.log($('#file'))
-				$('#file').css({
-					position:'absolute',
-					top:0,
-					right:0
-				});
-				
-				$('#deliver_resume').on('click',function(){	
-					
-				});
-*/
+				// 点击左上角返回键返回列表页;
+				$('.corner').on('click',function(){
+					location.href = '1.1拉勾网列表页.html';
+				})
 			
 			}
 

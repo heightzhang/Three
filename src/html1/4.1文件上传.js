@@ -19,6 +19,7 @@ var storage = multer.diskStorage({
 		cb(null, file.fieldname+ '-' + Date.now() + "." + fileFormat[fileFormat.length - 1]);
 	}
 });
+
 var upload = multer({
 	storage: storage
 });
@@ -30,5 +31,6 @@ app.post('/upload-single', upload.any(), function(req, res, next) {
 	res.append("Access-Control-Allow-Origin","*");
 	res.send({
 		wscats_code: '0'
+		
 	});
 });

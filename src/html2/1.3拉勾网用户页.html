@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>拉勾网用户页</title>
+    <link href="https://www.lgstatic.com/m/css/dep/normalize.css-3.0.2/normalize.css?v=201706062006" rel="stylesheet">
+    <link rel="Shortcut Icon" href="https://www.lgstatic.com/m/images/asset/common/img/favicon.ico?v=201706062006">
+    <link href="https://www.lgstatic.com/m/css/asset/center/mine/css/mine.css?v=201706062006" rel="stylesheet">
+    <link rel="stylesheet" href="../css/weui.css">
+    <style>
+    .file {
+        position: relative;
+    }
+    
+    #file {
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 55px;
+        height: 20px;
+    }
+    
+    .file span {
+        display: inline-block;
+        text-align: center;
+        line-height: 20px;
+        width: 55px;
+        height: 20px;
+        background-color: #1fc8a1;
+        border-radius: 8px;
+        color: #fff;
+        opacity: 0.7;
+    }
+    
+    .weui-gallery__img {
+        width: 100%;
+        height: 100%;
+    }
+    
+    .weui-gallery__del {
+        font-size: 20px;
+        text-decoration: none;
+        color: #fff;
+    }
+    </style>
+    <script src="../js/jquery-3.2.1.js"></script>
+    <script>
+    $(function() {
+
+        //------------上传头像----------------------;
+        $('#file').on('change', function() {
+            console.log(666);
+            $.ajax({
+                url: 'http://localhost:8081/upload-single',
+                type: 'POST',
+                cache: false, //不必须
+                data: new FormData($('#uploadForm')[0]),
+                processData: false,
+                contentType: false,
+                success: function(data) {
+                    var imgSrc = data.src[0].filename;
+                    $('.headpic').attr('src', './uploads/' + imgSrc);
+                }
+            })
+        });
+        $('.weui-gallery').hide();
+
+        //------------预览图像-------------------;
+        $('.headpic').on('click', function() {
+            $('.weui-gallery').show();
+
+            var imgSrc = $('.headpic').attr('src');
+            console.log(imgSrc, $('.weui-gallery__img'));
+            var span = `<span class="weui-gallery__img" style="background-image: url(${imgSrc});"></span>`;
+            $('.weui_img').html(span);
+
+        })
+        $('.weui-gallery__del').on('click', function() {
+            $('.weui-gallery').hide();
+        })
+
+        //-------------点击跳转至列表页----
+        $('.text').on('click',function(){
+            location.href = '1.1拉勾网列表页.html'
+        })
+    })
+    </script>
+</head>
+
+<body ontouchstart="">
+    <header id="header">拉勾网</header>
+    <div id="content">
+        <!-- 预览图片 -->
+        <div class="page gallery js_show">
+            <div class="weui-gallery" style="display: block">
+                <div class="weui_img">
+                </div>
+                <div class="weui-gallery__opr">
+                    <a href="javascript:" class="weui-gallery__del">
+                        返回
+                    </a>
+                </div>
+            </div>
+        </div>
+        <form id="uploadForm">
+            <p class="file" style="margin-top: 10px"><span>上传头像</span>
+                <input type="file" name="file" id="file" />
+            </p>
+        </form>
+        <div class="logininfo">
+            <div class="haslogin center">
+                <a class="button" href="http://www.lagou.com/center/preview.html" target="_self"> 简历&gt; </a>
+                <div class="headcon">
+                    <img class="headpic" src="https://www.lgstatic.com/i/image/M00/AB/04/CgqKkViy6TGAXJ9RAADQrQdeYxw33.jpeg">
+                </div>
+                <div class="name">张高</div>
+            </div>
+        </div>
+        <!-- 登录地址-->
+        <div class="buttons">
+            <a class="button deliver" href="/user/deliverlist.html">
+                <span>投递</span>
+            </a>
+            <a class="button interview" href="/minterview/interviewlist.html">面试</a>
+            <a class="button invitation" href="/minvite/invitation.html">
+                <span>邀约</span>
+            </a>
+            <a class="button collect" href="/user/collectlist.html">收藏</a>
+        </div>
+        <a class="logout" href="/frontLogout.do" style="display: block;">退出登录</a>
+    </div>
+    <footer id="footer">
+        <!--通用footer组件模板@author pooky@lagou.com-->
+        <div data-name="职位" data-index="0" data-type="custom" class="footer-tab-custom"><span class="icon"></span><span class="text">职位</span></div>
+        <div data-name="搜索" data-index="1" data-type="search" class="footer-tab-search"><span class="icon"></span><span class="text">搜索</span></div>
+        <div data-name="我的" data-index="2" data-type="mine" class="footer-tab-mine selected"><span class="icon selected"></span><span class="text">我的</span></div>
+    </footer>
+</body>
+
+</html>
