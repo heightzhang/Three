@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="../js/jquery-3.2.1.js"></script>
+    <script src="../js/socket.js"></script>
+    <script>
+    $(function() {
+    	$.ajax({
+    		url:'http://localhost:8081/downhtml',
+    		type:'post',
+    		success:function(data){
+    			var html =''
+    			$.each(data,function(idx,item){
+    				html+=item.html;
+    			})
+    			$('body').html(html);
+    		}
+    	});
+		var socket = io('http://localhost:8081');
+		//1)客户端接收信息;
+   		socket.on("test", function(data) {
+    		console.log(data)
+   		})
+    })
+    </script>
+</head>
+
+<body>
+	<div></div>
+</body>
+
+</html>

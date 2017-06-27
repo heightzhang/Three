@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="../js/socket.js"></script>
+    <script src="../js/jquery-3.2.1.js"></script>
+    <script>
+    $(function() {
+    	//建立与服务端的socket连接;
+        var socket = io('http://localhost:6789');
+       
+       //1)客户端接收信息;
+      /*  socket.on("test", function(data) {
+            console.log(data)
+        })*/
+        
+        //2)客户端发送信息;
+        function send() {
+            var text = document.querySelector("#input").value;
+            console.log(text);
+            socket.emit("test2", text)
+        };
+
+        $('button').on('click',function(){
+        	send();
+        });
+
+        //3)接收公共信息;(发送的信息再自动发送回来;)
+        var html = "";
+        socket.on("topeople", function(data) {
+            console.log(data)
+            html += data
+            document.querySelector("p").innerHTML = html
+        })
+
+
+
+        
+    })
+    </script>
+</head>
+
+<body>
+    <input id="input" />
+    <button>发送消息</button>
+    <p></p>
+</body>
+
+</html>
