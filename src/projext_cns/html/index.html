@@ -15,6 +15,11 @@
     <meta name="apple-mobile-web-app-title" content="Amaze UI" />
     <link rel="stylesheet" href="../lib/AmazeUI-2.7.2/assets/css/amazeui.min.css" />
     <link rel="stylesheet" href="../lib/AmazeUI-2.7.2/assets/css/admin.css">
+    <style>
+    .am-topbar-inverse {
+        background-color: #000;
+    }
+    </style>
 </head>
 
 <body>
@@ -23,8 +28,8 @@
   以获得更好的体验！</p>
 <![endif]-->
     <header class="am-topbar am-topbar-inverse admin-header">
-        <div class="am-topbar-brand">
-            <strong>Amaze UI</strong> <small>后台管理模板</small>
+        <div class="am-topbar-brand" id="am-topbar-brand">
+            <strong>拉勾网</strong> <small>后台管理模板</small>
         </div>
         <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
         <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
@@ -90,7 +95,7 @@
                     <div class="am-u-sm-12 am-u-md-6">
                         <div class="am-btn-toolbar">
                             <div class="am-btn-group am-btn-group-xs">
-                                <button type="button" class="am-btn am-btn-default"><span class="am-icon-plus"></span> 新增</button>
+                                <button type="button" class="am-btn am-btn-default increase"><span class="am-icon-plus"></span> 新增</button>
                                 <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 保存</button>
                                 <button type="button" class="am-btn am-btn-default"><span class="am-icon-archive"></span> 审核</button>
                                 <button type="button" class="am-btn am-btn-default"><span class="am-icon-trash-o"></span> 删除</button>
@@ -114,7 +119,7 @@
                         <div class="am-input-group am-input-group-sm">
                             <input type="text" class="am-form-field">
                             <span class="am-input-group-btn">
-            <button class="am-btn am-btn-default" type="button">搜索</button>
+            <button class="am-btn am-btn-default search" type="button">搜索</button>
           </span>
                         </div>
                     </div>
@@ -129,11 +134,12 @@
                                             <input type="checkbox" />
                                         </th>
                                         <th class="table-id">ID</th>
-                                        <th class="table-title">标题</th>
-                                        <th class="table-type">类别</th>
-                                        <th class="table-author am-hide-sm-only">作者</th>
-                                        <th class="table-date am-hide-sm-only">修改日期</th>
-                                        <th class="table-set">操作</th>
+                                        <th class="table-title">注册号</th>
+                                        <th class="table-title">公司名</th>
+                                        <th class="table-type">职位</th>
+                                        <th class="table-author am-hide-sm-only">薪资</th>
+                                        <th class="table-set">公司类别</th>
+                                        <th class="">操作</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -159,7 +165,7 @@
                                 </tbody>
                             </table>
                             <div class="am-cf">
-                                共 15 条记录
+                                共 <span class="num">15</span> 条记录
                                 <div class="am-fr">
                                     <ul class="am-pagination">
                                         <li class="am-disabled"><a href="#">«</a></li>
@@ -200,33 +206,134 @@
     <!--<![endif]-->
     <script src="../lib/AmazeUI-2.7.2/assets/js/amazeui.min.js"></script>
     <script src="../lib/AmazeUI-2.7.2/assets/js/app.js"></script>
-    <script src="../api/node_cns.js"></script>
+    <!-- <script src="../api/node_cns.js"></script>     -->
     <script>
-    $.ajax({
-        type: 'post',
-        url: "http://localhost:8081/search",
-        async: true,
-        success: function(msg) {
-            console.log(msg);
-            var tbody = '';
-           /* $.each(msg, function(idx, item) {
-                tbody +=
-                `<tr>
-                    < td >
-                    < input type = "checkbox" / >
-                    < /td> < td > 1 < /td> < td > < a href = "#" > Business management < /a></td >
-                    < td >
-                    default < /td> < td class = "am-hide-sm-only" > 测试1号 < /td> < td class = "am-hide-sm-only" > 2014 年9月4日 7: 28: 47 < /td> < td >
-                    < div class = "am-btn-toolbar" >
-                    < div class = "am-btn-group am-btn-group-xs" >
-                    < button class = "am-btn am-btn-default am-btn-xs am-text-secondary" > < span class = "am-icon-pencil-square-o" > < /span> 编辑</button >
-                    < button class = "am-btn am-btn-default am-btn-xs am-hide-sm-only" > < span class = "am-icon-copy" > < /span> 复制</button >
-                    < button class = "am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" > < span class = "am-icon-trash-o" > < /span> 删除</button >
-                    < /div> < /div> < /td> < /tr>`
-            });
+    // -------------页面初始化-----------
+    init();
 
-            $('tbody').html(tbody);*/
-        }
+    function init() {
+
+
+        $.ajax({
+            type: 'post',
+            url: "http://localhost:8081/search",
+            async: true,
+            dataType: 'json',
+            success: function(msg) {
+                var tbody = '';
+                $.each(msg.data, function(idx, item) {
+                    tbody +=
+                        `
+               <tr>
+                                       <td>
+                                           <input type="checkbox" />
+                                       </td>
+                                       <td>${item.id}</td>
+                                       <td class="position_id"><a href="#">${item.position_id}</a></td>
+                                       <td>${item.company}</td>
+                                       <td class="am-hide-sm-only">${item.position_name}</td>
+                                       <td class="am-hide-sm-only">${item.salary}</td>
+                                       <td class="am-hide-sm-only">${item.industry}</td>
+                                       <td>
+                                           <div class="am-btn-toolbar">
+                                               <div class="am-btn-group am-btn-group-xs">
+                                                   <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
+                                                   <button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-copy"></span> 复制</button>
+                                                   <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only del"><span class="am-icon-trash-o"></span> 删除</button>
+                                               </div>
+                                           </div>
+                                       </td>
+                                   </tr>
+                `
+                });
+                $('tbody').html(tbody);
+                $('.am-cf span.num').html(msg.num);
+
+                //--点击跳转到修改页面;
+                $('button.am-text-secondary').on('click', function() {
+                    var position_id = $(this).closest('tr').find('.position_id a').html();
+                    res = '?id=' + position_id;
+                    location.href = 'user.html' + res;
+                    return false;
+                });
+                //--点击删除页面;
+                $('.del').on('click', function() {
+                    var position_id = $(this).closest('tr').find('.position_id a').html();
+                    $.ajax({
+                        type: 'post',
+                        url: "http://localhost:8081/del",
+                        async: true,
+                        data: {
+                            position_id: position_id
+                        },
+                        success: function(msg) {
+                            init();
+                        }
+                    })
+                    return false;
+                })
+            }
+        });
+
+    };
+
+    //---点击跳到新增页面;
+    $('.increase').on('click', function() {
+        console.log(666);
+        location.href = 'increase.html';
+    })
+
+    //--------筛选:
+    $('button.search').on('click', function() {
+        var value = $('.am-form-field').val();
+
+        $.ajax({
+            type: 'post',
+            url: "http://localhost:8081/soushuo",
+            async: true,
+            data: {
+                value: value
+            },
+            dataType: 'json',
+            success: function(msg) {
+                var tbody = '';
+                $.each(msg.data, function(idx, item) {
+                    tbody +=
+                        `
+               <tr>
+                                       <td>
+                                           <input type="checkbox" />
+                                       </td>
+                                       <td>${item.id}</td>
+                                       <td class="position_id"><a href="#">${item.position_id}</a></td>
+                                       <td>${item.company}</td>
+                                       <td class="am-hide-sm-only">${item.position_name}</td>
+                                       <td class="am-hide-sm-only">${item.salary}</td>
+                                       <td class="am-hide-sm-only">${item.industry}</td>
+                                       <td>
+                                           <div class="am-btn-toolbar">
+                                               <div class="am-btn-group am-btn-group-xs">
+                                                   <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
+                                                   <button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-copy"></span> 复制</button>
+                                                   <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only del"><span class="am-icon-trash-o"></span> 删除</button>
+                                               </div>
+                                           </div>
+                                       </td>
+                                   </tr>
+                `
+                });
+                $('tbody').html(tbody);
+                $('.am-cf span.num').html(msg.num);
+
+                //--点击跳转到修改页面;
+                $('button.am-text-secondary').on('click', function() {
+                    var position_id = $(this).closest('tr').find('.position_id a').html();
+                    res = '?id=' + position_id;
+                    location.href = 'user.html' + res;
+                    return false;
+                });
+            }
+        })
     });
     </script>
 </body>
