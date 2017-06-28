@@ -8,7 +8,8 @@
     <script src="../js/socket.js"></script>
     <script>
     $(function() {
-    	$.ajax({
+        // 请查看ueditor-1-4.3.3/_example/conpleteDEMO.HTML文件
+    	/*$.ajax({
     		url:'http://localhost:8081/downhtml',
     		type:'post',
     		success:function(data){
@@ -18,7 +19,7 @@
     			})
     			$('body').html(html);
     		}
-    	});
+    	});*/
 		var socket = io('http://localhost:8081');
 		//1)客户端接收信息;
    		socket.on("test", function(data) {

@@ -22,7 +22,7 @@ io.on("connection",function(socket){
     //2)服务端接收信息
     socket.on("test2", function(data) {
         console.log(data)
-        io.emit("topeople", data)//问题:这里可以用socket.emit吗?事实证明不行;这是固定写法;
+        io.emit("topeople", data)//3)发送公共信息
     })
 
 });

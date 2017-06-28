@@ -1,7 +1,7 @@
 ﻿#过滤node模块文件夹
 /node_modules
 
-/doc
+
 /src/html1/uploads
 #过滤压缩包
 *.gz

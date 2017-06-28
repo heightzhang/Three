@@ -18,6 +18,7 @@
 				width: 100%;
 			}
 		</style>
+		<script src="../../../js/socket.js"></script>
 	</head>
 
 	<body>
@@ -99,7 +100,7 @@
 				alert(arr.join("\n"));
 				//获取输入文本的结构;
 				var html = UE.getEditor('editor').getContent();
-				$.ajax({
+				/*$.ajax({
 					url: "http://localhost:8081/gethtml",
 					type: "post",
 					data: {
@@ -108,7 +109,16 @@
 					success: function(data) {
 						
 					}
-				})
+				})*/
+
+				var socket = io('http://localhost:8081');
+				socket.emit("chat",html);
+
+				 //3)接收公共信息;(发送的信息再自动发送回来;)
+		        socket.on("topeople", function(data) {
+		            console.log(data)
+		        })
+
 			}
 
 			function getPlainTxt() {

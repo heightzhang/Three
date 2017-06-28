@@ -9,13 +9,6 @@ var server = app.listen(8081, function() {
 });
 
 
-// ---------长连接;
-//引入sockit模块;
-var ioFn = require("socket.io");
-
-//为了让服务器支持websocket , 实例化服务器
-var io = ioFn(server);
-
 // ----写入数据库
 var mysql = require("mysql");
 var connection;
@@ -30,7 +23,7 @@ function createConnection() {
 };
 
 
-app.post('/gethtml', function(req, res, next) {
+/*app.post('/gethtml', function(req, res, next) {
     res.append("Access-Control-Allow-Origin", "*");
     var html = req.body.arr;
     console.log(html);
@@ -52,13 +45,10 @@ app.post('/gethtml', function(req, res, next) {
 	io.on("connection",function(socket){
 		socket.emit("test",html)
 	});
-
-
-
 });
+*/
 
-
-
+/*
 app.post('/downhtml', function(req, res, next) {
 
     res.append("Access-Control-Allow-Origin", "*");
@@ -72,6 +62,22 @@ app.post('/downhtml', function(req, res, next) {
 
     connection.end();
   	
+});*/
+
+// ---------长连接模式;
+//引入sockit模块;
+var ioFn = require("socket.io");
+
+//为了让服务器支持websocket , 实例化服务器
+var io = ioFn(server);
+
+//跟前端进行连接
+io.on("connection",function(socket){
+    socket.on("chat", function(data) {
+        console.log(data)
+        io.emit("topeople", data)//3)发送公共信息
+    })
+
 });
 
 
