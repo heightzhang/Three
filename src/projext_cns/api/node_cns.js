@@ -24,17 +24,25 @@ function createConnection() {
 app.all('/search', function(req, res) {
     //设置请求头;
     res.append("Access-Control-Allow-Origin", "*");
+
+    //接收分页
+    var pageNum = req.body.pageNum; // 5
+    var page = req.body.page;
+    var index = (page-1)*pageNum;
+
+    console.log(pageNum,page)
+
     //连接数据库
     createConnection();
     //console.log('insert into user(username) values("'+value+'")');
-    connection.query('SELECT * FROM lagou', function(error, results, fields) {
+    connection.query(`SELECT * FROM lagou limit ${index},${pageNum}`, function(error, results, fields) {
         if (error) throw error;
         var data = results;
         //计算数据库的总数量;
         connection.query('select count(*) from lagou', function(error, results, fields) {
             if (error) throw error;
             //results =>array类型
-            console.log(results[0]["count(*)"]);
+            //console.log(results[0]["count(*)"]);
             var obj = {
                 data: data,
                 num: results[0]["count(*)"]
@@ -87,9 +95,10 @@ app.all('/edit', function(req, res) {
     }
     res.send('ok');
     //关闭数据库 
-    //connection.end();
+    connection.end();
 });
-//-------------------修改页面第三步:修改头像路径;
+
+/*//-------------------修改页面第三步:修改头像路径;
 app.all('/picture', function(req, res) {
     res.append("Access-Control-Allow-Origin", "*");
     var msg = req.body;
@@ -98,7 +107,8 @@ app.all('/picture', function(req, res) {
         if (error) throw error;
         res.send('ok');
     })
-});
+});*/
+
 //---------------------3.新增页面----------;
 app.all('/increase', function(req, res) {
     res.append("Access-Control-Allow-Origin", "*");
@@ -117,8 +127,8 @@ app.all('/increase', function(req, res) {
     //连接数据库;
     createConnection();
     //多条命令更新到数据库;
-    console.log('INSERT INTO lagou(position_id, company, salary, position_name, job_introduce, industry,logo) VALUES ("' + msg.position_id + '","' + msg.company + '","' + msg.salary + '","' + msg.position_name + '","' + msg.job_introduce + '","' + msg.industry + '","' + msg.logo)
-    connection.query('INSERT INTO lagou(position_id, company, salary, position_name, job_introduce, industry) VALUES ("' + msg.position_id + '","' + msg.company + '","' + msg.salary + '","' + msg.position_name + '","' + msg.job_introduce + '","' + msg.industry + '")', function(error, results, fields) {
+    //console.log('INSERT INTO lagou(position_id, company, salary, position_name, job_introduce, industry,logo) VALUES ("' + msg.position_id + '","' + msg.company + '","' + msg.salary + '","' + msg.position_name + '","' + msg.job_introduce + '","' + msg.industry + '","' + msg.logo)
+    connection.query('INSERT INTO lagou(position_id, company, salary, position_name, job_introduce, industry,logo) VALUES ("' + msg.position_id + '","' + msg.company + '","' + msg.salary + '","' + msg.position_name + '","' + msg.job_introduce + '","' + msg.industry + '","' + msg.logo + '")', function(error, results, fields) {
         if (error) throw error;
     });
 
@@ -141,19 +151,31 @@ app.all('/del', function(req, res) {
     });
 });
 //-------5.筛选--------
+//根据公司名筛选;
 app.all('/soushuo', function(req, res) {
     res.append("Access-Control-Allow-Origin", "*");
+    var select = req.body.select;
     var value = req.body.value;
-    console.log('SELECT * FROM lagou where company = "' + value + '"')
+    console.log(select, value);
+    //console.log(`SELECT * FROM lagou where ${select} = '${value}'`)
+
+   
+    var mysql = `SELECT * FROM lagou where ${select} = '${value}'`;
+
+    //当条件为公司类型或者薪资的时候,执行弱搜索;
+    if (req.body.select === 'industry' || req.body.select === 'industry') {
+        mysql = `SELECT * FROM lagou where ${select} LIKE '%${value}%'`
+    };
+
     createConnection();
-    connection.query('SELECT * FROM lagou where company = "' + value + '"', function(error, results, fields) {
+    connection.query(mysql, function(error, results, fields) {
         if (error) throw error;
         var data = results;
-        //计算数据库的总数量;
+        //计算搜索结果的总数量;
         connection.query('select count(*) from lagou', function(error, results, fields) {
             if (error) throw error;
             //results =>array类型
-            console.log(results[0]["count(*)"]);
+            //console.log(results[0]["count(*)"]);
             var obj = {
                 data: data,
                 num: data.length //筛选后的数据;
@@ -163,4 +185,85 @@ app.all('/soushuo', function(req, res) {
             connection.end();
         });
     });
+});
+
+
+
+
+
+
+// -------------6.更换头像功能-----------
+//引入multer模块
+var multer = require('multer');
+
+var storage = multer.diskStorage({
+    //设置上传后文件路径，uploads文件夹需要手动创建。
+    destination: function(req, file, cb) {
+        cb(null, './uploads')
+    },
+    //给上传文件重命名
+    filename: function(req, file, cb) {
+        var fileFormat = (file.originalname).split(".");
+        //图片命名规则:name名+时间戳(防止重命名)+后缀名;
+        //注意:file.fieldname为input files html标签的name名;
+        //比如把 abc.jpg图片切割为数组[abc,jpg],然后用数组长度-1来获取后缀名
+        cb(null, file.fieldname + '-' + Date.now() + "." + fileFormat[fileFormat.length - 1]);
+    }
+});
+var upload = multer({
+    storage: storage
+});
+//设置静态文件夹uploads;
+app.use(express.static('uploads'));
+
+//多图上传
+app.post('/upload-single', upload.any(), function(req, res, next) {
+    res.append("Access-Control-Allow-Origin", "*");
+    res.send({
+        src: req.files //获取文件名;
+    });
+});
+
+
+//-------------7.编辑器保存数据结构;
+app.all('/savehtml', upload.any(), function(req, res, next) {
+    res.append("Access-Control-Allow-Origin", "*");
+    var html = req.body.html;
+    var title = req.body.title;
+    //数据库操作;
+    createConnection();
+    //标准写法;
+    connection.query(`INSERT INTO article(title,html) VALUES ('${title}', '${html}')`, function(error, results, fields) {
+        if (error) throw error;
+    });
+    res.send('ok');
+    connection.end();
+});
+//-------------8.文章页面获取html结构;
+app.all('/gethtml', upload.any(), function(req, res, next) {
+    res.append("Access-Control-Allow-Origin", "*");
+    var id = req.body.id;
+
+    //数据库操作;
+    createConnection();
+    //标准写法;
+    //console.log(`SELECT * FROM article where id = ${id}`)
+    connection.query(`SELECT * FROM article where id = ${id}`, function(error, results, fields) {
+        if (error) throw error;
+        res.send(results);
+    });
+    connection.end();
+});
+//-------------9.文章列表结构;
+app.all('/getlist', upload.any(), function(req, res, next) {
+    res.append("Access-Control-Allow-Origin", "*");
+    //数据库操作;
+    createConnection();
+    //标准写法;
+    //console.log(`SELECT * FROM article where id = ${id}`)
+    connection.query(`SELECT * FROM article`, function(error, results, fields) {
+        if (error) throw error;
+        res.send(results);
+    });
+    connection.end();
 });

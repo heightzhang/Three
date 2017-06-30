@@ -96,9 +96,9 @@
                                     </div>
                                     <div class="am-u-md-8">
                                         <p>你可以使用<a href="#">gravatar.com</a>提供的头像或者使用本地上传头像。 </p>
-                                        <form class="am-form">
+                                        <form class="am-form" id="uploadForm">
                                             <div class="am-form-group">
-                                                <input type="file" id="user-pic">
+                                                <input type="file" id="user-pic" name="file">
                                                 <p class="am-form-help">请选择要上传的文件...</p>
                                                 <button type="button" class="am-btn am-btn-primary am-btn-xs save">保存</button>
                                             </div>
@@ -209,10 +209,28 @@
             $('#salary').val(msg[0].salary);
             $('#industry').val(msg[0].industry);
             $('#job_introduce').val(msg[0].job_introduce);
-            $('.picture img').attr('src', 'https:' + msg[0].logo);
-
+            $('.picture img').attr('src', 'http:' + msg[0].logo);
         }
     });
+    //---------更换头像;
+    $('#user-pic').on('change', function() {
+        console.log($('#user-pic').val())
+        $.ajax({
+            url: 'http://localhost:8081/upload-single',
+            type: 'POST',
+            cache: false, //不必须
+            data: new FormData($('#uploadForm')[0]),
+            processData: false,
+            contentType: false,
+            success: function(data) {
+                    var imgSrc = data.src[0].filename;
+                    $('.am-img-thumbnail').attr('src', 'http://localhost:8081/' + imgSrc);
+            } //问题:服务器端口localhost:8081的能否变成一个变量;
+        })
+    });
+
+
+    
 
     //----------保存修改数据库
     $('button.edit').on('click', function() {
@@ -221,6 +239,11 @@
         var salary = $('#salary').val();
         var insdustry = $('#industry').val();
         var job_introduce = $('#job_introduce').val();
+
+        //截取http://localhost:8081/file-1498716726279.jpg = >//localhost:8081/file-1498716726279.jpg
+        var imgSrc = $('.am-img-thumbnail').attr('src');
+        var index = imgSrc.indexOf('/');
+        var imgSrc_save = imgSrc.slice(index);
 
         $.ajax({
             type: 'post',
@@ -232,35 +255,14 @@
                 position_name: position_name,
                 salary: salary,
                 industry: insdustry,
-                job_introduce: job_introduce
+                job_introduce: job_introduce,
+                logo: imgSrc_save
             },
             success: function(msg) {
                 alert('修改成功');
             }
         })
     });
-    //--------上传图片----------------------
-    //1)换头像
-    $('#user-pic').on('change', function() {
-        //获得图片的路径并且上传更改;
-        $('.am-img-thumbnail').attr('src', $('#user-pic').val())
-
-    });
-    /*//2)上传数据库
-    $('button.save').on('click', function() {
-        $.ajax({
-            type: 'post',
-            url: "http://localhost:8081/picture",
-            async: true,
-            data: {
-                logo: imgSrc,
-                position_id: position_id
-            },
-            success: function(msg) {
-                alert('修改成功');
-            }
-        })
-    })*/
     </script>
 </body>
 

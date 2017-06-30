@@ -59,10 +59,10 @@
                         <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span> 页面模块 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
                         <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
                             <li><a href="admin-user.html" class="am-cf"><span class="am-icon-check"></span> 个人资料<span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
-                            <li><a href="admin-help.html"><span class="am-icon-puzzle-piece"></span> 帮助页</a></li>
-                            <li><a href="admin-gallery.html"><span class="am-icon-th"></span> 相册页面<span class="am-badge am-badge-secondary am-margin-right am-fr">24</span></a></li>
-                            <li><a href="admin-log.html"><span class="am-icon-calendar"></span> 系统日志</a></li>
-                            <li><a href="admin-404.html"><span class="am-icon-bug"></span> 404</a></li>
+                            <li id="edit"><a href="edit.html"><span class="am-icon-puzzle-piece"></span> 写文章</a></li>
+                            <li><a href="article_list.html"><span class="am-icon-th"></span>文章<span class="am-badge am-badge-secondary am-margin-right am-fr">24</span></a></li>
+                            <li><a href="admin-log.html"><span class="am-icon-calendar"></span> 开发日历</a></li>
+                            <li><a href="admin-404.html"><span class="am-icon-bug"></span> 开发者设置</a></li>
                         </ul>
                     </li>
                     <li><a href="admin-table.html"><span class="am-icon-table"></span> 表格</a></li>
@@ -97,21 +97,18 @@
                             <div class="am-btn-group am-btn-group-xs">
                                 <button type="button" class="am-btn am-btn-default increase"><span class="am-icon-plus"></span> 新增</button>
                                 <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 保存</button>
-                                <button type="button" class="am-btn am-btn-default"><span class="am-icon-archive"></span> 审核</button>
-                                <button type="button" class="am-btn am-btn-default"><span class="am-icon-trash-o"></span> 删除</button>
+                                <button type="button" class="am-btn am-btn-default affirm"><span class="am-icon-archive"></span> 审核</button>
+                                <button type="button" class="am-btn am-btn-default delmore"><span class="am-icon-trash-o"></span> 删除</button>
                             </div>
                         </div>
                     </div>
                     <div class="am-u-sm-12 am-u-md-3">
                         <div class="am-form-group">
-                            <select data-am-selected="{btnSize: 'sm'}">
-                                <option value="option1">所有类别</option>
-                                <option value="option2">IT业界</option>
-                                <option value="option3">数码产品</option>
-                                <option value="option3">笔记本电脑</option>
-                                <option value="option3">平板电脑</option>
-                                <option value="option3">只能手机</option>
-                                <option value="option3">超极本</option>
+                            <select data-am-selected="{btnSize: 'sm'}" class="select">
+                                <option value="option1" class="company">所有类别</option>
+                                <option value="option2" class="regNum">注册号</option>
+                                <option value="option3">薪资</option>
+                                <option value="option5">公司类型</option>
                             </select>
                         </div>
                     </div>
@@ -174,7 +171,7 @@
                                         <li><a href="#">3</a></li>
                                         <li><a href="#">4</a></li>
                                         <li><a href="#">5</a></li>
-                                        <li><a href="#">»</a></li>
+                                        <li class="am-disabled"><a href="#">»</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -212,13 +209,25 @@
     init();
 
     function init() {
+        //默认页数为1,每页的数量为5;
+        var pageNum = 5;
+        var page = 1;
 
+        $('ul.am-pagination li').not('li.am-disabled').not('li.am-active').on('click', function() {
+            page = $(this).text();
+            console.log(page)
+            return false;
+        });
 
         $.ajax({
             type: 'post',
             url: "http://localhost:8081/search",
             async: true,
             dataType: 'json',
+            data: {
+                pageNum: pageNum,
+                page: page
+            },
             success: function(msg) {
                 var tbody = '';
                 $.each(msg.data, function(idx, item) {
@@ -247,7 +256,17 @@
                 `
                 });
                 $('tbody').html(tbody);
+
+                //分页效果;
+                //总数量:
                 $('.am-cf span.num').html(msg.num);
+
+                console.log($('.am-pagination'))
+
+
+
+
+
 
                 //--点击跳转到修改页面;
                 $('button.am-text-secondary').on('click', function() {
@@ -285,55 +304,115 @@
 
     //--------筛选:
     $('button.search').on('click', function() {
+
         var value = $('.am-form-field').val();
+        var obj = {
+            '所有类别': 'company',
+            '注册号': 'position_id',
+            '薪资': 'salary',
+            '公司类型': 'industry',
+        };
 
-        $.ajax({
-            type: 'post',
-            url: "http://localhost:8081/soushuo",
-            async: true,
-            data: {
-                value: value
-            },
-            dataType: 'json',
-            success: function(msg) {
-                var tbody = '';
-                $.each(msg.data, function(idx, item) {
-                    tbody +=
-                        `
-               <tr>
-                                       <td>
-                                           <input type="checkbox" />
-                                       </td>
-                                       <td>${item.id}</td>
-                                       <td class="position_id"><a href="#">${item.position_id}</a></td>
-                                       <td>${item.company}</td>
-                                       <td class="am-hide-sm-only">${item.position_name}</td>
-                                       <td class="am-hide-sm-only">${item.salary}</td>
-                                       <td class="am-hide-sm-only">${item.industry}</td>
-                                       <td>
-                                           <div class="am-btn-toolbar">
-                                               <div class="am-btn-group am-btn-group-xs">
-                                                   <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                                                   <button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-copy"></span> 复制</button>
-                                                   <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only del"><span class="am-icon-trash-o"></span> 删除</button>
-                                               </div>
-                                           </div>
-                                       </td>
-                                   </tr>
-                `
-                });
-                $('tbody').html(tbody);
-                $('.am-cf span.num').html(msg.num);
+        //判断select框;
+        var select = $('span.select').html();
+        //当选择框选择的是所有类别的时候,默认返回搜索公司的结果;
 
-                //--点击跳转到修改页面;
-                $('button.am-text-secondary').on('click', function() {
-                    var position_id = $(this).closest('tr').find('.position_id a').html();
-                    res = '?id=' + position_id;
-                    location.href = 'user.html' + res;
-                    return false;
-                });
+        if (select === '所有类别') {
+            //将select值改为数据表里面的值;
+            select = trans(select);
+            search_ajax(select, value);
+        };
+
+        if (select === '注册号') {
+            //将select值改为数据表里面的值;
+            select = trans(select);
+            search_ajax(select, value);
+        };
+        //公司类型:支持弱搜索
+        if (select === '公司类型') {
+            //将select值改为数据表里面的值;
+            select = trans(select);
+            search_ajax(select, value);
+        };
+        //薪资
+        if (select === '薪资') {
+            //将select值改为数据表里面的值;
+            select = trans(select);
+            console.log(select)
+            search_ajax(select, value);
+        };
+
+
+
+        //搜条条件请求Ajax封装;
+        function search_ajax(select, value) {
+            $.ajax({
+                type: 'post',
+                url: "http://localhost:8081/soushuo",
+                async: true,
+                data: {
+                    select: select,
+                    value: value
+                },
+                dataType: 'json',
+                success: function(msg) {
+                    html(msg);
+                }
+            })
+        }
+
+        //将select值改为数据表里面的值;
+        function trans(select) {
+            for (var attr in obj) {
+                if (select === attr) {
+                    select = obj[attr]
+                }
             }
-        })
+            return select;
+        };
+
+        //获取搜索结果生成的结构;
+        function html(msg) {
+            var tbody = '';
+            $.each(msg.data, function(idx, item) {
+                tbody +=
+                    `
+                   <tr>
+                                           <td>
+                                               <input type="checkbox" />
+                                           </td>
+                                           <td>${item.id}</td>
+                                           <td class="position_id"><a href="#">${item.position_id}</a></td>
+                                           <td>${item.company}</td>
+                                           <td class="am-hide-sm-only">${item.position_name}</td>
+                                           <td class="am-hide-sm-only">${item.salary}</td>
+                                           <td class="am-hide-sm-only">${item.industry}</td>
+                                           <td>
+                                               <div class="am-btn-toolbar">
+                                                   <div class="am-btn-group am-btn-group-xs">
+                                                       <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
+                                                       <button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-copy"></span> 复制</button>
+                                                       <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only del"><span class="am-icon-trash-o"></span> 删除</button>
+                                                   </div>
+                                               </div>
+                                           </td>
+                                       </tr>
+                    `
+            });
+            $('tbody').html(tbody);
+            $('.am-cf span.num').html(msg.num);
+
+            //--点击跳转到修改页面;
+            $('button.am-text-secondary').on('click', function() {
+                var position_id = $(this).closest('tr').find('.position_id a').html();
+                res = '?id=' + position_id;
+                location.href = 'user.html' + res;
+                return false;
+            });
+
+        }
+
+
     });
     </script>
 </body>

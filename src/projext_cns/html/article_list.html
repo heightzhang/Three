@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>文章列表</title>
+    <script src="../js/jquery-3.2.1.js"></script>
+    <script>
+    $(function(){
+	    $.ajax({
+	        url: 'http://localhost:8081/getlist',
+	        type: 'post',
+	        success: function(msg) {
+	        	var title = '';
+	            $.each(msg,function(idx, item) {
+	            	title += `<li><a href="article.html?id=${item.id}">${item.title}</a></li>`;
+	            });
+
+	            $('ul').html(title);
+	        }
+	    })
+    });
+    </script>
+    <style>
+		pre.katong{
+			position: fixed;
+			right: 300px;
+		}
+    </style>
+</head>
+	
+<body>
+	<ul></ul>
+	<pre class="katong"> 
+	  .----.
+       _.'__    `.
+   .--($)($$)---/#\
+ .' @          /###\
+ :         ,   #####
+  `-..__.-' _.-\###/
+        `;_:    `"'
+      .'"""""`.
+     /  your, \\
+    //   list! \\
+    `-._______.-'
+    ___`. | .'___
+   (______|______)
+
+	</pre>
+</body>
+
+</html>

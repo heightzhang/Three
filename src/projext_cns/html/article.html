@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>文章</title>
+	<script src="../js/jquery-3.2.1.js"></script>
+	<style>
+		pre.katong{
+			position: fixed;
+			right: 300px;
+			
+			color:skyblue;
+		}
+
+	</style>
+</head>
+<body>
+	<div class="title"></div>
+	<p></p>
+	<pre class="katong"> 
+	  .----.
+       _.'__    `.
+   .--($)($$)---/#\
+ .' @          /###\
+ :         ,   #####
+  `-..__.-' _.-\###/
+        `;_:    `"'
+      .'"""""`.
+     /  here, \\
+    //   baby! \\
+    `-._______.-'
+    ___`. | .'___
+   (______|______)
+
+	</pre>
+</body>
+<script>
+	var id = location.search.slice(4) * 1;
+	$.ajax({
+		url:'http://localhost:8081/gethtml',
+		type:'post',
+		data:{id},
+		success:function(msg){
+			$('div.title').html(msg[0].title);
+			$('p').html(msg[0].html)
+		}
+	});
+</script>
+
+</html>
