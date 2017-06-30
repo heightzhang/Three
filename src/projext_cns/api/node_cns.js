@@ -30,8 +30,6 @@ app.all('/search', function(req, res) {
     var page = req.body.page;
     var index = (page-1)*pageNum;
 
-    console.log(pageNum,page)
-
     //连接数据库
     createConnection();
     //console.log('insert into user(username) values("'+value+'")');
