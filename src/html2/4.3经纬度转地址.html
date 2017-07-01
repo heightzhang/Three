@@ -44,16 +44,17 @@
 			});        						
 		})
 
-		promise.then(function(res){
+		var abc = promise.then(function(res){
 			console.log(res); //返回值=>北京市, 北京市, 朝阳区, 远通桥, 
 
+			return 'aaa'
 		});
 
 		console.log(abc);
 
 
 
-		//需求:实现在这里能够打印res的值;
+		//需求:实现在这里能够打印res的值; 原理:获取异步请求函数中的参数;
 	};
 
 //测试: H {lng: 116.548716, lat: 39.914271}=>北京市, 北京市, 朝阳区, 远通桥
