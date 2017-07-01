@@ -32,6 +32,7 @@ SELECT * FROM emp WHERE hiredate BETWEEN '01-JAN-81' AND '31-DEC-81';
 SELECT * FROM emp WHERE empno NOT IN(7369,7499); 
 
 #SQL中LIKE语句要注意通配符 % 和 _ 
+要求查询雇员包含81在中间的信息;
 SELECT * FROM emp WHERE hiredate LIKE '%81%'; 
 
 #要求对雇员的工资由低到高进行排序，升序为默认(ASC)，降序(DESC) 

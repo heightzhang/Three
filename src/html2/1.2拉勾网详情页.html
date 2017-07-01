@@ -153,7 +153,16 @@
 				$('.corner').on('click',function(){
 					location.href = '1.1拉勾网列表页.html';
 				})
-			
+				
+
+
+
+				$('span.text').on('click',function(){
+					var data = $(this).text()
+					window.localStorage.setItem("position_name",data);
+					location.href = '1.4map.html';
+				})
+
 			}
 
 			
