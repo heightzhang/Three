@@ -2,7 +2,7 @@
 var express = require('express');
 var app =express();
 
-//需要用bodyParser模块,处理post请求传递过来的参数;
+//需要用bodyParser模块,处理post请求传递过来的参数
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended:false}));
 
