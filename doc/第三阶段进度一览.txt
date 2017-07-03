@@ -11,6 +11,7 @@ angular  一周 angular angular框架 ui-router
 拉勾网列表页,详情页,用户页;
 富文本编辑器;
 PHP的CI框架;
+百度的地图导航;
 
 
 实际:第三周;

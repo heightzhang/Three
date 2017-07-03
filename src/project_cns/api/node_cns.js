@@ -154,14 +154,13 @@ app.all('/soushuo', function(req, res) {
     res.append("Access-Control-Allow-Origin", "*");
     var select = req.body.select;
     var value = req.body.value;
-    console.log(select, value);
+    
     //console.log(`SELECT * FROM lagou where ${select} = '${value}'`)
-
    
     var mysql = `SELECT * FROM lagou where ${select} = '${value}'`;
 
     //当条件为公司类型或者薪资的时候,执行弱搜索;
-    if (req.body.select === 'industry' || req.body.select === 'industry') {
+    if (req.body.select === 'industry' || req.body.select === 'salary') {
         mysql = `SELECT * FROM lagou where ${select} LIKE '%${value}%'`
     };
 
