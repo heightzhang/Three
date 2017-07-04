@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>多维数组的降维</title>
+    <script>
+    var arr = [1, 2, 3, [1, 2, [1, 2]]];
+
+    var newArr = [];
+
+    function kelihua(arr) {
+        for (var i = 0; i < arr.length; i++) {
+            if (typeof arr[i] == "number") {
+                newArr.push(arr[i])
+            } else {
+
+                kelihua(arr[i]);
+                //console.log(newArr)
+            }
+        }
+    };
+    kelihua(arr);
+    console.log(newArr)
+   
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>

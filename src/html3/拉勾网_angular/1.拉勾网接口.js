@@ -30,7 +30,6 @@ app.post('/',function(req,res){
 		if(error) throw error;
 		//results =>array类型
 		res.send(results);
-			console.log(results)
 	});
 	//关闭数据库;
 	connection.end();
