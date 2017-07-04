@@ -5,4 +5,3 @@ gulp.task("minify", function() {
 		.pipe(concat("main.js"))
 		.pipe(gulp.dest("./dist/js"))
 })
-gulp.task("default", ["minify"])

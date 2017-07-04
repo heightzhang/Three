@@ -12,26 +12,23 @@
     <link rel="stylesheet" href="../../css/swiper.css" />
     <!-- 引入本页面样式 -->
     <link rel="stylesheet" href="./css/base.css">
-
     <!--        引入JQ          -->
     <script src="../../js/jquery-3.2.1.js"></script>
     <script src="../../js/swiper.jquery.js"></script>
     <script src="js/angular.js"></script>
-   
     <!-- 自定义JQ -->
     <script>
     //  ------------------ 定义主模块 -------------------
     //主模块
-    var app = angular.module("lagouApp", ["app2","app3","app4","app5"]);
+    var app = angular.module("lagouApp", ["app2", "app3", "app4", "app5"]);
     </script>
-
-
+    <!-- 合并后的分模块 -->
+    <!-- <script src="dist/js/main.js"></script> -->
     <!-- 分模块 -->
     <script src="controller/headerCtrl.js"></script>
     <script src="controller/swiperCtrl.js"></script>
     <script src="controller/listCtrl.js"></script>
     <script src="controller/footerCrel.js"></script>
-
 </head>
 
 <body ng-app="lagouApp">
@@ -39,6 +36,7 @@
     <!-- Swiper -->
     <div class="swiper-container" ng-controller="swiperCtrl">
         <div class="swiper-wrapper">
+            <!-- 因为是轮播图,这里无法用Angular框架更改; -->
             <div class="swiper-slide"><img ng-src={{imgs[0]}}/></div>
             <div class="swiper-slide"><img ng-src={{imgs[1]}} /></div>
         </div>
@@ -48,18 +46,35 @@
     <!-- 中间内容 -->
     <div class="weui-panel weui-panel_access" ng-controller="listCtrl">
         <!--<div class="weui-panel__hd">图文组合列表</div>-->
+
+        <!-- angular遍历生成列表结构; -->
         <div class="weui-panel__bd">
-            <div ng-bind-html="html"></div>
+
+            <a  class="weui-media-box weui-media-box_appmsg" ng-href="./1.2拉勾网详情页.html?id={{n.id}}" ng-repeat = "n in html track by $index"  name={{$index}}>
+
+                <div class="weui-media-box__hd">
+                   <img class="weui-media-box__thumb" ng-src="{{n.company_img}}" alt="">
+               </div>
+               <div class="weui-media-box__bd">
+                   <h4 class="weui-media-box__title">{{n.company}}</h4>
+                   <p class="weui-media-box__desc">{{n.description}}</p>
+               </div>
+
+            </a>
+
         </div>
+
         <!-- 查看更多选项 -->
-        <div class="weui-panel__ft" style="margin-bottom: 70px">
+        <div class="weui-panel__ft" style="margin-bottom: 70px" ng-show = 'show_hide' ng-click="readMore()">
             <a href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link">
-                <div class="weui-cell__bd">查看更多</div>
+                <div class="weui-cell__bd" >查看更多</div>
                 <span class="weui-cell__ft"></span>
             </a>
         </div>
+
+
         <!--  加载更多-->
-        <div class="page__bd">
+        <div class="page__bd" ng-hide = 'show_hide' ng-click = 'show'>
             <!-- 正在加载 -->
             <div class="weui-loadmore doing" style="margin-bottom: 70px">
                 <i class="weui-loading"></i>
@@ -74,8 +89,11 @@
             </div>
         </div>
     </div>
+
+
+
     <!-- 底部内容 -->
-    <div class="weui-tabbar" style="position: fixed;" ng-controller="footerCtrl" >
+    <div class="weui-tabbar" style="position: fixed;" ng-controller="footerCtrl">
         <a href="javascript:;" class="weui-tabbar__item weui-bar__item_on">
             <span style="display: inline-block;position: relative;">
                         <img src="../../img/weui/icon_tabbar.png" alt="" class="weui-tabbar__icon">
@@ -95,11 +113,8 @@
             <p class="weui-tabbar__label">我的</p>
         </a>
     </div>
-
-
-
     <!-- 遮罩层 -->
-    <div id="zhezhao">
+    <div id="zhezhao" ng-show = 'false'>
         <!-- 黑布 -->
         <div class="weui-mask_transparent"></div>
         <!-- 数据加载中 -->
