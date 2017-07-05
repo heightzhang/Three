@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" ng-app='app'>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="../js/angular.js"></script>
+</head>
+
+<body>
+    <div ng-controller='div'>{{name}}</div>
+</body>
+<script>
+var app = angular.module('app', []);
+app.controller('div', function($scope,$location) {
+	$scope.name = 'heightzhang';
+
+	var abc = $location.search({
+		"foo": "yipee",
+		"abc":"1231"
+	
+	});  //=>设置哈希值为 : #!?foo=yipee&abc=1231;
+
+	var def = $location.search()
+	console.log(def);//获取哈希值的结果为 : {abc:"1231",foo:"yipee"}
+
+});
+
+</script>
+
+</html>

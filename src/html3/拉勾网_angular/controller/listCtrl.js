@@ -1,6 +1,6 @@
 var app3 = angular.module("app3", []);
 
-app3.controller("listCtrl", function($scope, $http) {
+app3.controller("listCtrl", function($scope, $http,$rootScope) {
 
     $http({
         method: "POST",
@@ -21,8 +21,11 @@ app3.controller("listCtrl", function($scope, $http) {
 
     $scope.show_hide = true;
 
+    $rootScope.abc = true;
+
     $scope.show = function() {
         $scope.show_hide = false;
+        $scope.doing = true;
     };
 
     //---------------查看更多-----------------------
@@ -48,7 +51,13 @@ app3.controller("listCtrl", function($scope, $http) {
                 $scope.html.push(data.data[i]);
             };
 
-
+           
+            $scope.doing = false;
+            $rootScope.abc = false;
+            if (data.data.length < num) {
+                 $scope.last = true;
+                 $scope.show_hide = false;
+            };
 
         }, function(err) {
             console.log(err);
