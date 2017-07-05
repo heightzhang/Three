@@ -30,11 +30,11 @@
 </html>
 <script type="text/javascript">
 //通过百度地图的逆地址解析变化而来, 输入经纬度参数返回地址;
-
+ 
 adress(116.548716, 39.914271, function(data) {
     console.log(data);
 });
-
+//data无法拿到全局作用域下面. 这里不适合用闭包,因为使用闭包的前提是函数体中要包含函数, 而不是参数为函数;
 function adress(lng, lat, callback) {
 
     var map = new BMap.Map("allmap");
