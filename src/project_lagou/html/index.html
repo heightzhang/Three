@@ -5,10 +5,13 @@
     <meta charset="UTF-8">
     <!-- 媒体查询 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>移动端</title>
+    <title>拉勾网</title>
     <!-- 引入UI框架样式与JS -->
     <link rel="stylesheet" href="../css/weui.css" />
     <link rel="stylesheet" href="../css/swiper.css" />
+    <link href="//www.lgstatic.com/m/css/dep/normalize.css-3.0.2/normalize.css?v=201706062006" rel="stylesheet">
+    <link rel="Shortcut Icon" href="//www.lgstatic.com/m/images/asset/common/img/favicon.ico?v=201706062006">
+    <link href="//www.lgstatic.com/m/css/asset/custom/list/css/list.css?v=201706062006" rel="stylesheet">
     <style>
     * {
         margin: 0;
@@ -57,6 +60,10 @@
         background-color: #000;
         opacity: 0.5
     }
+    
+    #content {
+        margin-bottom: 0;
+    }
     </style>
     <script src="../js/jquery-3.2.1.js"></script>
     <script src="../js/swiper.jquery.js"></script>
@@ -81,16 +88,16 @@
                 console.log(data)
                 var html = data.map(function(item) {
                     return `
-						<a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
-						<div class="weui-media-box__hd">
-							<img class="weui-media-box__thumb" src="http:${item.company_img}" alt="">
-						</div>
-						<div class="weui-media-box__bd">
-							<h4 class="weui-media-box__title">${item.company}</h4>
-							<p class="weui-media-box__desc">${item.description}</p>
-						</div>
-						</a>
-						`
+                        <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+                        <div class="weui-media-box__hd">
+                            <img class="weui-media-box__thumb" src="http:${item.company_img}" alt="">
+                        </div>
+                        <div class="weui-media-box__bd">
+                            <h4 class="weui-media-box__title">${item.company}</h4>
+                            <p class="weui-media-box__desc">${item.description}</p>
+                        </div>
+                        </a>
+                        `
                 }).join(" ")
                 $(".weui-panel__bd").html(html)
 
@@ -103,7 +110,7 @@
                 //点击页面跳转;
                 $('a.weui-media-box').on('click', function() {
                     var id = $(this).index() + 1;
-                    location.href = '1.2拉勾网详情页.html?id=' + id;
+                    location.href = 'detail.html?id=' + id;
                 })
 
             }
@@ -120,7 +127,7 @@
             $('#zhezhao').show();
 
             page++;
-            
+
             $.ajax({
                 url: 'http://localhost:8081/',
                 type: 'get',
@@ -131,16 +138,16 @@
                 success: function(data) {
                     var html = data.map(function(item) {
                         return `
-						<a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
-						<div class="weui-media-box__hd">
-							<img class="weui-media-box__thumb" src="http:${item.company_img}" alt="">
-						</div>
-						<div class="weui-media-box__bd">
-							<h4 class="weui-media-box__title">${item.company}</h4>
-							<p class="weui-media-box__desc">${item.description}</p>
-						</div>
-						</a>
-						`
+                        <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+                        <div class="weui-media-box__hd">
+                            <img class="weui-media-box__thumb" src="http:${item.company_img}" alt="">
+                        </div>
+                        <div class="weui-media-box__bd">
+                            <h4 class="weui-media-box__title">${item.company}</h4>
+                            <p class="weui-media-box__desc">${item.description}</p>
+                        </div>
+                        </a>
+                        `
                     }).join(" ");
                     $(".weui-panel__bd").append(html);
 
@@ -162,22 +169,40 @@
                         location.href = '2.拉勾网详情页.html?id=' + id;
                     })
 
-                   
+
                 }
             });
         });
 
         //点击顶部我的跳转至用户页面;
-         $('a.mine').on('click',function(){
-        	console.log(666);
-        	location.href = '1.3拉勾网用户页.html';
-	     })
+        $('a.mine').on('click', function() {
+            console.log(666);
+            location.href = 'mine.html';
+        })
+
+        // 点击删除隐藏广告
+        $('.close_btn_img').on('click',function(){
+            $('.push_bottom_table').hide();
+            return false;
+        })
     })
     </script>
 </head>
 
 <body>
     <header>拉勾网</header>
+    <!-- 登录界面 -->
+    <div id="content">
+        <div class="custom-info none" style="display: block;">
+            <span class="info">
+                    10秒钟定制职位
+                </span>
+            <a class="go" href="login.html" target="_self">
+                <em class="icon"></em>
+                <em class="text">去登录</em>
+            </a>
+        </div>
+    </div>
     <!-- Swiper -->
     <div class="swiper-container">
         <div class="swiper-wrapper">
@@ -215,27 +240,39 @@
             </div>
         </div>
     </div>
-    <!-- 底部内容 -->
-    <div class="weui-tabbar" style="position: fixed;">
-        <a href="javascript:;" class="weui-tabbar__item weui-bar__item_on">
-            <span style="display: inline-block;position: relative;">
-                        <img src="../img/weui/icon_tabbar.png" alt="" class="weui-tabbar__icon">
-                        <span class="weui-badge" style="position: absolute;top: -2px;right: -13px;">8</span>
-            </span>
-            <p class="weui-tabbar__label">职位</p>
-        </a>
-        <a href="javascript:;" class="weui-tabbar__item">
-            <img src="../img/weui/icon_tabbar.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label">搜索</p>
-        </a>
-        <a href="javascript:;" class="weui-tabbar__item mine">
-            <span style="display: inline-block;position: relative;">
-                        <img src="../img/weui/icon_tabbar.png" alt="" class="weui-tabbar__icon">
-                        <span class="weui-badge weui-badge_dot" style="position: absolute;top: 0;right: -6px;"></span>
-            </span>
-            <p class="weui-tabbar__label">我的</p>
-        </a>
+
+
+    <!-- 广告位置 -->
+    <div id="push_bottom" class="animated" style="display: block;">
+        <div class="push_bottom_table">
+            <a class="push_bottom_download" href="http://a.app.qq.com/o/simple.jsp?pkgname=com.alpha.lagouapk&amp;ckey=CK1337790743204" target="_blank">
+                <div class="push_bottom_row">
+                    <div class="push_bottom_cell push_logo">
+                        <img src="//www.lgstatic.com/m/images/asset/custom/list/img/download_logo_new.png" width="100%" alt="lagou.com">
+                    </div>
+                    <div class="push_bottom_cell push_tips">
+                        <img src="//www.lgstatic.com/m/images/asset/custom/list/img/download_txt_new.png" width="100%" alt="拉勾 机会很多 挑满意的 手机投简历，在线聊Offer">
+                    </div>
+                    <div class="push_bottom_cell push_btn">
+                        <img src="//www.lgstatic.com/m/images/asset/custom/list/img/download_btn_new.png" width="100%" alt="下载APP">
+                    </div>
+                </div>
+                <div class="push_mascot">
+                    <img class="push_mascot_img" src="//www.lgstatic.com/m/images/asset/custom/list/img/download_mascot.png" width="100%" alt="拉勾君">
+                </div>
+                <div class="close_btn">
+                    <img class="close_btn_img" src="//www.lgstatic.com/m/images/asset/custom/list/img/download_btn_close.png" width="100%" alt="关闭">
+                </div>
+            </a>
+        </div>
     </div>
+    <!-- 底部内容 -->
+    <footer id="footer">
+        <!--通用footer组件模板@author pooky@lagou.com-->
+        <div data-name="职位" data-index="0" data-type="custom" class="footer-tab-custom selected"><span class="icon"></span><span class="text">职位</span></div>
+        <div data-name="搜索" data-index="1" data-type="search" class="footer-tab-search"><span class="icon"></span><span class="text">搜索</span></div>
+        <div data-name="我的" data-index="2" data-type="mine" class="footer-tab-mine"><span class="icon selected"></span><span class="text">我的</span></div>
+    </footer>
     <!-- 遮罩层 -->
     <div id="zhezhao">
         <!-- 黑布 -->

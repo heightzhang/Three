@@ -30,7 +30,6 @@ app.post('/',function(req,res){
 		if(error) throw error;
 		//results =>array类型
 		res.send(results);
-			console.log(results)
 	});
 	//关闭数据库;
 	connection.end();
@@ -62,7 +61,7 @@ app.get('/',function(req,res){
 	connection.connect();
 	//索引值计算
 	var index = (page-1)*num;
-	console.log("SELECT * FROM lagou limit "+index+","+num);
+	//console.log("SELECT * FROM lagou limit "+index+","+num);
 	connection.query("SELECT * FROM lagou limit "+index+","+num, function(error, results, fields) {
 		if(error) throw error;
 		//results =>array类型
@@ -91,7 +90,7 @@ app.post('/detail', function(req, res) {
 	
 	var id = req.body.id;	
 
-	console.log('SELECT * FROM lagou where id =' + id);
+	//console.log('SELECT * FROM lagou where id =' + id);
 	connection.query('SELECT * FROM lagou where id =  ' + id, function(error, results, fields) {
 		if(error) throw error;
 		//results =>array类型
