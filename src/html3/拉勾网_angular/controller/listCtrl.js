@@ -52,10 +52,8 @@ app3.controller("listCtrl", function($scope, $http, $rootScope) {
             }
         }).then(function(data) {
             //data.data
-            for (var i = 0; i < data.data.length; i++) {
-                $scope.html.push(data.data[i]);
-            };
-
+            $scope.html = $scope.html.concat(data.data)  //两个数组的合并;
+           
             //正在加载与遮罩层
             $scope.doing = false;
             $rootScope.abc = false;
@@ -65,6 +63,8 @@ app3.controller("listCtrl", function($scope, $http, $rootScope) {
                 $scope.last = true;
                 $scope.show_hide = false;
             };
+
+            data.data = null; //性能优化;清除旧数组;
 
         }, function(err) {
             console.log(err);

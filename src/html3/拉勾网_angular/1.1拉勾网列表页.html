@@ -13,8 +13,7 @@
     <!-- 引入本页面样式 -->
     <link rel="stylesheet" href="./css/base.css">
     <!--        引入JQ          -->
-    <script src="../../js/jquery-3.2.1.js"></script>
-    <script src="../../js/swiper.jquery.js"></script>
+    <script src="../../js/swiper.js"></script>
     <script src="js/angular.js"></script>
     <!-- 自定义JQ -->
     <script>
@@ -23,12 +22,12 @@
     var app = angular.module("lagouApp", ["app2", "app3", "app4", "app5"]);
     </script>
     <!-- 合并后的分模块 -->
-    <!-- <script src="dist/js/main.js"></script> -->
+    <script src="dist/js/main.js"></script>
     <!-- 分模块 -->
-    <script src="controller/headerCtrl.js"></script>
+    <!-- <script src="controller/headerCtrl.js"></script>
     <script src="controller/swiperCtrl.js"></script>
     <script src="controller/listCtrl.js"></script>
-    <script src="controller/footerCrel.js"></script>
+    <script src="controller/footerCrel.js"></script> -->
 </head>
 
 <body ng-app="lagouApp">
@@ -96,18 +95,18 @@
     <div class="weui-tabbar" style="position: fixed;" ng-controller="footerCtrl">
         <a href="javascript:;" class="weui-tabbar__item weui-bar__item_on">
             <span style="display: inline-block;position: relative;">
-                        <img src="../../img/weui/icon_tabbar.png" alt="" class="weui-tabbar__icon">
+                        <img ng-src={{img[0]}} alt="" class="weui-tabbar__icon">
                         <span class="weui-badge" style="position: absolute;top: -2px;right: -13px;">8</span>
             </span>
             <p class="weui-tabbar__label">职位</p>
         </a>
         <a href="javascript:;" class="weui-tabbar__item">
-            <img src="../../img/weui/icon_tabbar.png" alt="" class="weui-tabbar__icon">
+            <img ng-src={{img[1]}} alt="" class="weui-tabbar__icon">
             <p class="weui-tabbar__label">搜索</p>
         </a>
         <a href="javascript:;" class="weui-tabbar__item mine" ng-click="link()">
             <span style="display: inline-block;position: relative;">
-                        <img src="../../img/weui/icon_tabbar.png" alt="" class="weui-tabbar__icon">
+                        <img ng-src={{img[2]}} alt="" class="weui-tabbar__icon">
                         <span class="weui-badge weui-badge_dot" style="position: absolute;top: 0;right: -6px;"></span>
             </span>
             <p class="weui-tabbar__label">我的</p>
