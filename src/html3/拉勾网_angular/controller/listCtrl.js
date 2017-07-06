@@ -24,7 +24,7 @@ app3.controller("listCtrl", function($scope, $http, $rootScope) {
             'Content-Type': undefined
         }
     }).then(function(data) {
-
+        console.log(data.data)
         $scope.html = data.data;
 
         $rootScope.abc = false;

@@ -45,12 +45,25 @@
     <script>
     	var a = 0;
     	for(var i = 0;i<3;i++){
-    		/*if(i=1){
-
-    		}continue;*/
-    		a+=i;
+    		
+    		if(i==2){  //(表达式)
+    			
+				continue;
+    		}
+   			a+=i;
     	}
-    	console.log(a);  //为什么测试不出来;
+    	console.log('continue:'+a);//==>1  
+
+    	var a = 0;
+    	for(var i = 0;i<3;i++){
+    		
+    		if(i==2){  //(表达式)
+    			
+				break;
+    		}
+   			a+=i;
+    	}
+    	console.log('break:'+a);//=>1
     </script>
 </head>
 
