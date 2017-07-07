@@ -13,7 +13,7 @@ app.post('/',function(req,res){
 	//设置请求头;
 	res.append("Access-Control-Allow-Origin","*");	
 	//获取Post请求发送过来的参数;
-	
+	console.log(req.body)
 	//链接数据库
 	var mysql = require("mysql");
 	var connection = mysql.createConnection({

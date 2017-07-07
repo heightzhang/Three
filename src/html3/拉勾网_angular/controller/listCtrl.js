@@ -1,6 +1,6 @@
 var app3 = angular.module("app3", []);
 
-app3.controller("listCtrl", function($scope, $http, $rootScope) {
+app3.controller("listCtrl", function($scope, $http, $rootScope,$window) {
 
     //遮罩层
     $rootScope.abc = true;
@@ -24,10 +24,7 @@ app3.controller("listCtrl", function($scope, $http, $rootScope) {
             'Content-Type': undefined
         }
     }).then(function(data) {
-        console.log(data.data)
-        $scope.html = data.data;
-
-        $rootScope.abc = false;
+ 
     }, function(err) {
 
     });

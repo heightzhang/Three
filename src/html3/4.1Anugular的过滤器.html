@@ -9,10 +9,30 @@
 		$filter 处理数据;  $server +$filter  = 处理后数据后进行修饰;
 				应用:输入两个数值,输出一个$600,000,000元
 
-		内置过滤器;
+		过滤器的分类;
+		
+		格式:
+		
+		{{num|过滤器的名字:参数}}
+		
+		currency 货币符号;  <p>{{num|currency : '¥'}}</p>
+		
+		data  时间戳		<p>{{date|date:'yyyy/MM/dd hh:mm:ss EEEE'}}</p>
+		
+		uppercase和lowercase  大小写 <p>{{name|uppercase}}</p>  <p>{{name|lowercase}}</p>
 
+		json  json格式过滤器  <p>{{obj|json}}</p>
 
-		自定义过滤器;
+		number  保留小数位2位 	<p>{{num|number:2}}</p>
+
+		orderBy和filter和limitTo  排序 筛选  截取
+		
+			orderBy:A:B  接收两个参数 a是要排序的对象，b是个布尔值 true为降序 ,false为升序;
+						 Bug 数字排序; 存入数据库类型要是int;
+			
+			filter{条件值:搜索值}  接受一个对象，一般配合ng-repeat 
+
+			limitTo:A:B a数量,b索引值  可用于截取字符串或者数组;
 
 
 		*/ 

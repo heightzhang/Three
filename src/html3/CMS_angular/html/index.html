@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" ng-app="app">
 
 <head>
     <meta charset="utf-8">
@@ -85,7 +85,7 @@
         </div>
         <!-- sidebar end -->
         <!-- content start -->
-        <div class="admin-content">
+        <div class="admin-content" ng-controller="listCtrl">
             <div class="admin-content-body">
                 <div class="am-cf am-padding am-padding-bottom-0">
                     <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">表格</strong> / <small>Table</small></div>
@@ -104,17 +104,18 @@
                     </div>
                     <div class="am-u-sm-12 am-u-md-3">
                         <div class="am-form-group">
-                            <select data-am-selected="{btnSize: 'sm'}" class="select">
-                                <option value="option1" class="company">所有类别</option>
-                                <option value="option2" class="regNum">注册号</option>
-                                <option value="option3">薪资</option>
-                                <option value="option5">公司类型</option>
+                            <select data-am-selected="{btnSize: 'sm'}" class="select" ng-model="type">
+                                <option value="id" class="company">所有类别</option>
+                                <option value="position_id" class="regNum">注册号</option>
+                                <option value="salary">薪资</option>
+                                <option value="industry">公司类型</option>
                             </select>
                         </div>
+                        <div>type:{{type}} search:{{search}}</div>
                     </div>
                     <div class="am-u-sm-12 am-u-md-3">
                         <div class="am-input-group am-input-group-sm">
-                            <input type="text" class="am-form-field">
+                            <input type="text" class="am-form-field" ng-model="search" placeholder="默认全局搜索">
                             <span class="am-input-group-btn">
             <button class="am-btn am-btn-default search" type="button">搜索</button>
           </span>
@@ -140,29 +141,30 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!--  <tr>
-                                       <td>
-                                           <input type="checkbox" />
-                                       </td>
-                                       <td>1</td>
-                                       <td><a href="#">Business management</a></td>
-                                       <td>default</td>
-                                       <td class="am-hide-sm-only">测试1号</td>
-                                       <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
-                                       <td>
-                                           <div class="am-btn-toolbar">
-                                               <div class="am-btn-group am-btn-group-xs">
-                                                   <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                                                   <button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-copy"></span> 复制</button>
-                                                   <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
-                                               </div>
-                                           </div>
-                                       </td>
-                                   </tr> -->
+                                    <tr ng-repeat="n in data|filter:{type:search}">
+                                        <td>
+                                            <input type="checkbox" />
+                                        </td>
+                                        <td>{{n.id}}</td>
+                                        <td><a href="#">{{n.position_id}}</a></td>
+                                        <td>{{n.company}}</td>
+                                        <td class="am-hide-sm-only">{{n.position_name}}</td>
+                                        <td class="am-hide-sm-only">{{n.salary}}</td>
+                                        <td class="am-hide-sm-only">{{n.industry}}</td>
+                                        <td>
+                                            <div class="am-btn-toolbar">
+                                                <div class="am-btn-group am-btn-group-xs">
+                                                    <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
+                                                    <button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-copy"></span> 复制</button>
+                                                    <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                             <div class="am-cf">
-                                共 <span class="num">15</span> 条记录
+                                共 <span class="num">{{length}}</span> 条记录
                                 <div class="am-fr">
                                     <ul class="am-pagination">
                                         <li class="am-disabled"><a href="#">«</a></li>
@@ -194,301 +196,52 @@
 <script src="assets/js/amazeui.ie8polyfill.min.js"></script>
 <![endif]-->
     <!--[if (gte IE 9)|!(IE)]><!-->
-    <script src="../js/jquery-3.2.1.js"></script>
-    <!--<![endif]-->
-    <script src="../lib/AmazeUI-2.7.2/assets/js/amazeui.min.js"></script>
-    <script src="../lib/AmazeUI-2.7.2/assets/js/app.js"></script>
+    <script src="../js/angular.js"></script>
     <!-- <script src="../api/node_cns.js"></script>     -->
     <script>
-    // -------------页面初始化-----------
-    init();
+    var app = angular.module('app', ['list']);
+    var list = angular.module('list', []);
+    list.controller('listCtrl', function($scope, $http) {
+        $scope.name = 'height';
 
-    function init() {
-        //默认页数为1,每页的数量为5;
-        var pageNum = 8;
         var page = 1;
+        var pageNum = 24;
 
-        $.ajax({
-            type: 'post',
-            url: "http://localhost:8081/search",
-            async: true,
-            dataType: 'json',
+        $http({
+            method: 'post',
+            url: 'http://localhost:8081/search',
             data: {
-                pageNum: pageNum,
-                page: page
+                "page": page,
+                "pageNum": pageNum
             },
-            success: function(msg) {
-                tablehtml(msg);
-
-
-                //分页效果;  问题:如何将num从success中提取出来;
-                //总数量:
-                $('.am-cf span.num').html(msg.num);
-                //生成页码;
-                var pages = Math.ceil(msg.num / pageNum);
-                var li = '';
-                for (var i = 1; i < pages + 1; i++) {
-                    //当前页面增加高亮;利用${}中的三元运算
-                    li += `<li ${page===i?'class="am-active"':''}><a href="#">${i}</a></li>`
-                };
-                $('.am-pagination li').eq(0).after(li);
-                /*              
-                                <li class="am-active"><a href="#">1</a></li>
-                                
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>*/
-
-                //点击分页切换;
-                $('ul.am-pagination li').not('li.am-disabled').on('click', function() {
-                    var page = $(this).text();
-                    $(this).addClass('am-active').siblings().removeClass();
-                    $.ajax({
-                        url: "http://localhost:8081/search",
-                        type: 'post',
-                        dataType: 'json',
-                        data: {
-                            pageNum: pageNum,
-                            page: page
-                        },
-                        success: function(msg) {
-                            tablehtml(msg);
-                        }
-                    });
-                    return false;
-                });
-
-                //点击上一页
-                $('ul.am-pagination li').first().on('click', function() {
-                    var page = $('li.am-active').text() * 1 - 1;
-                    if (page) {
-                        $('li.am-active').prev().addClass('am-active').siblings().removeClass();
-                        $.ajax({
-                            url: "http://localhost:8081/search",
-                            type: 'post',
-                            dataType: 'json',
-                            data: {
-                                pageNum: pageNum,
-                                page: page
-                            },
-                            success: function(msg) {
-                                tablehtml(msg);
-                            }
-                        });
-                    };
-
-                    return false;
-                });
-
-                //点击下一页
-                $('ul.am-pagination li').last().on('click', function() {
-                    var page = $('li.am-active').text() * 1 + 1;
-                    if (page<=pages) {
-                        $('li.am-active').next().addClass('am-active').siblings().removeClass();
-                        $.ajax({
-                            url: "http://localhost:8081/search",
-                            type: 'post',
-                            dataType: 'json',
-                            data: {
-                                pageNum: pageNum,
-                                page: page
-                            },
-                            success: function(msg) {
-                                tablehtml(msg);
-                            }
-                        });
-                    };
-
-                    return false;
-                });
-
-
-
-
-                //--点击跳转到修改页面;
-                $('button.am-text-secondary').on('click', function() {
-                    var position_id = $(this).closest('tr').find('.position_id a').html();
-                    res = '?id=' + position_id;
-                    location.href = 'user.html' + res;
-                    return false;
-                });
-                //--点击删除页面;
-                $('.del').on('click', function() {
-                    var position_id = $(this).closest('tr').find('.position_id a').html();
-                    $.ajax({
-                        type: 'post',
-                        url: "http://localhost:8081/del",
-                        async: true,
-                        data: {
-                            position_id: position_id
-                        },
-                        success: function(msg) {
-                            init();
-                        }
-                    })
-                    return false;
-                })
-            }
-        });
-
-
-
-    };
-
-    //---点击跳到新增页面;
-    $('.increase').on('click', function() {
-        console.log(666);
-        location.href = 'increase.html';
-    })
-
-    //--------筛选:
-    $('button.search').on('click', function() {
-
-        var value = $('.am-form-field').val();
-        var obj = {
-            '所有类别': 'company',
-            '注册号': 'position_id',
-            '薪资': 'salary',
-            '公司类型': 'industry',
-        };
-
-        //判断select框;
-        var select = $('span.select').html();
-        //当选择框选择的是所有类别的时候,默认返回搜索公司的结果;
-
-        if (select === '所有类别') {
-            //将select值改为数据表里面的值;
-            select = trans(select, obj);
-            search_ajax(select, value);
-        };
-
-        if (select === '注册号') {
-            //将select值改为数据表里面的值;
-            select = trans(select, obj);
-            search_ajax(select, value);
-        };
-        //公司类型:支持弱搜索
-        if (select === '公司类型') {
-            //将select值改为数据表里面的值;
-            select = trans(select, obj);
-            search_ajax(select, value);
-        };
-        //薪资
-        if (select === '薪资') {
-            //将select值改为数据表里面的值;
-            select = trans(select, obj);
-            console.log(select)
-            search_ajax(select, value);
-        };
-
-    });
-
-
-
-
-
-
-    //------------------------封装包------------------------------
-    //全部数据的生成的结构;
-    function tablehtml(msg) {
-        var tbody = '';
-        $.each(msg.data, function(idx, item) {
-            tbody +=
-                `
-                   <tr>
-                                           <td>
-                                               <input type="checkbox" />
-                                           </td>
-                                           <td>${item.id}</td>
-                                           <td class="position_id"><a href="#">${item.position_id}</a></td>
-                                           <td>${item.company}</td>
-                                           <td class="am-hide-sm-only">${item.position_name}</td>
-                                           <td class="am-hide-sm-only">${item.salary}</td>
-                                           <td class="am-hide-sm-only">${item.industry}</td>
-                                           <td>
-                                               <div class="am-btn-toolbar">
-                                                   <div class="am-btn-group am-btn-group-xs">
-                                                       <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                                                       <button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-copy"></span> 复制</button>
-                                                       <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only del"><span class="am-icon-trash-o"></span> 删除</button>
-                                                   </div>
-                                               </div>
-                                           </td>
-                                       </tr>
-                    `
-        });
-        $('tbody').html(tbody);
-    }
-
-    //获取搜索结果生成的结构;
-    function html(msg) {
-        var tbody = '';
-        $.each(msg.data, function(idx, item) {
-            tbody +=
-                `
-                   <tr>
-                                           <td>
-                                               <input type="checkbox" />
-                                           </td>
-                                           <td>${item.id}</td>
-                                           <td class="position_id"><a href="#">${item.position_id}</a></td>
-                                           <td>${item.company}</td>
-                                           <td class="am-hide-sm-only">${item.position_name}</td>
-                                           <td class="am-hide-sm-only">${item.salary}</td>
-                                           <td class="am-hide-sm-only">${item.industry}</td>
-                                           <td>
-                                               <div class="am-btn-toolbar">
-                                                   <div class="am-btn-group am-btn-group-xs">
-                                                       <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                                                       <button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-copy"></span> 复制</button>
-                                                       <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only del"><span class="am-icon-trash-o"></span> 删除</button>
-                                                   </div>
-                                               </div>
-                                           </td>
-                                       </tr>
-                    `
-        });
-        $('tbody').html(tbody);
-        $('.am-cf span.num').html(msg.num);
-
-        //--点击跳转到修改页面;
-        $('button.am-text-secondary').on('click', function() {
-            var position_id = $(this).closest('tr').find('.position_id a').html();
-            res = '?id=' + position_id;
-            location.href = 'user.html' + res;
-            return false;
-        });
-
-    }
-
-    //筛选条件封装;
-    //搜条条件请求Ajax封装;
-    function search_ajax(select, value) {
-        $.ajax({
-            type: 'post',
-            url: "http://localhost:8081/soushuo",
-            async: true,
-            data: {
-                select: select,
-                value: value
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
             },
-            dataType: 'json',
-            success: function(msg) {
-
-                html(msg);
+            transformRequest: function(obj) {
+                var str = [];
+                for (var p in obj) {
+                    str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]))
+                }
+                return str.join('&')
             }
-        })
-    }
+        }).then(function(data) {
+            console.log(data.data.data)
+            $scope.data = data.data.data
+           
+            $scope.length = $scope.data.length;
+        }, function(err) {
 
-    //将select值改为数据表里面的值;
-    function trans(select, obj) {
-        for (var attr in obj) {
-            if (select === attr) {
-                select = obj[attr]
-            }
+        });
+
+        //筛选;
+        //全局搜索;
+        $scope.search = '';
+        $scope.click = function() {
+            console.log($scope.type)
         }
-        return select;
-    };
+
+        $scope.is = false;
+    })
     </script>
 </body>
 

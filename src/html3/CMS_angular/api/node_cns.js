@@ -6,7 +6,7 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 
 var server = app.listen(8081, function() {});
-
+console.log('服务器已开启:8081')
 //数据库配置
 var mysql = require("mysql");
 var connection;
@@ -29,7 +29,7 @@ app.all('/search', function(req, res) {
     var pageNum = req.body.pageNum; // 5
     var page = req.body.page;
     var index = (page-1)*pageNum;
-
+    //console.log(page,index)
     //连接数据库
     createConnection();
     //console.log('insert into user(username) values("'+value+'")');
