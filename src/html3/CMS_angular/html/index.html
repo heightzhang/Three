@@ -109,6 +109,7 @@
                                 <option value="position_id" class="regNum">注册号</option>
                                 <option value="salary">薪资</option>
                                 <option value="industry">公司类型</option>
+                                <option value="1">1111</option>
                             </select>
                         </div>
                         <div>type:{{type}} search:{{search}}</div>
@@ -141,14 +142,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="n in data|filter:{type:search}">
+                                    <tr ng-repeat="n in data|filter:search|limitTo:count:(page-1)*count">
+                                    {{count}}  {{page}} ;
                                         <td>
                                             <input type="checkbox" />
                                         </td>
                                         <td>{{n.id}}</td>
                                         <td><a href="#">{{n.position_id}}</a></td>
                                         <td>{{n.company}}</td>
-                                        <td class="am-hide-sm-only">{{n.position_name}}</td>
+                                        <td class="am-hide-sm-only">{{n.position_name|ignore}}</td>
                                         <td class="am-hide-sm-only">{{n.salary}}</td>
                                         <td class="am-hide-sm-only">{{n.industry}}</td>
                                         <td>
@@ -164,11 +166,12 @@
                                 </tbody>
                             </table>
                             <div class="am-cf">
-                                共 <span class="num">{{length}}</span> 条记录
+                                共 <span class="num">{{total}}</span> 条记录
                                 <div class="am-fr">
                                     <ul class="am-pagination">
-                                        <li class="am-disabled"><a href="#">«</a></li>
-                                        <li class="am-disabled"><a href="#">»</a></li>
+                                        <li class="am-disabled" ng-click = "red()"><a href="#">«</a></li>
+                                        <li ng-repeat ="n in arr" ng-click = "click(n)" ng-class = "{'am-active':page===n}"><a href="#">{{n}}</a></li>
+                                        <li class="am-disabled" ng-click ="add()"><a href="#">»</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -204,15 +207,15 @@
     list.controller('listCtrl', function($scope, $http) {
         $scope.name = 'height';
 
-        var page = 1;
-        var pageNum = 24;
+        $scope.page = 1;
+        $scope.pageNum = 24;
 
         $http({
             method: 'post',
             url: 'http://localhost:8081/search',
             data: {
-                "page": page,
-                "pageNum": pageNum
+                "page": $scope.page,
+                "pageNum": $scope.pageNum
             },
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
@@ -225,22 +228,78 @@
                 return str.join('&')
             }
         }).then(function(data) {
-            console.log(data.data.data)
+          
             $scope.data = data.data.data
            
-            $scope.length = $scope.data.length;
-        }, function(err) {
+           //分页功能
+            $scope.total = data.data.num;
 
+
+            $scope.count = 5;
+           
+            //$scope.idx = ($scope.page-1)* $scope.count; 放在这里无法实现双向绑定的变化;放在HTML结构则可以;
+            
+            $scope.pages = Math.ceil($scope.total/$scope.count)
+
+            $scope.arr = [];
+            for(var i = 1;i<=$scope.pages;i++){  
+                $scope.arr.push(i);
+            };
+            
+        }, function(err) {
+            console.log(err)
         });
 
         //筛选;
         //全局搜索;
-        $scope.search = '';
-        $scope.click = function() {
-            console.log($scope.type)
-        }
+       $scope.search = '';
+       $scope.type = 'id'
+       $scope.is = false;
 
-        $scope.is = false;
+       //点击分页高亮=>获取当前页码添加类名;//点击分页切换;  当前页码是关键;
+       $scope.click =function(page){
+            $scope.page = page;
+            //console.log($scope.page,$scope.idx)
+       };
+       
+       
+       //下一页
+       $scope.add = function(){
+            $scope.page++;
+            if ($scope.page >= $scope.pages) {
+                $scope.page = $scope.pages;
+            };
+            console.log($scope.page)
+       };
+       //上一页
+       $scope.red = function(){
+            $scope.page--;
+            if ($scope.page<=1) {
+                $scope.page = 1
+            }
+            console.log($scope.page)
+       };
+
+    })
+
+// ---------------自定义过滤器, 根据需求修饰数据------------------
+    /*//过滤不安全的结构;
+    list.filter("htmled", function($sce) {
+            return function(input) {
+                //把进来的数据处理成新的数据
+                return $sce.trustAsHtml(input)
+             }
+    })*/
+    list.filter("ignore",function(){
+        return function(data){
+            console.log(data)
+            if(data.length>5){
+                data = data.slice(0,5)+'...'
+                return data 
+            }else{
+                return data 
+            }
+        }
     })
     </script>
 </body>

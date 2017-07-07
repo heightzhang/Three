@@ -5,6 +5,8 @@
 	<title>过滤器</title>
 	<script>
 		/*
+		
+
 		app.filter数据不变,改变的是视图;  起到一个修饰数据的作用; 
 		$filter 处理数据;  $server +$filter  = 处理后数据后进行修饰;
 				应用:输入两个数值,输出一个$600,000,000元
@@ -25,17 +27,32 @@
 
 		number  保留小数位2位 	<p>{{num|number:2}}</p>
 
+
+//---------------------------实现前端筛选的三个过滤器------------------
+案例请移步至CMS的首页;
+
 		orderBy和filter和limitTo  排序 筛选  截取
 		
-			orderBy:A:B  接收两个参数 a是要排序的对象，b是个布尔值 true为降序 ,false为升序;
-						 Bug 数字排序; 存入数据库类型要是int;
+			orderBy:A:B  接收两个参数
+						 a是要排序的对象，b是个布尔值 
+						 true为降序 ,false为升序;
+						 #Bug 数字排序; 存入数据库类型要是int;
 			
 			filter{条件值:搜索值}  接受一个对象，一般配合ng-repeat 
+				{{ [{"age": 20,"id": 10,"name": "iphone"}, 
+				{"age": 12,"id": 11,"name": "sunm xing"}, 
+				{"age": 44,"id": 12,"name": "test abc"} 
+				] | filter:{'name':'iphone'} }}  //查找name为iphone的行 
+				  
+				//上例结果:[{"age":20,"id":10,"name":"iphone"}] 
+
+
 
 			limitTo:A:B a数量,b索引值  可用于截取字符串或者数组;
 
-
-		*/ 
+		
+		过滤器可以两个相继作用于同一变量;
+*/ 
 
 
 
