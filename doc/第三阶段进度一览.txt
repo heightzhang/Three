@@ -15,4 +15,6 @@ PHP的CI框架;
 
 
 实际:第三周;
-混合开发的环境配置;
+Angular
+
+目标:JSJQ为本,Angular,Vue为大型项目框架辅助
