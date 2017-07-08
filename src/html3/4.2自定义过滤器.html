@@ -6,34 +6,34 @@
     <title>Document</title>
     <script>
     /*
-    	#无参数情况:
+    	//#无参数情况:
 
-    			比如:过滤HTML结构
-    			
-    			格式:
-				<div ng-bind-html="html|htmled"></div>
-    			app.filter("htmled", function($sce) {
-	    			return function(input) {
-	    				//input => 需要过滤的数据处理成新的数据
-	    				return $sce.trustAsHtml(input)
-	    			}
-    			})
+			//比如:过滤HTML结构
+			
+			//格式:
+			<div ng-bind-html="html|htmled"></div>
+			app.filter("htmled", function($sce) {
+				return function(input) {
+					//input => 需要过滤的数据处理成新的数据
+					return $sce.trustAsHtml(input)
+				}
+			})
 
-		#有参数情况:
+		//#有参数情况:
 
-		适用在需要设置第二个数据才可以过滤的情形下;
+			//适用在需要设置第二个数据才可以过滤的情形下;
 
-		比如:高亮搜索内容(搜索内容为需要高亮的部分)
-		<div ng-bind-html="html|highlight:search"></div>
-		app.filter("highlight", function() {
-			return function(input, search) {
-				console.log(search)
-				console.log(input)
-				var arr = input.split(search);
-				var output = arr.join("<span style='color:red'>" + search + "</span>")
-				return output;
-			}
-		})
+			//比如:高亮搜索内容(搜索内容为需要高亮的部分)
+			<div ng-bind-html="html|highlight:search"></div>
+			app.filter("highlight", function() {
+				return function(input, search) {
+					console.log(search)
+					console.log(input)
+					var arr = input.split(search);
+					var output = arr.join("<span style='color:red'>" + search + "</span>")
+					return output;
+				}
+			})
     */
     </script>
 </head>
