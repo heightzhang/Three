@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="abc">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="../js/angular.js"></script>
+	<script>
+		var app = angular.module('abc',[]);
+		app.controller('listCtrl',function($scope){
+			$scope.name = 'heightzhang';
+			$scope.arrs = [
+				{
+					id:1,
+					name:'height'
+				},
+				{
+					id:1,
+					name:'lower'
+				},
+				{
+					id:2,
+					name:'zhang'
+				}
+			]
+
+		})
+	</script>
+</head>
+<body ng-controller = "listCtrl">
+     <label>一级搜索:<input type="text" ng-model = 'search'></label> 
+	 <div ng-repeat = "arr in arrs |filter:search">
+	 	<p>{{arr.id}}</p>
+	 	<p>{{arr.name}}</p>
+	 </div>
+	
+	<!-- 根据两个键值进行搜索匹配  方法1-->
+	 <label>二级搜索条件1:<input type="text" ng-model = 'search2.id'></label>  //键名值 而非键值
+	 <label>二级搜索条件2:<input type="text" ng-model = 'search2.name'></label>
+	 <div ng-repeat = "arr in arrs |filter:search2">
+	 	<p>{{arr.id}}</p>
+	 	<p>{{arr.name}}</p>
+	 </div>
+
+	 <!-- 根据两个键值进行搜索匹配 方法2-->
+	 <!-- 链式调用 -->
+	 
+	<!-- 二级搜索  两个变化的条件 -->
+
+</body>
+</html>

@@ -104,19 +104,19 @@
                     </div>
                     <div class="am-u-sm-12 am-u-md-3">
                         <div class="am-form-group">
-                            <select data-am-selected="{btnSize: 'sm'}" class="select" ng-model="type">
-                                <option value="id" class="company">所有类别</option>
+                            <select data-am-selected="{btnSize: 'sm'}" class="select" ng-model="search2.value">
+                                <option value="" class="company">所有类别</option>
                                 <option value="position_id" class="regNum">注册号</option>
                                 <option value="salary">薪资</option>
                                 <option value="industry">公司类型</option>
-                                <option value="1">1111</option>
+                                <option value="金融">1111</option>
                             </select>
                         </div>
-                        <div>type:{{type}} search:{{search}}</div>
+                        <div>type:{{search2.value}} search:{{search2.id}}</div>
                     </div>
                     <div class="am-u-sm-12 am-u-md-3">
                         <div class="am-input-group am-input-group-sm">
-                            <input type="text" class="am-form-field" ng-model="search" placeholder="默认全局搜索">
+                            <input type="text" class="am-form-field" ng-model="search2.id" placeholder="默认全局搜索">
                             <span class="am-input-group-btn">
             <button class="am-btn am-btn-default search" type="button">搜索</button>
           </span>
@@ -142,8 +142,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="n in data|filter:search|limitTo:count:(page-1)*count">
-                                    {{count}}  {{page}} ;
+                                    <tr ng-repeat="n in data|limitTo:count:(page-1)*count|filter:search2">
+                                        <!-- filter{传入一个对象失效;} -->
+                                        <!-- <div>{{data|filter:type:search}}</div> -->
                                         <td>
                                             <input type="checkbox" />
                                         </td>
@@ -228,7 +229,7 @@
                 return str.join('&')
             }
         }).then(function(data) {
-          
+            console.log(data.data.data)
             $scope.data = data.data.data
            
            //分页功能
@@ -253,7 +254,7 @@
         //筛选;
         //全局搜索;
        $scope.search = '';
-       $scope.type = 'id'
+       $scope.type = ''
        $scope.is = false;
 
        //点击分页高亮=>获取当前页码添加类名;//点击分页切换;  当前页码是关键;
