@@ -7,8 +7,8 @@
 	<script src="../js/angular-ui-router.js"></script>
 </head>
 <body>
-	<a href="#!/index">Angular</a>
-	<a href="#">Jquery</a>
+	<a href="#!/index/a">Angular</a>
+	<a href="#!/home">Jquery</a>
 	<div ui-view></div>
 </body>
 <script>
@@ -35,7 +35,18 @@
 		})
 	 
 	 //Jquery
-	 
+	 	.state("home",{
+	 		url:"/home",
+	 		templateUrl:"1.2template/jquery.html"
+	 	})
+	 	.state("home.a",{
+	 		url:"/a",
+	 		templateUrl:"1.2template/jquery2.html"
+	 	})
+	 	.state("home.a.aa",{
+	 		url:"/aa",
+	 		templateUrl:"1.2template/jquery3.html"
+	 	})
 	});
 </script>
 </html>

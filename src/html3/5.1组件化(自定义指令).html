@@ -1,21 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title></title>
+<html ng-app="ngApp">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<div ng-controller="indexCtrl">
+			<!--E-->
+			<!--元素(组件)-->
+			<!--<ng-header></ng-header>-->
+			<!--A-->
+			<!--指令-->
+			<!--<div ng-header></div>-->
+			<!--C-->
+			<!--指令-->
+			<!--<div class="ng-header"></div>-->
+			<ng-header>
+				<p>新闻</p>
+			</ng-header>
+			
+			<ng-header>
+				<p>娱乐头条</p>
+			</ng-header>
+		</div>
+	</body>
+	<script src="angular.js"></script>
 	<script>
-		/*
-		组件 :相当于 子控制器;
-		var directives = angular.module("directives", []);
-		directives.directive("xheader", function() {
+		var app = angular.module("ngApp", []);
+		// console.log(app);
+		// var indexCtrl = function($scope) {
+		// 	$scope.name = "laoxie"
+		// }
+		// app.controller("indexCtrl", indexCtrl)
+
+		//----自定义组件
+		app.directive("xheader", function() {
+			//return 一个对象;
 			return {
-				template: "<header>今日头条</header>"
+				//限制的 E:元素(组件);C
+				restrict: "ECMA",
+				replace: false,
+				//组件支持嵌入
+				transclude: true,
+				controller: function($scope, $http) {
+					$scope.name = "laoyao"
+				},
+				template: `
+					<div>
+						<header ng-transclude></header>
+						<p>Hello {{name}}</p>
+					</div>
+				`
 			}
+
+
 		})
-		*/
 	</script>
-</head>
-<body>
-	
-</body>
+
 </html>

@@ -20,27 +20,40 @@
 	//路由
 	  //建立路由模块
 	var routes = angular.module("routes",[]);
- 	  //配置路由Url
+ 	  //1.配置路由Url
  	routes.config(function($routeProvider){
  		$routeProvider.when("/home",{
  			templateUrl:"template/home.html"
  		}).when("/detail",{
  			templateUrl:"template/detail.html"
  		})
- 	});
+ 		//3.路由传参
+ 		.when("/detail/:id/:skill",{
+ 			templateUrl:"template/detail.html"
+ 		})
+
+ 		//2.默认重定向的路由路径
+		.otherwise({
+				redirectTo: '/home'
+		})
+		// 注意:传参要设置两个路由,一个模版,一个传参路由;
+ 	})
 
  	//建立控制器模块;  传递ID,该怎么写就怎么写;
  	var controller = angular.module('controller',[]);
  	 //配置控制器
- 	controller.controller('ulCtril',function($scope){
+ 	controller.controller('ulCtril',function($scope,$routeParams){
  		$scope.name = 'heightzhang'
+ 		//3.路由传参
+ 		console.log($routeParams)
  	});
+ 	
  	controller.controller('aCtril',function($scope){
  		$scope.name = "zhangggao";
  		$scope.url = "#!/home?id=5"
  	});
 
- 	//建立组件化模版
+ 	//4.建立组件化模版
  	var directives = angular.module("directives", []);
 		directives.directive("xheader", function() {
 			return {
