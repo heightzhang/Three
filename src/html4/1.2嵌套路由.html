@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" ng-app = "uirouterApp">
+<head>
+	<meta charset="UTF-8">
+	<title>嵌套路由</title>
+	<script src="../js/angular.js"></script>
+	<script src="../js/angular-ui-router.js"></script>
+</head>
+<body>
+	<a href="#!/index">Angular</a>
+	<a href="#">Jquery</a>
+	<div ui-view></div>
+</body>
+<script>
+	//建立主模块
+	var app = angular.module('uirouterApp',['ui.router']);
+	//配置路由
+	app.config(function($stateProvider){
+	 //Angular
+		//一层
+		$stateProvider.state("index",{
+			url:"/index",
+			templateUrl:"1.2template/angular.html"
+		})
+		//"."表示从属关系
+		//二层
+		.state("index.a",{
+			url:"/a",
+			templateUrl:"1.2template/angular2.html"
+		})
+		//三层
+		.state("index.a.aa",{
+			url:"/aa",
+			templateUrl:"1.2template/angular3.html"
+		})
+	 
+	 //Jquery
+	 
+	});
+</script>
+</html>
