@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" ng-app = "routeApp">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="../js/angular.js"></script>
+	<script src="../js/angular-route.js"></script>
+	<!-- <script src="../js/angular-ui-router.js"></script> -->
+</head>
+<body>
+	<a href="#!/home">home</a>
+	<a href="#!/detail">detail</a>
+	
+	<div ng-view = ""></div>
+	
+</body>
+<script>
+	var app = angular.module('routeApp',['ngRoute','routes','controller','directives']);
+	
+	//路由
+	  //建立路由模块
+	var routes = angular.module("routes",[]);
+ 	  //配置路由Url
+ 	routes.config(function($routeProvider){
+ 		$routeProvider.when("/home",{
+ 			templateUrl:"template/home.html"
+ 		}).when("/detail",{
+ 			templateUrl:"template/detail.html"
+ 		})
+ 	});
+
+ 	//建立控制器模块;  传递ID,该怎么写就怎么写;
+ 	var controller = angular.module('controller',[]);
+ 	 //配置控制器
+ 	controller.controller('ulCtril',function($scope){
+ 		$scope.name = 'heightzhang'
+ 	});
+ 	controller.controller('aCtril',function($scope){
+ 		$scope.name = "zhangggao";
+ 		$scope.url = "#!/home?id=5"
+ 	});
+
+ 	//建立组件化模版
+ 	var directives = angular.module("directives", []);
+		directives.directive("xheader", function() {
+			return {
+				template: "<header>今日头条</header>"
+			}
+		});
+
+ 
+</script>
+<style>
+	header{
+		background-color: red;
+	}
+</style>
+</html>
