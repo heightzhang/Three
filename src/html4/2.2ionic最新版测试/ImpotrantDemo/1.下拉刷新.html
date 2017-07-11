@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html ng-app="ionicApp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>下拉刷新</title>
+</head>
+
+<!-- 引入icon的两个核心文件 -->
+<link rel="stylesheet" href="../css/ionic.css" />
+<script src="../js/ionic.bundle.js"></script>
+
+<script>
+var app = angular.module("ionicApp", ["ionic"]);
+app.controller("indexCtrl", function($scope, $http) {
+    $scope.news;
+    // 刷新请求后台;
+    $scope.doRefresh = function() {
+        $http({
+            method: "GET",
+            url: "http://localhost:6789"
+            //注意跨域问题,用服务器代理解决;
+        }).then(function(data) {
+            console.log(data)
+            $scope.news = data.data.list
+            $scope.$broadcast('scroll.refreshComplete');
+        })
+    }
+    $scope.doRefresh()
+})
+</script>
+
+<body ng-controller="indexCtrl">
+	<!-- 头部 -->
+    <ion-header-bar align-title="center" class="bar-positive">
+        <div class="buttons">
+            <button class="button" ng-click="doSomething()">Left Button</button>
+        </div>
+        <h1 class="title">Title!</h1>
+        <div class="buttons">
+            <button class="button">Right Button</button>
+        </div>
+    </ion-header-bar>
+	<!-- 中间内容 -->
+    <ion-content>
+    	<!-- 下拉刷新组件  1pull-icon样式, 2on-refresh=function() 执行函数;-->
+        <ion-refresher pulling-text="" pulling-icon="ion-social-apple" on-refresh="doRefresh()">
+        </ion-refresher>
+        <div class="list">
+            <a ng-repeat="n in news" class="item item-avatar" href="#">
+                <img ng-src="{{n.image_url_small}}">
+                <h2>{{n.title}}</h2>
+                <p>{{n.summary}}</p>
+            </a>
+        </div>
+    </ion-content>
+</body>
+
+</html>

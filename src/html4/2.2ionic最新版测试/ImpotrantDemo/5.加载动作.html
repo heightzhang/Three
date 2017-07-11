@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html ng-app="ionicApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<link rel="stylesheet" href="../css/ionic.css" />
+
+<body ng-controller="LoadingCtrl">
+    <button ng-click="show()">show</button>
+</body>
+<script src="../js/ionic.bundle.js"></script>
+<script>
+angular.module('ionicApp', ['ionic'])
+    .controller('LoadingCtrl', function($scope, $ionicLoading) {
+        $scope.show = function() {
+            $ionicLoading.show({
+                template: ' <ion-spinner icon="dots" class="spinner-dark"></ion-spinner>'
+            });
+        };
+        $scope.hide = function() {
+            $ionicLoading.hide();
+        };
+    });
+
+// 加载动画图标
+/*
+  <p>
+    <ion-spinner icon="android"></ion-spinner>
+    <ion-spinner icon="ios"></ion-spinner>
+    <ion-spinner icon="ios-small"></ion-spinner>
+    <ion-spinner icon="bubbles" class="spinner-balanced"></ion-spinner>
+    <ion-spinner icon="circles" class="spinner-energized"></ion-spinner>
+  </p>
+
+  <p>
+    <ion-spinner icon="crescent" class="spinner-royal"></ion-spinner>
+
+    <ion-spinner icon="dots" class="spinner-dark"></ion-spinner>
+    <ion-spinner icon="lines" class="spinner-calm"></ion-spinner>
+    <ion-spinner icon="ripple" class="spinner-assertive"></ion-spinner>
+    <ion-spinner icon="spiral"></ion-spinner>
+  </p>
+
+		*/
+</script>
+
+</html>
