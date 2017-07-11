@@ -18,3 +18,12 @@ PHP的CI框架;
 Angular
 
 目标:JSJQ为本,Angular,Vue为大型项目框架辅助
+
+
+全家桶套餐:
+vue + vuex + vue-router +vue-resource+ webpack +Es6 + Sass +JQuery
+
+angular +ui-router +gulp + ionic 
+
+react +redux +react-router +axios +webpack +JSX/es6
+
