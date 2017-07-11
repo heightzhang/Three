@@ -1,32 +1,31 @@
 <!DOCTYPE html>
 <html ng-app="ngApp">
+
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
 	</head>
+	<style>
+		.red {
+			color: red;
+		}
+	</style>
+
 	<body ng-controller="indexCtrl">
 		<ul>
-			<li ng-repeat="a in arr" ng-click="Click($index)">{{a}}</li> 
-		</ul>
-		
-		<ul ng-click="Click2($event)">
-			<li ng-repeat="a in arr">{{a}}</li> 
+			<li ng-repeat="a in arr" ng-click="Click($index)" page="{{$index}}----{{num}}" ng-class="{red:num==$index}">{{a}}</li>
 		</ul>
 	</body>
 	<script src="angular.js"></script>
 	<script>
-	// $event  =>e.target
 		var app = angular.module("ngApp", []);
 		app.controller("indexCtrl", function($scope) {
 			$scope.arr = ["a", "b", "c"];
-			$scope.Click = function(num){
+			$scope.Click = function(num) {
 				console.log(num)
-			}
-			
-			$scope.Click2 = function(e){
-				console.log(e.target)
-				angular.element(e.target).css("color","red")
+				$scope.num = num
 			}
 		})
 	</script>
+
 </html>

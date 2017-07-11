@@ -7,7 +7,7 @@
 	<script src="../js/angular-ui-router.js"></script>
 </head>
 <body>
-	<a href="#!/index/a">Angular</a>
+	<a href="#!/index">Angular</a>
 	<a href="#!/home">Jquery</a>
 	<div ui-view></div>
 </body>
@@ -15,7 +15,9 @@
 	//建立主模块
 	var app = angular.module('uirouterApp',['ui.router']);
 	//配置路由
-	app.config(function($stateProvider){
+	app.config(function($stateProvider,$urlRouterProvider){
+		//设置默认路由;
+		$urlRouterProvider.when('', '/index');
 	 //Angular
 		//一层
 		$stateProvider.state("index",{
@@ -47,6 +49,21 @@
 	 		url:"/aa",
 	 		templateUrl:"1.2template/jquery3.html"
 	 	})
+	 //传参数
+	 	.state("detail",{
+	 		url:"/detail/:id",
+	 		 //设置子控制器;
+	 		controller:"detailCtrl",
+	 		
+	 		templateUrl:"1.2template/detail.html"
+	 	})
 	});
+
+	//接收url参数
+	app.controller("detailCtrl",function($state){
+			console.log($state.params)
+	});
+
+	//注意 :路由随便写也能进入网页,是不会报错的,只是你需要打印的东西无法打印出来;
 </script>
 </html>
