@@ -19,6 +19,12 @@
                 scope.changeSearchBar = function() {
                     scope.isShowSearchBar = true;
                 }
+
+                //过滤 ng-model
+                //点击 叉 清空
+                scope.empty =function(){
+                    scope.match= '';
+                }
             }
         }
     }]);
@@ -35,20 +41,60 @@
                     autoplay: 2500
                 });
                 //图片
-                scope.imgs = ["img/swiper/1.jpg", "img/swiper/1.jpg"];
+                scope.imgs = ["img/swiper/0.jpg", "img/swiper/1.jpg", "img/swiper/2.jpg"];
             }
         }
 
     }]);
     //xlist
-    directives.directive("xlist", [function() {
+    directives.directive("xlist", ['$http','$window',function($http,$window) {
         return {
-            templateUrl: "directive/xlist.html"
+            templateUrl: "directive/xlist.html",
+
+            link: function(scope, ele, attr) {
+                 // console.log(attr.theme)// (不同路由的不同频道切换,利用attr)
+                scope.page = 0;
+                scope.news = [];
+                //加载更多的显示与隐藏
+                scope.show = true;
+                //暂无数据的显示与隐藏
+                scope.none = false;
+                //查看更多事件
+                scope.langmore = function() {
+                    //当加载到第三页的时候,无法点击,暂无数据的出现
+                    if (scope.page == 3) {
+                        scope.none = true;
+                        return;
+                    }
+                    scope.page++
+                        //ajax请求 
+                        $http({
+                            method: "get",
+                            url: "https://cnodejs.org/api/v1/topics",
+                            params: {
+                                tab: attr.theme,
+                                limit: 10,
+                                page: scope.page
+                            }
+                        }).then(function(data) {
+                            scope.news = scope.news.concat(data.data.data);
+                            console.log(scope.news)
+                            scope.show = false;
+
+                        });
+                };
+                scope.langmore();
+
+                //跳转传递id;
+                scope.setId = function(id){
+                    $window.location.href = "#!/detail/"+id
+                }
+
+            }
         }
     }]);
 
     //单页面Web应用切换(路由)
-
 
     //图片预览
     directives.directive("xgallery", [function() {
@@ -59,14 +105,14 @@
 
                 //点击显示预览图
                 scope.changeGallery = function(imgs) {
-                	scope.isShowGallery = true;
-                	//设置预览图的路径
-                    scope.galleryImg = imgs          
+                    scope.isShowGallery = true;
+                    //设置预览图的路径
+                    scope.galleryImg = imgs
                 };
                 //点击返回预览图
-                scope.del =function(){
-                	console.log(666)
-                	scope.isShowGallery = false;
+                scope.del = function() {
+                    console.log(666)
+                    scope.isShowGallery = false;
                 }
             }
         }
@@ -85,5 +131,23 @@
             }
         }
     }]);
+
+//-----------------------detail组件
+    directives.directive('xdetail',['$state','$http',function($state,$http){
+        return{
+             templateUrl: "directive/xdetail.html",
+             link:function(scope,ele,attr){
+              scope.id = $state.params.id
+                $http({
+                    method:"get",
+                    url:"https://cnodejs.org/api/v1/topic/"+scope.id
+                }).then(function(data){
+                    scope.detail = data.data.data;
+                    scope.html = scope.detail.content;
+                })
+
+             }
+        }
+    }])
 
 })();

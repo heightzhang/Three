@@ -1,0 +1,25 @@
+<div class="page article js_show">
+    <div class="page__hd">
+        <h1 class="page__title">{{detail.title}}</h1>
+        <p class="page__desc"><span>作者:{{detail.author.loginname}}</span>
+            <time>发表时间{{detail.create_at|limitTo:10:0}}</time>
+        </p>
+    </div>
+    <div class="page__bd">
+        <article class="weui-article">
+            <h1>类别:{{detail.tab}}</h1>
+            <section>
+                <h3>{{detail.title}}</h3>
+                <p ng-bind-html = "html|htmled">
+                </p>
+            </section>
+
+        </article>
+    </div>
+</div>
+<style>
+time {
+    position: absolute;
+    right: 0;
+}
+</style>
