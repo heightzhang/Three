@@ -1,0 +1,80 @@
+<div class="weui-panel weui-panel_access">
+    <div class="weui-panel__hd theme swiper-container swiper-container-horizontal swiper-container-free-mode" ng-click="dian($event)">
+        <div class="swiper-wrapper" style="transition-duration: 0ms; transform: translate3d(0px, 0px, 0px);">
+            <a ng-class="{active:heightline === ''}" name="" class="swiper-slide swiper-slide-active" style="width: 105px; margin-right: 30px;">全部</a>
+            <a ng-class="{active:heightline === 'good'}" name="good" class="swiper-slide swiper-slide-next" style="width: 105px; margin-right: 30px;" >精华</a>
+            <a ng-class="{active:heightline === 'share'}" name="share" class="swiper-slide" style="width: 105px; margin-right: 30px;">分享</a>
+            <a ng-class="{active:heightline === 'ask'}" name="ask" class="swiper-slide" style="width: 105px; margin-right: 30px;">问答</a>
+            <a ng-class="{active:heightline === 'job'}" name="job" class="swiper-slide" style="width: 105px; margin-right: 30px;">招聘</a>
+            <a ng-class="{active:heightline === 'good'}" name="good" class="swiper-slide" style="width: 105px; margin-right: 30px;">精华</a>
+            <a ng-class="{active:heightline === 'share'}" name="share" class="swiper-slide" style="width: 105px; margin-right: 30px;">分享</a>
+            <a ng-class="{active:heightline === 'ask'}" name="ask" class="swiper-slide" style="width: 105px; margin-right: 30px;">问答</a>
+            <a ng-class="{active:heightline === 'job'}" name="job" class="swiper-slide" style="width: 105px; margin-right: 30px;">招聘</a>
+        </div>
+    </div>
+    <div class="weui-panel__bd">
+        <a class="weui-media-box weui-media-box_appmsg list-box" ng-repeat="n in news|filter:match">
+            <div class="weui-media-box__hd">
+                <img class="weui-media-box__thumb" ng-src="{{n.author.avatar_url}}" alt="">
+            </div>
+            <div class="weui-media-box__bd" ng-click="setId(n.id)" id="{{n.author_id}}">
+                <h4 class="weui-media-box__title">{{n.title}}</h4>
+                <p class="weui-media-box__desc">
+                    <span class="auto">作者:{{n.author.loginname}}</span>
+                    <time>{{n.create_at|limitTo:10:0}}</time>
+                </p>
+            </div>
+        </a>
+    </div>
+    <div class="weui-panel__ft" ng-show="!show">
+        <a href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link">
+            <div class="weui-cell__bd" ng-click="langmore()">查看更多</div>
+            <span class="weui-cell__ft"></span>
+        </a>
+    </div>
+    <!-- 正在加载&&遮罩层 -->
+    <div id="loadingToast" ng-show="show" ng-style="abc">
+        <div class="weui-mask_transparent"></div>
+        <div class="weui-toast">
+            <i class="weui-loading weui-icon_toast"></i>
+            <p class="weui-toast__content">数据加载中</p>
+        </div>
+    </div>
+    <!-- 暂无数据 -->
+    <div class="weui-loadmore weui-loadmore_line" ng-show="none">
+        <span class="weui-loadmore__tips">暂无数据</span>
+    </div>
+</div>
+<style>
+.weui-panel__ft {
+    margin-bottom: 50px;
+}
+
+.weui-loadmore {
+    margin-bottom: 80px;
+}
+
+a.list-box {
+    position: relative;
+}
+
+time {
+    position: absolute;
+    right: 19px;
+}
+
+p.weui-media-box__desc {
+    margin-top: 5px;
+}
+
+.theme a {
+    display: inline-block;
+    width: 10%;
+    text-align: center;
+    color: #ccc;
+}
+
+.theme a.active {
+    color: #80bd01;
+}
+</style>
