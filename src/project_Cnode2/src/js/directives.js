@@ -1,5 +1,7 @@
 (function() {
     var directives = angular.module("directives", []);
+
+    // ---------------------  一 / 首页 -------------------------------
     // 头部组件
     directives.directive("xheader", [function() {
         return {
@@ -47,12 +49,11 @@
 
     }]);
     //xlist
-    directives.directive("xlist", ['$http', '$window', function($http, $window) {
+    directives.directive("xlist", ['$http', '$window', 'tool', "$filter", function($http, $window, tool, $filter) {
         return {
             templateUrl: "directive/xlist.html",
 
             link: function(scope, ele, attr) {
-                // console.log(attr.theme)// (不同路由的不同频道切换,利用attr)
                 scope.page = 0;
                 scope.news = [];
                 //加载更多的显示与隐藏
@@ -77,9 +78,16 @@
                                 page: scope.page
                             }
                         }).then(function(data) {
+                            console.log(data)
                             scope.news = scope.news.concat(data.data.data);
                             scope.show = false;
 
+                            //时间距离
+                            /*
+                            问题1:
+                            scope.originalText = 'hello';
+                            scope.filteredText = $filter('limitTo:3,3')(scope.originalText);
+                            console.log(scope.filteredText)*/
                         });
                 };
                 scope.langmore();
@@ -117,14 +125,14 @@
     }]);
 
     //脚本组件
-    directives.directive("xfooter", ["$rootScope",function($rootScope) {
+    directives.directive("xfooter", ["$rootScope", function($rootScope) {
         return {
             replace: true,
             templateUrl: "directive/xfooter.html",
             //高亮切换
             link: function(scope, ele, attr) {
                 //存储之前的高亮;
-                $rootScope.tab?$rootScope.tab:$rootScope.tab = 0;
+                $rootScope.tab ? $rootScope.tab : $rootScope.tab = 0;
                 scope.changeTab = function(tab) {
                     $rootScope.tab = tab;
                 };
@@ -133,8 +141,8 @@
     }]);
 
     // -----------------------------二 \  发现页面 -------------------------------------------------
-    //xlist
-    directives.directive("xlistdiscover", ['$http', '$window',"$location","$rootScope", function($http, $window,$location,$rootScope) {
+    //xlistdiscover
+    directives.directive("xlistdiscover", ['$http', '$window', "$location", "$rootScope", function($http, $window, $location, $rootScope) {
         return {
             templateUrl: "directive/discover/xlist-discover.html",
 
@@ -142,8 +150,8 @@
                 //初始化
                 scope.page = 0;
                 scope.news = [];
-                  //保持高亮
-                $rootScope.heightline?$rootScope.heightline:$rootScope.heightline = '';
+                //保持高亮
+                $rootScope.heightline ? $rootScope.heightline : $rootScope.heightline = '';
 
                 //查看更多事件
                 scope.langmore = function() {
@@ -166,6 +174,7 @@
                                 page: scope.page
                             }
                         }).then(function(data) {
+                            console.log(data)
                             scope.news = scope.news.concat(data.data.data);
                             scope.show = false;
                         });
@@ -179,7 +188,7 @@
 
                 //----不同主题的分类,点击输出theme;
                 scope.dian = function(e) {
-                  
+
                     //加载更多的显示与隐藏
                     scope.show = true;
                     //暂无数据的显示与隐藏
@@ -199,13 +208,6 @@
 
                     //高亮切换
                     $rootScope.heightline = e.target.name;
-
-                    //上传url;
-                    $location.search({
-                        tab: scope.theme
-                    });
-                    //将数据存入变量中转站
-                    $rootScope.hash = $location.search();
                 };
 
                 //导航条滚动效果
@@ -238,17 +240,21 @@
             }
         }
     }]);
-      //返回跳转;
-    directives.directive('xreturn',["$window","$rootScope","$location",function($window,$rootScope,$location){
+    //返回跳转;
+    directives.directive('xreturn', ["$window", "$rootScope", "$location", function($window, $rootScope, $location) {
         return {
-            templateUrl:"directive/detail/xreturn.html",
-            link:function(scope,ele,attr){
+            templateUrl: "directive/detail/xreturn.html",
+            link: function(scope, ele, attr) {
                 //点击返回原来的页面;
-                scope.return = function(){
+                scope.return = function() {
                     $window.history.back();
                 }
             }
         }
-    }])
+    }]);
+
+
+    //----------------------四 \ -发布帖子页面--------------------
+    
 
 })();

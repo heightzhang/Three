@@ -24,10 +24,6 @@
                 templateUrl:"template/discover/xlist-discover.html"
             })
 
-
-
-
-
             .state("index.create", {
                 url: "/create",
                 templateUrl: "template/create.html"

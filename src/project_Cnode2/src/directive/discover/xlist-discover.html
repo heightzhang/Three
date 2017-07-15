@@ -2,7 +2,7 @@
     <div class="weui-panel__hd theme swiper-container swiper-container-horizontal swiper-container-free-mode" ng-click="dian($event)">
         <div class="swiper-wrapper" style="transition-duration: 0ms; transform: translate3d(0px, 0px, 0px);">
             <a ng-class="{active:heightline === ''}" name="" class="swiper-slide swiper-slide-active" style="width: 105px; margin-right: 30px;">全部</a>
-            <a ng-class="{active:heightline === 'good'}" name="good" class="swiper-slide swiper-slide-next" style="width: 105px; margin-right: 30px;" >精华</a>
+            <a ng-class="{active:heightline === 'good'}" name="good" class="swiper-slide swiper-slide-next" style="width: 105px; margin-right: 30px;">精华</a>
             <a ng-class="{active:heightline === 'share'}" name="share" class="swiper-slide" style="width: 105px; margin-right: 30px;">分享</a>
             <a ng-class="{active:heightline === 'ask'}" name="ask" class="swiper-slide" style="width: 105px; margin-right: 30px;">问答</a>
             <a ng-class="{active:heightline === 'job'}" name="job" class="swiper-slide" style="width: 105px; margin-right: 30px;">招聘</a>
@@ -22,6 +22,15 @@
                 <p class="weui-media-box__desc">
                     <span class="auto">作者:{{n.author.loginname}}</span>
                     <time>{{n.create_at|limitTo:10:0}}</time>
+                </p>
+                <p class="weui-media-box__desc">
+                    <span>发布于 </span><span class="time">{{n.create_at|timeGo}}</span>
+                    <span class="count"><i class="count"></i>
+                            <span class="read">{{n.visit_count}}</span>
+                    </span>
+                    <span class="count2"><i class="count2"></i>
+                            <span class="comment">{{n.reply_count}}</span>
+                    </span>
                 </p>
             </div>
         </a>
@@ -76,5 +85,31 @@ p.weui-media-box__desc {
 
 .theme a.active {
     color: #80bd01;
+}
+
+p.weui-media-box__desc{
+    position: relative;
+}
+p.weui-media-box__desc span.count{
+    position: absolute;
+    right: 66px;
+}
+p.weui-media-box__desc span.count2{
+    position: absolute;
+    right:20px;
+}
+i.count{
+    display: inline-block;
+    width: 17px;
+    height: 23px;
+    background-image: url('img/icon/eye.jpg');
+    vertical-align: middle;
+}
+i.count2{
+    display: inline-block;
+    width: 17px;
+    height: 23px;
+    background-image: url('img/icon/conment.jpg');
+    vertical-align: middle;
 }
 </style>

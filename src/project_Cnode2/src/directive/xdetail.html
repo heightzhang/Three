@@ -16,12 +16,12 @@
                     <span class="head-author-name">{{detail.author.loginname}}</span>
                 </div>
                 <div class="head-middle-bottom">
-                    4个月前创建 ·
+                    {{detail.create_at|timeGo}}
                     <span>{{detail.visit_count}}</span>次预览
-                    <div class="iconfont icon-wode"></div>
+                    <div class="eye"></div>
                 </div>
             </div>
-            <div class="head-right"><i class="iconfont icon-fabu"></i></div>
+            <div class="head-right"><i class="love"></i></div>
         </div>
     </div>
     <!-- 中间 -->
@@ -36,6 +36,7 @@
     width: 90%;
     height: 90%;
     padding: 5% 5%;
+    margin-top: 10%;
 }
 
 h2 {
@@ -132,27 +133,45 @@ h2 {
     line-height: 1.2;
     border-bottom: 1px solid #eee;
 }
-.markdown-body ul{
+
+.markdown-body ul {
     margin-left: 18px;
 }
-.markdown-body h2,.markdown-body h3{
+
+.markdown-body h2,
+.markdown-body h3 {
     margin-top: 10px
 }
+
 .markdown-body p {
     margin-top: 5px;
     margin-bottom: 16px;
     font-size: 16px;
 }
+
+
 /*小图标*/
-div.icon-wode{    
-    display: inline;
-    width: auto;
-    height: auto;
+
+div.eye {
+    display: inline-block;
+    width: 17px;
+    height: 23px;
     line-height: normal;
-    vertical-align: baseline;
-    background-image: none;
+    vertical-align: middle;
+    background-image: url('img/icon/eye.jpg');
     background-position: 0% 0%;
     background-repeat: repeat;
     margin-top: 0;
+}
+
+i.love {
+    display: inline-block;
+    width: 17px;
+    height: 23px;
+    line-height: normal;
+    vertical-align: middle;
+    background-image: url('img/icon/love.jpg');
+    background-repeat: repeat;
+    margin-right: 10px;
 }
 </style>
