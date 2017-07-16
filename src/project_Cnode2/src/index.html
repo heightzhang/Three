@@ -1,1 +1,39 @@
-ca91d715-2577-4253-885b-4665939c47c5
+<!DOCTYPE html>
+<html ng-app="turingApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>验证accesstoken</title>
+</head>
+
+<body>
+    <div ng-controller="indexCtrl">
+        <input ng-model="ask" ng-keyup="send()" />
+        <p>{{key}}</p>
+    </div>
+</body>
+<script src="lib/angular.js"></script>
+<script>
+var app = angular.module("turingApp", []);
+app.controller("indexCtrl", function($scope, $http) {
+    $scope.key = "ca91d715-2577-4253-885b-4665939c47c5";
+    $scope.send = function() {
+        $http({
+            method: 'POST',
+            url: 'https://cnodejs.org/api/v1/accesstoken',
+            data: {
+                accesstoken: "ca91d715-2577-4253-885b-4665939c47c5"
+            },
+            headers: {
+                'Content-Type': "application/json;charset=UTF-8"
+            }
+        }).then(function(data) {
+            console.log(data) //打印服务端返回的数据
+        }, function(err) {
+            console.log(err) //打印错误信息
+        });
+    }
+})
+</script>
+
+</html>

@@ -1,0 +1,132 @@
+<div class="article">
+    <div class="weui_cells_title">
+        <span>新话题</span>
+        <button class="weui_btn_primary" style="position: absolute; right: 14px; font-size: 12px;">
+            发布
+        </button>
+    </div>
+    <div class="weui_cell weui_select_after weui_cell_select">
+        <div class="weui_cell_hd">
+            <label for="" class="weui_label">分类</label>
+        </div>
+        <div class="weui_cell_bd weui_cell_primary">
+            <select class="weui_select">
+                <!---->
+                <option value="selected">请选择主题分类</option>
+                <option value="share">分享</option>
+                <option value="ask">问答</option>
+                <option value="job">招聘</option>
+            </select>
+        </div>
+    </div>
+    <div class="title">
+        <input ype="text" placeholder="标题，字数10字以上" class="weui_input">
+    </div>
+    <dic class="content">
+        <textarea placeholder="说点什么吧..." name="description" rows="3" cols="30" class="weui_textarea" style="height: 469px;"></textarea>
+    </dic>
+</div>
+<style>
+div.article {
+    margin-top: 50px;
+}
+
+.weui_cells_title {
+    position: relative;
+    padding-left: 15px;
+    padding-right: 15px;
+    color: #888;
+    font-size: 16px;
+    line-height: 50px;
+    text-align: center;
+    visibility: middle;
+    background-color: #f4f4f4
+}
+
+.weui_btn_primary {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    margin-top: -10px;
+    background-color: #04be02;
+    color: #fff;
+    border: none;
+    width: 40px;
+    height: 20px;
+    border-radius: 20%;
+    outline: none;
+}
+
+
+/*--分类*/
+
+.weui_cell {
+    padding: 10px;
+    position: relative;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    border-bottom: 1px solid #f4f4f4;
+    margin-left: 15px;
+}
+
+.weui_label {
+    color: #000;
+    display: block;
+    width: 105px;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.weui_cell_primary {
+    -webkit-box-flex: 1;
+    flex: 1;
+}
+
+.weui_select {
+    -webkit-appearance: none;
+    border: 0;
+    outline: 0;
+    background-color: transparent;
+    width: 100%;
+    font-size: inherit;
+    height: 44px;
+    line-height: 44px;
+    position: relative;
+    z-index: 1;
+}
+
+
+/*---标题--*/
+
+.title {
+    -webkit-box-flex: 1;
+    flex: 1;
+    border-bottom: 1px solid #f4f4f4;
+    line-height: 3;
+    margin-left: 15px;
+}
+
+.title input {
+    outline: none;
+    border: 0;
+}
+
+.content p {
+    margin-left: 15px;
+    color: inherit;
+}
+
+.weui_textarea {
+    display: block;
+    border: 0;
+    resize: none;
+    width: 100%;
+    color: inherit;
+    font-size: 1em;
+    line-height: inherit;
+    outline: 0;
+    margin-left: 15px;
+}
+</style>

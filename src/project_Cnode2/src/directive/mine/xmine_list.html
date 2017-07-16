@@ -1,0 +1,105 @@
+<div class="mine_list">
+    <div id="tab">
+        <div class="reply" ng-click="tab(0)" ng-class="{'active':show === 0}">最近回复</div>
+        <div class="publish" ng-click="tab(1)" ng-class="{'active':show === 1}">最新发布</div>
+        <div class="star" ng-click="tab(2)" ng-class="{'active':show === 2}">话题收藏</div>
+    </div>
+
+    <!-- 内容部分 -->
+    <div class="content" ng-show="show===0">
+        <div class="feed-li">
+            <a href="/detail?id=59688c363f61ffa07945e9d9" class="">
+                <div class="feed-content">
+                    <div class="avatar"><img src="https://avatars7.githubusercontent.com/u/9960131?v=3&amp;s=120" alt="headImgUrl"></div>
+                    <div class="feed-right">
+                        <div class="feed-right-top">
+                            <div class="feed-title">
+                                <p>分享！基于vue2+koa2+webpack2+mongodb的爬p站图片的网站！</p>
+                            </div>
+                        </div>
+                        <div class="feed-right-bottom">
+                            <div class="feed-time"><span>sunyue1992</span></div>
+                            <div class="feed-pass">
+                                1 天前
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="content" ng-show="show===1">
+        2
+    </div>
+    <div class="content" ng-show="show===2">
+        3
+    </div>
+</div>
+<style>
+/*----tab标签切换*/
+
+.mine_list {
+    min-height: 386px;
+}
+
+#tab {
+    position: absolute;
+    width: 100%;
+    line-height: 40px;
+    margin-top: 10px;
+}
+
+#tab div {
+    display: inline-block;
+    width: 32%;
+    text-align: center;
+}
+
+.content {
+    min-height: 360px;
+    margin-top: 50px;
+    width: 100%;
+    position: absolute;
+}
+
+.active {
+    color: #04be02;
+    border-bottom: 1px solid #04be02;
+}
+
+/*内容样式*/
+.feed-box .feed-li {
+    list-style: none;
+    padding: 14px;
+    position: relative;
+}
+.feed-box a {
+    color: #333;
+}
+.user-box .feed-box .feed-content {
+    margin-top: 0;
+}
+.avatar {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.avatar img {
+    height: 100%;
+    width: 100%;
+}
+.feed-box .feed-right {
+    -webkit-box-flex: 1;
+    flex: 1;
+    min-width: 0;
+    margin-left: 8px;
+}
+.feed-box .feed-right .feed-right-bottom, .feed-box .feed-right .feed-right-top {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+</style>

@@ -1,0 +1,74 @@
+<div class="mine">
+    <div class="user-head-box">
+        <div class="big-avatar">
+            <img ng-src="{{img}}" alt="">
+        </div>
+        <div class="user-head-title">
+            <div class="user-head-name">{{loginname}}</div>
+            <div class="user-head-link"><a href="https://github.com/heightzhang">{{email}}</a></div>
+        </div>
+        <div class="user-head-intro">
+            注册时间：{{create_time|timeGo}}
+            <span>积分：{{score}}</span>
+        </div>
+      
+    </div>
+</div>
+<style>
+.mine {
+    margin-top: 50px;
+    min-height: 180px;
+}
+
+.user-head-box {
+    background: url("http://cnode.ruanyq.cn/static/img/head_bg2.29b53a8.jpg");
+    height: 180px;
+    background-size: cover;
+    overflow: hidden;
+}
+
+.big-avatar {
+    margin: 0 auto;
+    width: 90px;
+    height: 90px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-top: 10px;
+}
+
+.big-avatar img {
+    width: 100%;
+    height: 100%;
+}
+
+.user-head-title {
+    text-align: center;
+    color: #fff;
+}
+
+.user-head-name {
+    font-size: 18px;
+    margin-top: 8px;
+}
+
+.user-head-link {
+    text-decoration: underline;
+    color: #666;
+}
+
+.user-head-link a {
+    color: #999;
+}
+
+.user-head-intro {
+    padding: 0 16px;
+    position: relative;
+    color: #fff;
+}
+
+.user-head-intro span {
+    color: #80bd01;
+    right: 16px;
+    position: absolute;
+}
+</style>

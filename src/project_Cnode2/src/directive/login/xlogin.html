@@ -1,0 +1,76 @@
+<div class="login">
+    <div class="login-box">
+        <div class="login-logo">
+            <img src="https://cnodejs.org/public/images/cnodejs.svg" alt="" style="width: 100%">
+        </div>
+        <div class="login-title">
+            登录到Cnodejs.org
+        </div>
+        <div class="msg">
+            <label for="AccessToken">AccessToken   </label>
+            <input type="text" id="AccessToken" placeholder="请输入登录信息" ng-model = "msg">
+            <a href="javascript:" class="weui-icon-clear" id="search_clear" ng-click="empty()" ng-show = "cha_show"></a>
+        </div>
+        <div class="bottom">
+        	<button class="left" ng-click = "tiao(1)">随便逛逛</button>
+        	<button class="right" ng-click = "tiao(2)">立即登录</button>
+        </div>
+    </div>
+</div>
+<style>
+div.login {
+    margin-top: 50px;
+}
+
+
+/*注册登录的样式*/
+
+.login-box {
+    background-color: #f4f4f4;
+    padding: 14px;
+    box-sizing: border-box;
+    min-height: 566px;
+}
+
+.login-box .login-logo {
+    padding: 0 16px;
+}
+
+.login-title {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.msg {
+    line-height: 2;
+    background-color: #fff;
+    padding: 10px 15px;
+    font-size: inherit;
+}
+.msg input{
+	outline: 0;
+	border: 0;
+}
+.bottom{
+	margin-top: 20px;
+	display: flex;
+	align-items: center;
+}
+.bottom button{
+	background-color: #f7f7f7;
+	border: 0;
+	outline: 0;
+	line-height: 3;
+	border-radius:5px;
+}
+.bottom .left{
+	flex:1;
+	margin-right: 8px
+}
+.bottom .right{
+	flex: 1;
+	background-color: #04be02;
+	color: #fff;
+}
+
+</style>

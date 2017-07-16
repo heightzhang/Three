@@ -125,7 +125,7 @@
     }]);
 
     //脚本组件
-    directives.directive("xfooter", ["$rootScope", function($rootScope) {
+    directives.directive("xfooter", ["$rootScope", "$window", function($rootScope, $window) {
         return {
             replace: true,
             templateUrl: "directive/xfooter.html",
@@ -135,6 +135,16 @@
                 $rootScope.tab ? $rootScope.tab : $rootScope.tab = 0;
                 scope.changeTab = function(tab) {
                     $rootScope.tab = tab;
+
+                    //发布页面的选择性跳转
+                    if (tab === 3) {
+                        scope.storage = $window.localStorage.getItem('accesstoken')
+                        if (scope.storage) {
+                            $window.location.href = "indexTest.html#!/create"
+                        } else {
+                            $window.location.href = "indexTest.html#!/index/login";
+                        }
+                    }
                 };
             }
         }
@@ -255,6 +265,120 @@
 
 
     //----------------------四 \ -发布帖子页面--------------------
-    
+    directives.directive('xcreate', [function() {
+        return {
+            templateUrl: "directive/create/xcreate.html",
+            link: function(scope, ele, attr) {
+
+            }
+        }
+    }]);
+
+    //---------------------五 注册登录页面---------------------------
+    directives.directive("xlogin", ["$window", "$http", "$rootScope", function($window, $http, $rootScope) {
+        return {
+            templateUrl: "directive/login/xlogin.html",
+            link: function(scope, ele, arrt) {
+                //初始化 默认用户名
+                scope.msg = "ca91d715-2577-4253-885b-4665939c47c5"
+                scope.cha_show = true;
+                //初始化高亮
+                $rootScope.tab = 4
+
+                //input值改变的时候触发
+                angular.element(document.querySelector("#AccessToken")).on('input', function() {
+                    if (scope.msg) { //true执行下面的事件
+                        scope.cha_show = true;
+                        /*
+                        问题2:true的时候不出现,脏值检测如何在scope下面使用(非$scope)
+                        */
+                    } else {
+                        scope.cha_show = false;
+                    }
+                });
+
+                scope.empty = function() {
+                    scope.msg = '';
+                };
+
+                //跳转页面
+                scope.tiao = function(params) {
+                    if (params === 1) {
+                        $rootScope.tab = 0
+                        $window.location.href = "indexTest.html#!/index/home"
+                    } else {
+                        $http({
+                            method: 'POST',
+                            url: 'https://cnodejs.org/api/v1/accesstoken',
+                            data: {
+                                accesstoken: scope.msg
+                            },
+                            headers: {
+                                'Content-Type': "application/json;charset=UTF-8"
+                            }
+                        }).then(function(data) {
+                            console.log(data.data)
+                                //存储验证通过后获得的信息;
+                            $window.localStorage.setItem("accesstoken", JSON.stringify([data.data]));
+                            //跳转用户详情页面 || 重新登录(登录出错)
+                            if (data.data.success) {
+                                $window.location.href = "indexTest.html#!/index/mine"
+                            } else {
+                                alert("登录出错")
+                            };
+                        }, function(err) {
+                            alert("登录出错")
+                            console.log(err) //打印错误信息
+                        }); /*问题3. 组件中看不到发送后的请求头的内容*/
+                    }
+                };
+
+                //如果有用户名 默认跳转用户页面;
+                scope.storage = $window.localStorage.getItem('accesstoken')
+                if (scope.storage) {
+                    $window.location.href = "indexTest.html#!/index/mine"
+                };
+
+            }
+        }
+    }]);
+    //--------------------六 /  用户信息页面 ---------------------------------
+    directives.directive("xmine", ["$window", "$http", function($window, $http) {
+        return {
+            templateUrl: "directive/mine/xmine.html",
+            link: function(scope, ele, attr) {
+                scope.storage = $window.localStorage.getItem('accesstoken');
+                scope.loginname = JSON.parse(scope.storage)[0].loginname;
+                $http({
+                    method: "GET",
+                    url: "https://cnodejs.org/api/v1/user/" + scope.loginname
+                }).then(function(data) {
+                    scope.data = data.data.data;
+                    scope.img = scope.data.avatar_url;
+                    scope.loginname = scope.data.loginname;
+                    scope.email = scope.data.githubUsername + "@github.com"
+                    scope.create_time = scope.data.create_at;
+                    scope.score = scope.data.score;
+                    console.log(scope.data)
+                }, function(err) {
+                    console.log(err);
+                });
+
+
+            }
+        }
+    }]);
+
+    directives.directive("xminelist", [function() {
+        return {
+            templateUrl: "directive/mine/xmine_list.html",
+            link: function(scope, ele, attr) {
+                scope.tab = function(page) {
+                    scope.show = page;
+                }
+
+            }
+        }
+    }])
 
 })();
