@@ -343,11 +343,15 @@
         }
     }]);
     //--------------------六 /  用户信息页面 ---------------------------------
-    directives.directive("xmine", ["$window", "$http", function($window, $http) {
+    directives.directive("xmine", ["$window", "$http","$rootScope", function($window, $http,$rootScope) {
         return {
             templateUrl: "directive/mine/xmine.html",
             link: function(scope, ele, attr) {
+                //初始化高亮;
+                $rootScope.show = 0;
+
                 scope.storage = $window.localStorage.getItem('accesstoken');
+
                 scope.loginname = JSON.parse(scope.storage)[0].loginname;
                 $http({
                     method: "GET",
@@ -360,6 +364,12 @@
                     scope.create_time = scope.data.create_at;
                     scope.score = scope.data.score;
                     console.log(scope.data)
+
+                    //列表样式 xmine-list;
+                    scope.avatar_img  = scope.data.recent_replies[0].author.avatar_url;
+                    scope.author_name = scope.data.recent_replies[0].author.loginname;
+                    scope.title = scope.data.recent_replies[0].title;
+                    scope.last_time = scope.data.recent_replies[0].last_reply_at
                 }, function(err) {
                     console.log(err);
                 });
@@ -369,14 +379,19 @@
         }
     }]);
 
-    directives.directive("xminelist", [function() {
+    directives.directive("xminelist", ["$rootScope","$window",function($rootScope,$window) {
         return {
             templateUrl: "directive/mine/xmine_list.html",
             link: function(scope, ele, attr) {
+                // tab标签切换
                 scope.tab = function(page) {
-                    scope.show = page;
+                   $rootScope.show = page;
                 }
-
+                // 注销事件
+                scope.logout =function(){
+                    $window.localStorage.removeItem('accesstoken');
+                    $window.location.href ="#!/index/login"
+                }
             }
         }
     }])

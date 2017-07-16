@@ -4,23 +4,22 @@
         <div class="publish" ng-click="tab(1)" ng-class="{'active':show === 1}">最新发布</div>
         <div class="star" ng-click="tab(2)" ng-class="{'active':show === 2}">话题收藏</div>
     </div>
-
     <!-- 内容部分 -->
     <div class="content" ng-show="show===0">
         <div class="feed-li">
-            <a href="/detail?id=59688c363f61ffa07945e9d9" class="">
+            <a href="#">
                 <div class="feed-content">
-                    <div class="avatar"><img src="https://avatars7.githubusercontent.com/u/9960131?v=3&amp;s=120" alt="headImgUrl"></div>
+                    <div class="avatar">
+                        <img ng-src="{{avatar_img}}" alt="headImgUrl">
+                    </div>
                     <div class="feed-right">
-                        <div class="feed-right-top">
-                            <div class="feed-title">
-                                <p>分享！基于vue2+koa2+webpack2+mongodb的爬p站图片的网站！</p>
-                            </div>
+                        <div class="feed-top">
+                            <p>{{title}}</p>
                         </div>
-                        <div class="feed-right-bottom">
-                            <div class="feed-time"><span>sunyue1992</span></div>
+                        <div class="feed-bottom">
+                            <span>{{author_name}}</span>
                             <div class="feed-pass">
-                                1 天前
+                                {{last_time|timeGo}}
                             </div>
                         </div>
                     </div>
@@ -33,6 +32,10 @@
     </div>
     <div class="content" ng-show="show===2">
         3
+    </div>
+    <!-- 注销按钮 -->
+    <div class="ext-btn-reply btn-logout" ng-click = "logout()">
+        注销
     </div>
 </div>
 <style>
@@ -67,39 +70,76 @@
     border-bottom: 1px solid #04be02;
 }
 
+
 /*内容样式*/
-.feed-box .feed-li {
+
+.feed-li {
     list-style: none;
     padding: 14px;
     position: relative;
 }
-.feed-box a {
-    color: #333;
+
+.feed-li a {
+    display: block;
 }
-.user-box .feed-box .feed-content {
-    margin-top: 0;
-}
+
 .avatar {
     width: 36px;
     height: 36px;
-    flex-shrink: 0;
     border-radius: 50%;
     overflow: hidden;
+    display: inline-block;
+    margin-bottom: 20px;
 }
+
 .avatar img {
-    height: 100%;
     width: 100%;
+    height: 100%;
 }
-.feed-box .feed-right {
-    -webkit-box-flex: 1;
-    flex: 1;
-    min-width: 0;
-    margin-left: 8px;
+
+.feed-right {
+    display: inline-block;
+    width: 300px;
+    color: #000;
+    margin-left: 5px;
 }
-.feed-box .feed-right .feed-right-bottom, .feed-box .feed-right .feed-right-top {
+
+.feed-bottom span {
+    display: inline-block;
+}
+
+.feed-pass {
+    display: inline-block;
+}
+
+.feed-pass {
+    margin-left: 172px;
+}
+
+.feed-bottom {
+    color: #999
+}
+
+
+/*注销按钮样式*/
+
+.btn-logout {
+    position: fixed;
+    right: 16px;
+    bottom: 68px;
+    background: #80bd01;
+    color: #fff;
     display: -webkit-box;
     display: flex;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    box-shadow: 2px 6px 12px #c7c7c7;
+    -webkit-transition: all .33s linear;
+    transition: all .33s linear;
 }
 </style>
