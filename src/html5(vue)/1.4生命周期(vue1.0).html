@@ -30,27 +30,28 @@
  					console.log("ok")
  				}
  			},
+ 			// created 读取数据
  			created:function(){
  				console.log("创建完状态")
  				//console.log(this)
  				console.log(this.$el)//null
- 				console.log(this.$data)//有
+ 				console.log(this.$data)//有  可以读取到数据
  			},
- 			//created->beforeCompile把数据填充到模板里面
+ 			//beforeCompile把数据填充到模板里面
  			beforeCompile:function(){
  				console.log("编译之前")
  				//console.log(this)
- 				console.log(this.$el)
- 				console.log(this.$data)
- 				console.log(document.querySelector("#demo"))
+ 				console.log(this.$el) //有
+ 				console.log(this.$data) //有
+ 				console.log(document.querySelector("#demo"))//只有节点,无数据
  			},
- 			//beforeCompile->compiled把模板插入到对应的DOM节点上
+ 			//compiled把模板插入到对应的DOM节点上
  			compiled:function(){
  				console.log("编译之后")
  				//console.log(this)
  				console.log(this.$el)
  				console.log(this.$data)
- 				console.log(document.querySelector("#demo"))
+ 				console.log(document.querySelector("#demo"))//有节点,有数据
  			},
  			//ready DOM已经完全生成，可以执行我们后面的逻辑
  			ready:function(){

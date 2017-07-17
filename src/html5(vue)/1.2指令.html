@@ -41,8 +41,8 @@
 		<p v-bind:style="{fontSize:size + 'px'}">字体大小</p>
 		<p :style="{fontSize:size + 'px'}">字体大小2(简写)</p>
 
-		<!-- 10.问题:属性值 -->
-		<p :id="'name-'+name" class="yellow">属性值</p>
+		<!-- 10 给id起名字, 'name'是字符串,name是变量 -->
+		<p :id="'name'+name" class="yellow">属性值</p>
     </div>
 </body>
 <script>

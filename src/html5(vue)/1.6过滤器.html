@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>过滤器</title>
 </head>
 
 <body>
@@ -14,13 +14,13 @@
         <p>{{name|lowercase}}</p>
         <p style="color: red;">3.uppercase</p>
         <p>{{name|uppercase}}</p>
-        <p style="color: red;">4.pluralize</p>
+        <p style="color: red;">4.pluralize(复数) 特有</p>
         <p>{{date}}{{date|pluralize 'st' 'nd' 'rd' 'th'}}</p>
         <p style="color: red;">5.json</p>
         <p>{{obj|json 10}}</p>
-        <p style="color: red;">6.debounce</p>
+        <p style="color: red;">6.debounce(延迟器) 特有</p>
         <button @click="ok()|debounce 2000">ok</button>
-        <p style="color: red;">7.capitalize</p>
+        <p style="color: red;">7.capitalize(首字母大写) 特有</p>
         <p>{{name|capitalize}}</p>
         <p style="color: red;">8.orderBy</p>
         <ul>

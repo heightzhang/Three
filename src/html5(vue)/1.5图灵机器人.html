@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>图灵机器人_VUE</title>
+</head>
+<body>
+	<div class="demo">
+		
+	</div>
+</body>
+<script src="../js/vue2.js"></script>
+<script src="../js/jquery-3.2.1.js"></script>
+<script>
+	var vm = new Vue({
+		el:".demo",
+		data:{
+			ask:"梁静茹",
+			answer:"Hello World"
+		},
+		template:`
+		<div>
+			<input v-model="ask" @keyup="submit()" />
+			<p>{{answer}}</p>
+ 		</div>
+		`,
+		methods:{
+			submit:function(){
+				var self = this;
+				$.ajax({
+					url:"http://www.tuling123.com/openapi/api?key=c75ba576f50ddaa5fd2a87615d144ecf&info=" + this.ask,
+					success:function(data){
+						console.log(data.text)
+						self.answer= data.text;
+					}
+				});
+			}
+		},
+		mounted:function(){
+			this.submit();
+		}
+	})
+</script>
+</html>

@@ -7,7 +7,7 @@
 	<body>
 		<div id="demo"></div>
 	</body>
-	<script src="vue2.js"></script>
+	<script src="../js/vue2.js"></script>
 	<script>
 		new Vue({
 			el:"#demo",
@@ -25,16 +25,18 @@
 				console.log(this.$el)//undefined
 				console.log(this.$data)//undefined
 			},
+			// created 读取数据
 			created:function(){
 				console.log("创建之后")
 				console.log(this.$el)//undefined
 				console.log(this.$data)//有
 			},
-			//compiled和beforeCompile
+			//beforeCompile  
 			beforeMount:function(){
 				console.log("挂载之前")
-				console.log(this.$el)//undefined
+				console.log(this.$el)//有
 				console.log(this.$data)//有
+				console.log(document.querySelector("#demo"))//只有节点,无数据
 			},
 			//ready
 			mounted:function(){

@@ -7,9 +7,10 @@
     "doc": "doc"
   },
   "dependencies": {
+    "axios": "^0.16.2",
     "body-parser": "^1.17.2",
-    "express": "^4.15.3",
     "cheerio": "^1.0.0-rc.1",
+    "express": "^4.15.3",
     "fs": "^0.0.1-security",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
