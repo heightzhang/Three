@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>指令</title>
+    <script src="../js/vue.js"></script>
+</head>
+<style>
+	.blue{
+		color: blue;
+	}
+	.red{
+		color:red;
+	}
+</style>
+<body>
+    <div id="demo">
+        <!--1.v-text/ng-bind  -->
+        <p v-text="name"></p>
+        <!-- 2.v-html/ng-bind-html -->
+        <p v-html="html"></p>
+        <!-- 3.v-if/ng-if -->
+        <p v-if="bool">v-if 真</p>
+        <!-- 4.v-else !bool / ng-hide -->
+        <p v-else>v-else 假</p>
+        <!-- 5.v-show/ng-show -->
+        <p v-show="bool">v-show 真</p>
+        <!-- 6.v-for/ng-repeat -->
+        <ul>
+            <li v-for="a in arr" track-by="$index" id="{{$index}}">{{a}}</li>
+        </ul>
+        <!-- 7.v-on:click/ng-click -->
+        <button v-on:click="ok()">ok1</button>
+        <button @click="ok">ok2(简写)</button>
+        <!-- 8.v-bind:class && v-bind:style /ng-class&&ng-style -->
+		<p v-bind:class="{blue:bool}">class类名1</p>
+		<p :class="{blue:bool}">class类名2(简写)</p>
+		<!-- 9.v-model -->
+		<input type="range" v-model="size" />
+		<p v-bind:style="{fontSize:size + 'px'}">字体大小</p>
+		<p :style="{fontSize:size + 'px'}">字体大小2(简写)</p>
+
+		<!-- 10.问题:属性值 -->
+		<p :id="'name-'+name" class="yellow">属性值</p>
+    </div>
+</body>
+<script>
+new Vue({
+    el: "#demo",
+    data: {
+        name: "heightzhang",
+        html: "<div>我是 <p>html</p></div>",
+        bool: true,
+        arr:[1,2,3]
+    },
+    methods:{
+    	ok:function(){
+    		alert('成功')
+    	}
+    }
+})
+</script>
+
+</html>

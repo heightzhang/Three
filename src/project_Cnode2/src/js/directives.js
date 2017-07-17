@@ -81,13 +81,6 @@
                             console.log(data)
                             scope.news = scope.news.concat(data.data.data);
                             scope.show = false;
-
-                            //时间距离
-                            /*
-                            问题1:
-                            scope.originalText = 'hello';
-                            scope.filteredText = $filter('limitTo:3,3')(scope.originalText);
-                            console.log(scope.filteredText)*/
                         });
                 };
                 scope.langmore();
@@ -289,16 +282,15 @@
                 angular.element(document.querySelector("#AccessToken")).on('input', function() {
                     if (scope.msg) { //true执行下面的事件
                         scope.cha_show = true;
-                        /*
-                        问题2:true的时候不出现,脏值检测如何在scope下面使用(非$scope)
-                        */
                     } else {
                         scope.cha_show = false;
                     }
+                    scope.$apply();
                 });
 
                 scope.empty = function() {
                     scope.msg = '';
+                    scope.cha_show = false;
                 };
 
                 //跳转页面
@@ -329,7 +321,7 @@
                         }, function(err) {
                             alert("登录出错")
                             console.log(err) //打印错误信息
-                        }); /*问题3. 组件中看不到发送后的请求头的内容*/
+                        });
                     }
                 };
 
@@ -394,6 +386,6 @@
                 }
             }
         }
-    }])
+    }]);
 
 })();
