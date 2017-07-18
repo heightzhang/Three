@@ -41,8 +41,10 @@
 		<p v-bind:style="{fontSize:size + 'px'}">字体大小</p>
 		<p :style="{fontSize:size + 'px'}">字体大小2(简写)</p>
 
-		<!-- 10 给id起名字, 'name'是字符串,name是变量 -->
+		<!-- 10 给id起名字, 'name'是字符串,name是变量  : 冒号可以省略{{}}(表达式) -->
 		<p :id="'name'+name" class="yellow">属性值</p>
+        <!-- 11.表达式放在属性上面 -->
+
     </div>
 </body>
 <script>
