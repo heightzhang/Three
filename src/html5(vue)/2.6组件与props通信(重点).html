@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Xheader</title>
+	</head>
+
+	<body>
+		<div id="demo"></div>
+	</body>
+	<script src="../js/vue2.js"></script>
+	<script>
+		/*Vue.filter()
+		Vue.directive()*/
+		Vue.component('xheader', {
+			props:["message"], // 构造函数向组件传递数据; 
+			template: `
+				<div style="border:1px solid green">
+					<p v-color="'red'">{{name|ed}}</p>
+					<button @click="ok()">ok</button>
+					<p v-if="message=='1'">1</p>
+				</div>
+			`,
+			data: function() { //组件中的data 必须是一个函数;
+				return {
+					name: "第一个组件"
+				}
+			},
+			methods: {  //组件中的方法;
+				ok: function() {
+					console.log("ok")
+				}
+			}, 
+			filters: { //组件的过滤器
+ 				ed: function(input) {
+					return input + "ed";
+				}
+			},
+			directives: { //组件的指令
+				color: function(el, binding, vnode) {
+					console.log(el)
+					el.style.color = binding.value
+				}
+			},
+			mounted:function(){ //组件的JS逻辑
+				console.log(this.message)  //桥梁props ,接收message;
+			}
+		})
+		new Vue({
+			el: "#demo",
+			data: {
+				name: "laoyao"
+			},
+			template: `
+				<div>
+					<xheader :message="name"></xheader> //传递变量name;  问题:有时候是变量,有时候是表达式;
+					<xheader message="abc"></xheader>  //传递字符串;
+					<xheader message="1"></xheader>  //满足messge =1 的时候,显示不同的状态;
+					<p>构造器的{{name}}</p>
+				</div>
+			`
+		})
+	</script>
+
+	<!--  data  :  高度封闭 ; new Vue  与 component 中的data相互独立; -->
+
+
+</html>
