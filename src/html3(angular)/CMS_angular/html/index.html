@@ -142,8 +142,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="n in data|limitTo:count:(page-1)*count|filter:{'type':'search'}">
-                                        <!-- filter{传入一个对象失效;} -->
+                                    <tr ng-repeat="n in data|limitTo:count:(page-1)*count|filter:search">
+                                        <!-- filter{如下 :传入一个对象失效;对象名type必须是字符,而不能是变量} -->
                                         <!-- <div>{{data|filter:type:search}}</div> -->
                                         <td>
                                             <input type="checkbox" />
