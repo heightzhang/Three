@@ -1,0 +1,81 @@
+/*头部组件样式*/
+
+header {
+    background-color: green;
+    color: #fff;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+
+/*搜索框样式*/
+
+.weui-search-bar {
+    margin-top: 50px;
+}
+
+
+/*swiper*/
+
+.swiper-container {
+    width: 100%;
+    height: 200px;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.swiper-slide img {
+    width: 100%;
+    height: 100%;
+}
+
+
+/*xlist*/
+
+.weui-panel__ft {
+    margin-bottom: 50px;
+}
+
+time {
+    position: absolute;
+    right: 0;
+}
+
+.weui-loadmore {
+    margin-bottom: 80px;
+}
+
+
+/*脚本*/
+
+.weui-tab {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    height: 50px;
+}

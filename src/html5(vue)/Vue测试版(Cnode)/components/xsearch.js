@@ -18,28 +18,24 @@ Vue.component("xsearch", {
 	data: function() {
 		return {
 			searchTitle: "",
-			isShowSearchBar: "true",
+			isShowSearchBar:false,
 			arg: "wscats"
 		}
 	},
+	//自定义指令
 	directives: {
+		//让输入框聚焦的指令
 		focuss: {
 			bind: function(el, binding, vnode) {
-				console.log("绑定时");
 				el.addEventListener("click", function() {
-					//获取传入v-focuss:wscats来的wscats值
-					console.log(binding.arg);
-					//传入指令的值
-					console.log(binding.value.params);
-					//执行传给指令的clear函数
-					binding.value.fn();
-					//让输入框聚焦
+					binding.value.fn();		
 					document.getElementById("search_input").focus();
 				})
 			}
 		}
 
 	},
+	//自定义方法
 	methods: {
 		//封装清空输入框的方法
 		clearSearchTitle: function() {

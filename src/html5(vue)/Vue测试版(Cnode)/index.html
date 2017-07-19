@@ -3,34 +3,38 @@
 
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>测试版本</title>
 </head>
 <link rel="stylesheet" href="../../css/weui.css" />
 <link rel="stylesheet" href="../../css/swiper.css" />
 <link rel="stylesheet" href="css/index.css" />
+<link rel="stylesheet" href="css/base.css">
 
 <body>
     <div id="demo"></div>
 </body>
 <script src="../../js/vue2.js"></script>
+<script src="../../js/vue-resource.js"></script>
 <script src="../../js/swiper.js"></script>
 <script src="components/xheader.js"></script>
 <script src="components/xsearch.js"></script>
 <script src="components/xswiper.js"></script>
-
+<script src="components/xlist.js"></script>
+<script src="components/xfooter.js"></script>
 <script>
-	var vue = new Vue({
-		el:"#demo",
-		template:`
+var vue = new Vue({
+    el: "#demo",
+    template: `
 		<div>
 			<xheader></xheader>
 			<xsearch></xsearch>
 			<xswiper></xswiper>
+			<xlist></xlist>
+			<xfooter></xfooter>
 		</div>
 		`
-	})
-
-
+})
 </script>
 
 </html>

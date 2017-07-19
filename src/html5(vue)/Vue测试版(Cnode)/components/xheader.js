@@ -1,8 +1,8 @@
 Vue.component("xheader", {
-	template: `
+    template: `
 			<div>
 				<header>
-					Cnode
+					Cnode社区
 				</header>
 			</div>
 			`

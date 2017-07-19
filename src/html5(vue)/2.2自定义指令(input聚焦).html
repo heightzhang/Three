@@ -10,7 +10,6 @@
 <body>
     <div id="demo">
         <div class="weui-search-bar" id="search_bar " :class="{'weui-search-bar_focusing':isShow}">
-            <!-- 问题1. 为什么class里面取非后要反向选择;    注意 :class关系式里面最好不要取非;-->
             <form class="weui-search-bar__form">
                 <div class="weui-search-bar__box">
                     <i class="weui-icon-search"></i>
@@ -35,7 +34,7 @@ Vue.directive("focuss", function(ele, attr) {
     ele.addEventListener("click", function() {
         document.getElementById("search_input").focus();
     })
-})
+});
 
 var vue = new Vue({
     el: "#demo",
