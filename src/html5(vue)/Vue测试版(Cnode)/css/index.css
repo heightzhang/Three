@@ -79,3 +79,11 @@ time {
     z-index: 10;
     height: 50px;
 }
+
+
+/*图片预览样式*/
+
+.weui-gallery__del {
+    color: #fff;
+    font-size: 24px;
+}

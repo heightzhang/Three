@@ -1,0 +1,51 @@
+<script>
+// 新建一个状态管理:
+var store = new Vuex.Store({
+    state: { //全局数据的集中栈
+        search: '',
+        imgUrl: null,
+        isShowGallery: false,
+        title: "Cnode"
+    },
+
+    getters: {
+        getSearch(state) {
+            //处理数据 类似过滤器的作用;
+            return state.search
+        }
+    },
+    //分发状态 接收改变后的值 后 赋值给state.search;
+    mutations: {
+        setSearch: function(state, data) {
+            state.search = data
+        },
+        setTitle: function(state, data) {
+            state.title = data
+        }
+    },
+    //action触发
+    actions: {
+        setSearch(context, data) {
+            context.commit('setSearch', data);
+            context.commit('setTitle', data)
+        }
+    }
+});
+
+
+
+var vue = new Vue({
+    el: "#demo",
+    template: `
+        <div>
+            <xheader></xheader>
+            <xsearch></xsearch>
+            <xswiper></xswiper>
+            <xlist></xlist>
+            <xfooter></xfooter>
+            <xgallery></xgallery>
+        </div>
+        `,
+    store //将Soter注入构造器中; 
+})
+</script>

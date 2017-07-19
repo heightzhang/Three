@@ -16,13 +16,63 @@
 </body>
 <script src="../../js/vue2.js"></script>
 <script src="../../js/vue-resource.js"></script>
+<script src="../../js/vue-router2.js"></script>
+<script src="../../js/vuex.js"></script>
 <script src="../../js/swiper.js"></script>
 <script src="components/xheader.js"></script>
 <script src="components/xsearch.js"></script>
 <script src="components/xswiper.js"></script>
 <script src="components/xlist.js"></script>
 <script src="components/xfooter.js"></script>
+<script src="components/xgallery.js"></script>
 <script>
+// 新建一个状态管理:
+var store = new Vuex.Store({
+	state:{  //全局数据的集中栈
+		search:'',
+		imgUrl:null,
+		isShowGallery:null,
+		title:"Cnode"
+	},
+
+	getters:{
+		getSearch(state){
+			//处理数据 类似过滤器的作用;
+			return state.search
+		},
+		getImgurl(state){
+			return state.imgUrl
+		}
+	},
+	//分发状态 接收改变后的值 后 赋值给state.search;
+	mutations:{
+		setSearch:function(state,data){
+			state.search = data
+		},
+		setTitle:function(state,data){
+			state.title= data
+		},
+		setImg:function(state,data,bool){
+			state.imgUrl = data;
+		}
+	},
+	//action触发
+	actions:{
+		setSearch(context,data){
+			context.commit('setSearch',data);
+			context.commit('setTitle',data)
+		},
+		setImg(context,data){
+			context.commit("setImg",data)
+		},
+		setBool(context,data){
+			context.commit("setBool",data)
+		}
+
+	}
+});
+
+
 var vue = new Vue({
     el: "#demo",
     template: `
@@ -32,8 +82,10 @@ var vue = new Vue({
 			<xswiper></xswiper>
 			<xlist></xlist>
 			<xfooter></xfooter>
+			<xgallery></xgallery>
 		</div>
-		`
+		`,
+		store//将Soter注入构造器中; 
 })
 </script>
 
