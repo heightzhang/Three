@@ -87,3 +87,28 @@ time {
     color: #fff;
     font-size: 24px;
 }
+
+.weui-gallery {
+    animation: scalee 0.5s ease;
+}
+
+@keyframes scalee {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+.weui-gallery2{
+    animation: scalee2 0.5s ease;
+
+}
+@keyframes scalee2 {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(0);
+    }
+}

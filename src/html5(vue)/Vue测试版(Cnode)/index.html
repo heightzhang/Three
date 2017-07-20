@@ -42,7 +42,11 @@ var store = new Vuex.Store({
 		},
 		getImgurl(state){
 			return state.imgUrl
+		},
+		getBool(state){
+			return state.isShowGallery
 		}
+
 	},
 	//分发状态 接收改变后的值 后 赋值给state.search;
 	mutations:{
@@ -52,8 +56,9 @@ var store = new Vuex.Store({
 		setTitle:function(state,data){
 			state.title= data
 		},
-		setImg:function(state,data,bool){
-			state.imgUrl = data;
+		setImg:function(state,data){
+			state.imgUrl = data[0];
+			state.isShowGallery=data[1];
 		}
 	},
 	//action触发
@@ -64,11 +69,7 @@ var store = new Vuex.Store({
 		},
 		setImg(context,data){
 			context.commit("setImg",data)
-		},
-		setBool(context,data){
-			context.commit("setBool",data)
 		}
-
 	}
 });
 

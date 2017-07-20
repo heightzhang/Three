@@ -36,8 +36,7 @@ Vue.component("xlist", {
             `,
             methods:{
                 setImg(imgUrl){
-                   this.$store.dispatch('setImg',imgUrl),
-                   this.$store.state.isShowGallery = true
+                   this.$store.dispatch('setImg',[imgUrl,true])
                  }
             }
         }
