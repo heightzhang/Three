@@ -27,7 +27,7 @@ Vue.directive('example', {
     // unbind: function() {}
 })*/
 
-// 指令的简单写法 vue 1.0 // 这里将会被 `bind` 和 `update` 调用
+// 指令的简单写法 vue 2.0 // 这里将会被 `bind` 和 `update` 调用
 Vue.directive('color', function(ele, attr) {
     //1.获取指令中的属性值;
 	ele.style.color = attr.expression
