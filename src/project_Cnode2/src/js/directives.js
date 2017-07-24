@@ -238,7 +238,35 @@
                 }).then(function(data) {
                     scope.detail = data.data.data;
                     scope.html = scope.detail.content;
+                    //主题收藏
+                    scope.top = scope.detail.tab
                 })
+                
+                scope.love = function() {
+                    scope.myStar = {
+                        "background-image": "url('img/icon/love2.jpg')"
+                    };
+/*
+                    //----主题收藏
+                    scope.msg = "ca91d715-2577-4253-885b-4665939c47c5"
+
+                    $http({
+                        method: 'POST',
+                        url: 'https://cnodejs.org/api/v1/topic_collect/collect',
+                        data: {
+                            accesstoken: scope.msg,
+                            topic_id: scope.top
+                        },
+                        headers: { //1.设置类型
+                            'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+                        }
+                    }).then(function(data) {
+                        console.log(data)
+                    }, function(err) {
+                        console.log(err) //打印错误信息
+                    });
+*/
+                }
 
             }
         }
@@ -335,16 +363,15 @@
         }
     }]);
     //--------------------六 /  用户信息页面 ---------------------------------
-    directives.directive("xmine", ["$window", "$http","$rootScope", function($window, $http,$rootScope) {
+    directives.directive("xmine", ["$window", "$http", "$rootScope", function($window, $http, $rootScope) {
         return {
             templateUrl: "directive/mine/xmine.html",
             link: function(scope, ele, attr) {
                 //初始化高亮;
                 $rootScope.show = 0;
-
                 scope.storage = $window.localStorage.getItem('accesstoken');
-
                 scope.loginname = JSON.parse(scope.storage)[0].loginname;
+                //初始化用户信息页面;
                 $http({
                     method: "GET",
                     url: "https://cnodejs.org/api/v1/user/" + scope.loginname
@@ -355,35 +382,60 @@
                     scope.email = scope.data.githubUsername + "@github.com"
                     scope.create_time = scope.data.create_at;
                     scope.score = scope.data.score;
-                    console.log(scope.data)
+                    // console.log(scope.data)
 
                     //列表样式 xmine-list;
-                    scope.avatar_img  = scope.data.recent_replies[0].author.avatar_url;
+                    scope.avatar_img = scope.data.recent_replies[0].author.avatar_url;
                     scope.author_name = scope.data.recent_replies[0].author.loginname;
                     scope.title = scope.data.recent_replies[0].title;
                     scope.last_time = scope.data.recent_replies[0].last_reply_at
+
+                    scope.id = scope.data.recent_replies[0].id
                 }, function(err) {
                     console.log(err);
                 });
-
-
+                scope.info = function() {
+                    $window.location.href = "#!/detail/" + scope.id
+                }
             }
         }
     }]);
 
-    directives.directive("xminelist", ["$rootScope","$window",function($rootScope,$window) {
+    directives.directive("xminelist", ["$rootScope", "$window", "$http", function($rootScope, $window, $http) {
         return {
             templateUrl: "directive/mine/xmine_list.html",
             link: function(scope, ele, attr) {
+                //获取login_name
+                scope.storage = $window.localStorage.getItem('accesstoken');
+                scope.loginname = JSON.parse(scope.storage)[0].loginname;
+
+                // 注销事件
+                scope.logout = function() {
+                    $window.localStorage.removeItem('accesstoken');
+                    $window.location.href = "#!/index/login"
+                };
+
                 // tab标签切换
                 scope.tab = function(page) {
-                   $rootScope.show = page;
-                }
-                // 注销事件
-                scope.logout =function(){
-                    $window.localStorage.removeItem('accesstoken');
-                    $window.location.href ="#!/index/login"
-                }
+                    $rootScope.show = page;
+
+                    //话题收藏;
+                    if ($rootScope.show === 2) {
+                        $http({
+                            method: "GET",
+                            url: "https://cnodejs.org/api/v1/topic_collect/" + scope.loginname
+                        }).then(function(data) {
+                            scope.data = data.data.data
+                            scope.info = function(id) {
+                                $window.location.href = "#!/detail/" + id
+                            }
+                            console.log(scope.data)
+                        }, function(err) {
+                            console.log(err);
+                        });
+                    }
+                };
+
             }
         }
     }]);

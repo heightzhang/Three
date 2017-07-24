@@ -7,7 +7,7 @@
     <!-- 内容部分 -->
     <div class="content" ng-show="show===0">
         <div class="feed-li">
-            <a href="#">
+            <a ng-click="info()">
                 <div class="feed-content">
                     <div class="avatar">
                         <img ng-src="{{avatar_img}}" alt="headImgUrl">
@@ -31,7 +31,26 @@
         2
     </div>
     <div class="content" ng-show="show===2">
-        3
+         <div class="feed-li" ng-repeat = "n in data">
+            <a ng-click="info(n.id)">
+                <div class="feed-content">
+                    <div class="avatar">
+                        <img ng-src="{{n.author.avatar_url}}">
+                    </div>
+                    <div class="feed-right">
+                        <div class="feed-top">
+                            <p>{{n.title}}</p>
+                        </div>
+                        <div class="feed-bottom">
+                            <span>{{n.author.loginname}}</span>
+                            <div class="feed-pass">
+                                {{n.create_at|timeGo}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
     </div>
     <!-- 注销按钮 -->
     <div class="ext-btn-reply btn-logout" ng-click = "logout()">
@@ -103,7 +122,10 @@
     color: #000;
     margin-left: 5px;
 }
-
+.feed-bottom{
+    position: relative;
+    color: #999;
+}
 .feed-bottom span {
     display: inline-block;
 }
@@ -113,12 +135,10 @@
 }
 
 .feed-pass {
-    margin-left: 172px;
+   position: absolute;
+   right: 0
 }
 
-.feed-bottom {
-    color: #999
-}
 
 
 /*注销按钮样式*/

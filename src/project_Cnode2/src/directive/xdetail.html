@@ -21,7 +21,7 @@
                     <div class="eye"></div>
                 </div>
             </div>
-            <div class="head-right"><i class="love"></i></div>
+            <div class="head-right"><i class="love" ng-click = "love()" ng-style ="myStar"></i></div>
         </div>
     </div>
     <!-- 中间 -->
@@ -164,9 +164,19 @@ div.eye {
     margin-top: 0;
 }
 
-i.love {
+.love {
     display: inline-block;
-    width: 17px;
+    width: 19px;
+    height: 23px;
+    line-height: normal;
+    vertical-align: middle;
+    background-image: url('img/icon/love.jpg');
+    background-repeat: repeat;
+    margin-right: 10px;
+}
+.love2{
+    display: inline-block;
+    width: 19px;
     height: 23px;
     line-height: normal;
     vertical-align: middle;

@@ -30,7 +30,7 @@
 				return day+'天前'
 			};
 			if(day<1){
-				return hourLeft+'小时'+minLeft+'分'+secLeft+'秒前'
+				return hourLeft+'小时前'
 			};
         }
     })
