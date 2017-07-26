@@ -1,11 +1,8 @@
 ﻿#过滤node模块文件夹
-/node_modules
+node_modules
 
 #过滤VUE文件夹中的node-module
-/VUE
-!/VUE/html1(webpack)
-!/VUE/html2(Project_music)
-!/VUE/package.json
+/VUE/package-lock.json
 
 #过滤压缩包
 *.gz
