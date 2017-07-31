@@ -227,11 +227,12 @@ Vue.component('xheader', {
 ##父组件向子组件(props)
 ```JS
 <script>
+//----------子组件
         Vue.component('xheader', {
-            props: ["message"],
+            props: ["message"], //接收父组件的非标准属性
             template: `
                 <div style="border:1px solid green">
-                    <p>{{message}}</p>
+                    <p>{{message}}</p>  //打印出来 =>变量name =>laoyao 
                 </div>
             `,
             data: function() {
@@ -240,6 +241,7 @@ Vue.component('xheader', {
                 }
             }
         })
+//---------父组件-----------
         new Vue({
             el: "#demo",
             data: {
@@ -254,7 +256,7 @@ Vue.component('xheader', {
             template: `
                 <div>
                     <input v-model="name" />
-                    <xheader :message="name"></xheader>
+                    <xheader :message="name"></xheader> //父组件的非标准属性(传递变量name)
                     <p>{{named}}</p>
                 </div>
             `,
@@ -335,6 +337,7 @@ var vue = new Vue({
                 return this.$store.getters.getImgurl
             }
     }
+ //  数据显示 => {{imgUrl}}  / {{isShowGallery}}
 </xgallery>
 ```
 
@@ -374,6 +377,7 @@ var vue = new Vue({
                 <router-view></router-view>
             `
         })
+        //3.路由传参数;
     </script>
 ```
 ##嵌套路由(三层)

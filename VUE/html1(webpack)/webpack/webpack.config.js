@@ -1,4 +1,5 @@
 module.exports = {
+    devtool:"source-map",//设置报错源
     // 一 输入文件  _dirname表示当前文件的路径
     entry: __dirname + "/app/main.js", //输入文件的路径
     output: { //输出文件
@@ -44,7 +45,7 @@ module.exports = {
     },
     //webpackd的服务器
     devServer: {
-        contentBase: "./public", //服务器需要加载的文件夹目录
+        contentBase: "./public", //需要监控的更新的文件夹路径;
         inline: true, //实时更新
         port:12345,
     }
