@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="demo"></div>
+	</body>
+	<script src="js/react.js"></script>
+	<script src="js/react-dom.js"></script>
+	<script src="js/babel.js"></script>
+	<script type="text/babel">
+		var Abc = React.createClass({  //生成一个组件类  组件类的首字母必须大写,否则会报错;
+			render:function(){
+				return <h1>Hello {this.props.name}</h1>;  //顶层标签只能有一个;
+			}
+		});
+		ReactDOM.render(
+			<Abc name = "heightzhang"></Abc>, //生成组件类的实例
+			document.querySelector('#demo')
+		);
+
+		//注意点:class 属性需要写成 className ，
+		//for 属性需要写成 htmlFor ，这是因为 class 和 for 是 JavaScript 的保留字。
+
+		//例外:this.props.children 属性。它表示组件的所有子节点
+	</script>
+</html>

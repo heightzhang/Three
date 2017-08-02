@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="demo"></div>
+	</body>
+	<script src="js/react.js"></script>
+	<script src="js/react-dom.js"></script>
+	<script src="js/babel.js"></script>
+	<script type="text/babel">
+
+	var arr = [ //支持数组
+		<h1 key = '1'>123</h1>,
+		<h2 key = '2'>456</h2>,
+	];
+	var css ={ //支持样式
+		fontSize:'50px',
+		color:'red'
+	};
+	var bool = true; //支持布尔值的三元运算
+
+	ReactDOM.render(//retact最基本的方法 :将模版转为HTML结构
+		<div>{arr}</div>,
+		// <div style = {css}>{bool?'你是真的':'你是假的'}</div>,   //问题1:放入两个不标签报错;
+		document.querySelector("#demo") 
+	)
+
+/*多行注释
+	var content = (
+ 	 <Nav>
+    <Person
+      name={window.isLoggedIn ? window.name : ''}
+    />
+  </Nav>
+
+
+注意:JSX 的基本语法规则：
+遇到 HTML 标签（以 < 开头），就用 HTML 规则解析；
+遇到代码块（以 { 开头），就用 JavaScript 规则解析。上面代码的运行结果如下。
+*/
+
+	</script>
+</html>
