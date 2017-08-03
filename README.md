@@ -1,17 +1,21 @@
 ﻿# 基础
 
-### Vue
-
-|[VUE相关的API文档](https://github.com/heightzhang/Three/issues/14)|[vue相关属性总结](https://github.com/heightzhang/Three/issues/23)|
-|-|-|
-|[VUX使用心得](http://blog.csdn.net/tonydandelion2014/article/details/51924236)|[Vue中的坑总结](https://github.com/heightzhang/Three/issues/21)|
-
 ### Angular
 
 |[Angular的API文档](https://github.com/heightzhang/Three/issues/2)|[Angular的特性](https://github.com/heightzhang/Three/issues/3)|
 |-|-|
 |[Angular中的POST请求,服务端接收不到参数的解决方法](https://github.com/heightzhang/Three/issues/1)|[Angular的动画使用方法](https://github.com/heightzhang/Three/issues/5)|
 |[Angular踩过的坑](https://github.com/heightzhang/Three/issues/7)|[Angular专用操作Dom的方式总结](https://github.com/heightzhang/Three/issues/10)|
+
+### Vue
+
+|[VUE相关的API文档](https://github.com/heightzhang/Three/issues/14)|[vue相关属性总结](https://github.com/heightzhang/Three/issues/23)|
+|-|-|
+|[VUX使用心得](http://blog.csdn.net/tonydandelion2014/article/details/51924236)|[Vue中的坑总结](https://github.com/heightzhang/Three/issues/21)|
+
+###react
+
+|[react资料参考](https://github.com/heightzhang/react-tutorial/blob/master/README.md)|[相关ISSUE](https://github.com/Wscats/react-tutorial/issues) |
     
 # 规范
 
@@ -34,4 +38,12 @@
 
 # API
 
-[酷狗API接口](https://github.com/heightzhang/Three/issues/8)|
+|1|2|
+|-|-|
+|[酷狗API接口](https://github.com/heightzhang/Three/issues/8)|[API接口大全](https://github.com/TonnyL/Awesome_APIs/blob/master/Chinese.md)|
+
+
+
+#参考资料
+
+[慕课网VUE课程](https://github.com/ustbhuangyi/vue-sell)
