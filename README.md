@@ -44,6 +44,6 @@
 
 
 
-#参考资料
+# 参考资料
 
 [慕课网VUE课程](https://github.com/ustbhuangyi/vue-sell)
