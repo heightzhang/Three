@@ -34,4 +34,4 @@
 
 # API
 
-[酷狗API接口](https://github.com/heightzhang/Three/issues/8)|
+[酷狗API接口](https://github.com/heightzhang/Three/issues/8)
