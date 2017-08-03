@@ -17,7 +17,7 @@
 
 |[模块化开发&&常见报错原因分析](https://github.com/heightzhang/Three/issues/22)|[前端与nodeJS的那些事](http://www.jianshu.com/p/2b5d4c2318e6)|
 |-|-|
-|[Angular初级入门实践](http://www.jianshu.com/p/8aeb69d25aa2)|[Vue初级入门实践(http://www.jianshu.com/p/14038b3dae90)]|
+|[Angular初级入门实践](http://www.jianshu.com/p/8aeb69d25aa2)|[Vue初级入门实践](http://www.jianshu.com/p/14038b3dae90)|
 
 # 经验
 
