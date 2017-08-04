@@ -13,7 +13,7 @@
 |-|-|
 |[VUX使用心得](http://blog.csdn.net/tonydandelion2014/article/details/51924236)|[Vue中的坑总结](https://github.com/heightzhang/Three/issues/21)|
 
-###react
+### react
 
 |[react资料参考](https://github.com/heightzhang/react-tutorial/blob/master/README.md)|[相关ISSUE](https://github.com/Wscats/react-tutorial/issues) |
     
