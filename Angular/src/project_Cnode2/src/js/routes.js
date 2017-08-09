@@ -46,8 +46,6 @@
             templateUrl: "template/detail.html"
         })
 
-        
-
         //登录路由;
     }])
 })();

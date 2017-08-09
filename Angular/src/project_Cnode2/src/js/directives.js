@@ -241,32 +241,14 @@
                     //主题收藏
                     scope.top = scope.detail.tab
                 })
-                
-                scope.love = function() {
-                    scope.myStar = {
-                        "background-image": "url('img/icon/love2.jpg')"
-                    };
-/*
-                    //----主题收藏
-                    scope.msg = "ca91d715-2577-4253-885b-4665939c47c5"
-
-                    $http({
-                        method: 'POST',
-                        url: 'https://cnodejs.org/api/v1/topic_collect/collect',
-                        data: {
-                            accesstoken: scope.msg,
-                            topic_id: scope.top
-                        },
-                        headers: { //1.设置类型
-                            'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
-                        }
-                    }).then(function(data) {
-                        console.log(data)
-                    }, function(err) {
-                        console.log(err) //打印错误信息
-                    });
-*/
+                scope.change = function() {
+                    //更改收藏红心选中的状态
+                   scope.state?scope.state = false :scope.state = true
                 }
+
+                
+
+
 
             }
         }
@@ -286,11 +268,33 @@
 
 
     //----------------------四 \ -发布帖子页面--------------------
-    directives.directive('xcreate', [function() {
+    directives.directive('xcreate', ['$http', function($http) {
         return {
             templateUrl: "directive/create/xcreate.html",
             link: function(scope, ele, attr) {
-
+                scope.ak = "ca91d715-2577-4253-885b-4665939c47c5";
+                console.log(store.getState())
+                scope.publish = function() {
+                    $http({
+                        method: 'post',
+                        url: 'https://cnodejs.org/api/v1/topics ',
+                        data: {
+                            accesstoken: scope.ak,
+                            title: scope.title,
+                            tab: 'dev',
+                            content: scope.content
+                        },
+                        headers: { 
+                            'Content-Type': "application/json;charset=UTF-8"
+                        }
+                    }).then(function(data) {
+                        console.log('成功')
+                        alert('成功')
+                    }, function(err) {
+                        console.log(err.data.error_msg) //打印错误信息
+                        alert(err.data.error_msg)
+                    });
+                }
             }
         }
     }]);
@@ -382,19 +386,13 @@
                     scope.email = scope.data.githubUsername + "@github.com"
                     scope.create_time = scope.data.create_at;
                     scope.score = scope.data.score;
-                    // console.log(scope.data)
-
-                    //列表样式 xmine-list;
-                    scope.avatar_img = scope.data.recent_replies[0].author.avatar_url;
-                    scope.author_name = scope.data.recent_replies[0].author.loginname;
-                    scope.title = scope.data.recent_replies[0].title;
-                    scope.last_time = scope.data.recent_replies[0].last_reply_at
-
-                    scope.id = scope.data.recent_replies[0].id
+                    //列表样式 xmine-list; 最近回复
+                    scope.replay = data.data.data.recent_replies
                 }, function(err) {
                     console.log(err);
                 });
-                scope.info = function() {
+                scope.info = function(id) {
+                    scope.id = id
                     $window.location.href = "#!/detail/" + scope.id
                 }
             }
@@ -430,6 +428,17 @@
                                 $window.location.href = "#!/detail/" + id
                             }
                             console.log(scope.data)
+                        }, function(err) {
+                            console.log(err);
+                        });
+                    }
+                    //最新发布
+                    if ($rootScope.show === 1) {
+                        $http({
+                            method: "GET",
+                            url: "https://cnodejs.org/api/v1/user/" + scope.loginname
+                        }).then(function(data) {
+                           scope.publish = data.data.data.recent_topics
                         }, function(err) {
                             console.log(err);
                         });

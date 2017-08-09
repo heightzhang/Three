@@ -18,10 +18,10 @@
                 <div class="head-middle-bottom">
                     {{detail.create_at|timeGo}}
                     <span>{{detail.visit_count}}</span>次预览
-                    <div class="eye"></div>
+                    <div class="eye" ></div>
                 </div>
             </div>
-            <div class="head-right"><i class="love" ng-click = "love()" ng-style ="myStar"></i></div>
+            <div class="head-right"><i class='love' ng-click="change()" ng-style="{'background-image':state?'url(img/icon/love2.jpg)':'url(img/icon/love.jpg)'}"></i></div>
         </div>
     </div>
     <!-- 中间 -->
@@ -170,17 +170,6 @@ div.eye {
     height: 23px;
     line-height: normal;
     vertical-align: middle;
-    background-image: url('img/icon/love.jpg');
-    background-repeat: repeat;
-    margin-right: 10px;
-}
-.love2{
-    display: inline-block;
-    width: 19px;
-    height: 23px;
-    line-height: normal;
-    vertical-align: middle;
-    background-image: url('img/icon/love.jpg');
     background-repeat: repeat;
     margin-right: 10px;
 }

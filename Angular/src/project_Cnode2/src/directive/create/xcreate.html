@@ -1,7 +1,7 @@
 <div class="article">
     <div class="weui_cells_title">
         <span>新话题</span>
-        <button class="weui_btn_primary" style="position: absolute; right: 14px; font-size: 12px;">
+        <button class="weui_btn_primary" style="position: absolute; right: 14px; font-size: 12px;" ng-click = "publish()">
             发布
         </button>
     </div>
@@ -21,10 +21,10 @@
         </div>
     </div>
     <div class="title">
-        <input ype="text" placeholder="标题，字数10字以上" class="weui_input">
+        <input placeholder="标题，字数10字以上" class="weui_input" ng-model = "title">
     </div>
     <dic class="content">
-        <textarea placeholder="说点什么吧..." name="description" rows="3" cols="30" class="weui_textarea" style="height: 469px;"></textarea>
+        <textarea placeholder="说点什么吧..." name="description" rows="3" cols="30" class="weui_textarea" style="height: 469px;" ng-model = "content"></textarea>
     </dic>
 </div>
 <style>
