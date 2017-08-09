@@ -12,6 +12,7 @@
 |[VUE相关的API文档](https://github.com/heightzhang/Three/issues/14)|[vue相关属性总结](https://github.com/heightzhang/Three/issues/23)|
 |-|-|
 |[VUX使用心得](http://blog.csdn.net/tonydandelion2014/article/details/51924236)|[Vue中的坑总结](https://github.com/heightzhang/Three/issues/21)|
+|[饿了么实战组件参考](https://www.zhihu.com/question/38213423)|[Coking脚手架(支持Vue,Angular,react)](http://elemefe.github.io/cooking/)|
 
 ### React
 
@@ -39,7 +40,10 @@
 |[git高级命令](https://github.com/heightzhang/Three/issues/17)|[webpack打包&&常见报错原因分析](https://github.com/heightzhang/Three/issues/16)|
 |-|-|
 |[charles补丁&&https截获方法](https://github.com/heightzhang/Three/issues/6)|[超好用的Markdown编辑器推荐](https://www.zhihu.com/question/19637157)|
+
 |[word插件=>word文件转换markdown](http://www.writage.com)|[前端网](http://www.qdfuns.com/)|
+|1|[移动端调试工具模拟器 + Chrome inspect + Fiddle / Charles](http://www.cnblogs.com/sunshq/p/4111610.html)|
+
 
 # API
 
