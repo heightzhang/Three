@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>闭包</title>
+	<script>
+		/*
+		#闭包特性:1函数嵌套函数;2变量被引用;
+		
+		闭包#1  函数体中包含函数;
+		function aa(){
+		    var num=100;
+		    console.log('aa中访问num：',num);
+
+		    function bb(){  //bb为闭包函数
+		        console.log("bb中访问num：",num);
+		    }
+
+		    return bb;  //return 一个函数
+		}
+
+		var fn = aa();    //关键: 被全局引用;  
+		
+		fn()//1.在全局能够打印num的值 , num = 100;
+
+		fn() =>99//2.形成闭包后不会被清理;  因其最终有被全局 fn 引用;
+		fn() =>98 
+
+		
+		闭包#2
+		经典应用:打印按钮的索引值(非标准属性,let,闭包);
+		
+		// 利用闭包实现的打印索引值
+			btns[i].onclick = (function(idx){
+				
+				return function(){
+					console.log(idx);
+				}
+
+			})(i);  //思路:1匿名函数的自执行传递i进去; 2return这个函数'索引值'出来;
+					//为什么这里能够形成一个闭包?
+		#结论
+			1.闭包是指有权访问另一函数作用域中的变量的'函数';
+			2.闭包，可以访问函数内部的局部变量，并让其长期驻留内存
+			3.由于闭包会携带包含它的作用域(运行环境)因此会比其他函数占用更多内存，过度使用闭包可能会造成性能问题.
+
+			
+		*/
+
+		
+		
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

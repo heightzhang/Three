@@ -227,28 +227,88 @@
 
 
     //-----------------------三 \ 详情页面-------
-    directives.directive('xdetail', ['$state', '$http', function($state, $http) {
+    directives.directive('xdetail', ['$state', '$http', '$location', function($state, $http, $location) {
         return {
             templateUrl: "directive/xdetail.html",
             link: function(scope, ele, attr) {
                 scope.id = $state.params.id
                 $http({
-                    method: "get",
-                    url: "https://cnodejs.org/api/v1/topic/" + scope.id
+                        method: "get",
+                        url: "https://cnodejs.org/api/v1/topic/" + scope.id
+                    }).then(function(data) {
+                        scope.detail = data.data.data;
+                        scope.html = scope.detail.content;
+                        //主题收藏
+                        scope.top = scope.detail.tab
+                    })
+                    //默认红心状态;
+                $http({
+                    method: 'post',
+                    url: 'https://cnodejs.org/api/v1/topic_collect/collect',
+                    data: {
+                        accesstoken: store.getState().accesstoken,
+                        topic_id: $location.$$url.split('/')[2]
+                    },
+                    headers: {
+                        'Content-Type': "application/json;charset=UTF-8"
+                    }
                 }).then(function(data) {
-                    scope.detail = data.data.data;
-                    scope.html = scope.detail.content;
-                    //主题收藏
-                    scope.top = scope.detail.tab
-                })
+                    console.log(data.data.success)
+                    if (data.data.success) {
+                        scope.state = false
+                    } else {
+                        scope.state = true
+                    }
+                }, function(err) {
+                    console.log(err.data.error_msg) //打印错误信息
+
+                });
+
+                //更改收藏红心选中的状态 -----------------
                 scope.change = function() {
-                    //更改收藏红心选中的状态
-                   scope.state?scope.state = false :scope.state = true
+                    if (scope.state) {
+                        scope.state = false
+                        console.log(store.getState().accesstoken)
+                        $http({
+                            method: 'post',
+                            url: 'https://cnodejs.org/api/v1/topic_collect/de_collect',
+                            data: {
+                                accesstoken: store.getState().accesstoken,
+                                topic_id: $location.$$url.split('/')[2]
+                            },
+                            headers: {
+                                'Content-Type': "application/json;charset=UTF-8"
+                            }
+                        }).then(function(data) {
+                            console.log(data.data)
+                        }, function(err) {
+                            console.log(err.data.error_msg) //打印错误信息
+
+                        });
+
+                    } else {
+                        scope.state = true
+                        console.log(store.getState().accesstoken)
+                        $http({
+                            method: 'post',
+                            url: 'https://cnodejs.org/api/v1/topic_collect/collect',
+                            data: {
+                                accesstoken: store.getState().accesstoken,
+                                topic_id: $location.$$url.split('/')[2]
+                            },
+                            headers: {
+                                'Content-Type': "application/json;charset=UTF-8"
+                            }
+                        }).then(function(data) {
+                            console.log(data.data)
+                        }, function(err) {
+                            console.log(err.data.error_msg) //打印错误信息
+
+                        });
+
+                    }
+
                 }
-
-                
-
-
 
             }
         }
@@ -273,7 +333,7 @@
             templateUrl: "directive/create/xcreate.html",
             link: function(scope, ele, attr) {
                 scope.ak = "ca91d715-2577-4253-885b-4665939c47c5";
-                console.log(store.getState())
+
                 scope.publish = function() {
                     $http({
                         method: 'post',
@@ -284,7 +344,7 @@
                             tab: 'dev',
                             content: scope.content
                         },
-                        headers: { 
+                        headers: {
                             'Content-Type': "application/json;charset=UTF-8"
                         }
                     }).then(function(data) {
@@ -438,7 +498,7 @@
                             method: "GET",
                             url: "https://cnodejs.org/api/v1/user/" + scope.loginname
                         }).then(function(data) {
-                           scope.publish = data.data.data.recent_topics
+                            scope.publish = data.data.data.recent_topics
                         }, function(err) {
                             console.log(err);
                         });

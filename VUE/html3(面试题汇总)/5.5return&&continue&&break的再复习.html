@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+    /*
+    ##break：//退出当前整个循环(退出当前循环体)
+		只能在循环语句中使用
+		循环体中位于break后的语句不会被执行
+		在多层循环嵌套中，一个break语句只向外跳一层
+    
+    ##continue：//跳过本次循环，继续下一次循环(即继续当前循环体中之后的循环)
+		只能在循环语句中使用，
+		结束本次循环（即跳过循环体中下面尚未执行的代码），接着执行下次循环。
+
+    ##label：循环标识
+		* 在循环开始处写一个名字，格式如下：
+		labelName:for(var i=0;i<10;i++){}
+		example:
+		var sum = 0;
+		loop1:for(var i=1;i<=5;i++){
+			loop2:for(var j=1;j<=5;j++){
+				if(i===2){
+					break loop1; //退出跳到loop循环;
+				}
+				sum += i + j;
+				// console.log('666')
+			}
+		}
+		console.log(sum);
+
+    注意:break和continue后如果带标识，则跳到标识所在循环
+
+	##return
+	只能出现在函数体内使用;
+	使用return语句时，函数会停止执行，并返回指定的值，return后面的语句时不执行的。
+		分类:
+		retrun true； 返回正确的处理结果。
+		return false； 终止处理。 一般用在阻止浏览器默认行为
+		return；把控制权返回给页面
+    */
+    </script>
+    <script>
+    	var a = 0;
+    	for(var i = 0;i<3;i++){
+    		
+    		if(i==2){  //(表达式)
+    			
+				continue;
+    		}
+   			a+=i;
+    	}
+    	console.log('continue:'+a);//==>1  
+
+    	var a = 0;
+    	for(var i = 0;i<3;i++){
+    		
+    		if(i==2){  //(表达式)
+    			
+				break;
+    		}
+   			a+=i;
+    	}
+    	console.log('break:'+a);//=>1
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>

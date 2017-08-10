@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script>
+		/* 
+		异步与同步;
+		异步  本身函数的内部会花时间才能得到结果,但是外部的执行顺利不受影响;
+		同步: 外部的执行顺序要等上面的代码执行完后才执行;;
+	
+		
+
+		--------------基本概念-----------------:
+		Promise对象，
+		作用:用来"传递异步操作的消息" ; 传递两个状态(resolve与reject;) 
+			 能把异步请求用同步的方式编写,避免了层层嵌套的回调函数;
+			 Promise 弥补了同步方式等待时间长的严重缺点;
+
+	
+		Promise的三种状态:Pending(未完成的)  resolved(决定的) reject(拒绝的);
+
+		Promise的方法:
+		Promise.resolve() ; Promise.reject()  ;Promise.all ; Promise.race;
+		Promise.then()  ; Promise.catch;
+		
+
+
+		------------------使用--------------:
+		var p = new Promise(function(resolve, reject){
+		    //ajax请求
+		    ajax({
+		        url:'xxx.php',
+		        success:function(data){
+		        	//把状态pending改为resolved;
+		            resolve(data) resolve 只能传递一个参数,如果需要传递多个,则用对象;
+		        },
+		        fail:function(){
+		            reject('请求失败')
+		        }
+		    });
+		});
+
+		//指定Resolved状态和Rejected状态的回调函数
+		//一般用于处理数据
+		p.then(function(res){
+			//这里得到resolve传过来的数据
+
+			return 100 ; //return 传递值给链式调用的then; 
+			            还是 return一个promise对象实例p1，可以链式调用then方法?	
+		},function(err){
+
+		    //这里得到reject传过来的数据
+		}).then(function(res){
+			//console.log(res)  => 100
+		})
+
+
+
+
+		----------实际项目用法 ------------------------------
+		*/
+		//1)传递参数;2)传递多个参数(用对象); 3)return给一下then链式调用;(试试三层回调地狱解决;重点;)
+		
+		/*4)异步请求中的参数会按顺序出现
+		在实际开发中,能够确定所有ajax请求都成功;;		
+		Promise.all代替单个then;
+		将三个Promise对象封装成一个Promise对象;
+		Promise.all([p1,p2,p3]).then((res) =>{
+			res为所有primse对象组合的数据;
+			console.log(res);
+		})
+
+
+		Promise常用在AJAX请求中的优化代码;
+		*/
+
+
+//---------------异步请求中的方法会按顺序执行----------------------;
+		/*
+		function a() {
+			return new Promise(function(resolve, reject) {
+				setTimeout(function() {
+					console.log("执行任务A");
+					resolve("执行A成功")
+				}, 1000)
+			})
+		}
+		function b() {
+			return new Promise(function(resolve, reject) {
+				setTimeout(function() {
+					console.log("执行任务B");
+					resolve("执行B成功")
+				}, 2000)
+			})
+		}
+		function c() {
+			return new Promise(function(resolve, reject) {
+				setTimeout(function() {
+					console.log("执行任务C");
+					//resolve("执行B成功")
+				}, 3000)
+			})
+		}
+		 a().then(b).then(c)  //关键;
+
+		*/
+
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
