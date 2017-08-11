@@ -18,7 +18,7 @@
                 <div class="head-middle-bottom">
                     {{detail.create_at|timeGo}}
                     <span>{{detail.visit_count}}</span>次预览
-                    <div class="eye" ></div>
+                    <div class="eye"></div>
                 </div>
             </div>
             <div class="head-right"><i class='love' ng-click="change()" ng-style="{'background-image':state?'url(img/icon/love2.jpg)':'url(img/icon/love.jpg)'}"></i></div>
@@ -27,11 +27,32 @@
     <!-- 中间 -->
     <div class="content-box markdown-body" ng-bind-html="html|htmled">
     </div>
-    <!-- 返回按钮 -->
-    <div class="ext-btn-reply"><i class="icon-reply"></i></div>
+    <!-- 添加评论 -->
+    <div class="comment">
+        <h6>添加评论</h6>
+        <textarea name="comment" id="textarea" maxlength="20" onfocus="if(value=='说点什么吧'){value=''}" onblur="if (value ==''){value='说点什么吧'}" ng-model = "value" ng-keyup = len(value) > </textarea>
+        <span class="len">  {{length}}<span>/20</span></span>
+        <button ng-click = "comment()">发送</button>
+    </div>
+    <!-- 评论信息列表 -->
+    <div class="reply">
+        <h6>回复列表</h6>
+        <ul>
+            <li ng-repeat="n in reply">
+                <p class="info">
+                    <img ng-src="{{n.author.avatar_url}}" alt="">
+                    <span class="msg">
+                       <span class="login_name">{{n.author.loginname}}</span>
+                    <span class="login_time">{{n.create_at|timeGo}}</span>
+                    <i class="icon"></i>
+                    </span>
+                </p>
+                <div class="content" ng-bind-html="n.content|htmled">2</div>
+            </li>
+        </ul>
+    </div>
 </div>
 <style>
-
 .article-box {
     width: 90%;
     height: 90%;
@@ -172,5 +193,87 @@ div.eye {
     vertical-align: middle;
     background-repeat: repeat;
     margin-right: 10px;
+}
+
+
+/*评论区域样式*/
+
+.reply {
+    margin-top: 10%;
+}
+
+.reply ul li {
+    width: 100%;
+    min-height: 90px;
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid #999;
+    padding-top: 3%;
+    padding-bottom: 6%;
+}
+
+.reply ul li p.info {
+    flex: 60%;
+    display: flex;
+    color: #999;
+}
+
+p.info img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    align-self: center;
+}
+
+p.info span.msg {
+    flex: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+p.info span.login_name,
+p.info span.login_time {
+    flex: 1
+}
+
+p.info span.login_name {
+    margin-left: 5%
+}
+
+p.info span.login_time {
+    text-align: right;
+}
+
+.reply ul li div.content {
+    flex: 1;
+    margin-left: 1%;
+    padding-top: 4%;
+}
+
+
+/*添加评论*/
+
+div.comment {
+    margin-top: 10%;
+}
+
+h6 {
+    font-size: 16px;
+    color: #999;
+    border-bottom: 1px solid #999;
+}
+
+textarea {
+    width: 100%;
+    min-height: 50px;
+    font-size: 16px;
+    margin-top: 5%;
+    outline-color: #999;
+}
+button{
+    border:0;
+    outline: 0;
+    margin-left: 75%;
 }
 </style>

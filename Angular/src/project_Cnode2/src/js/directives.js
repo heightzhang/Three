@@ -232,15 +232,20 @@
             templateUrl: "directive/xdetail.html",
             link: function(scope, ele, attr) {
                 scope.id = $state.params.id
-                $http({
-                        method: "get",
-                        url: "https://cnodejs.org/api/v1/topic/" + scope.id
-                    }).then(function(data) {
-                        scope.detail = data.data.data;
-                        scope.html = scope.detail.content;
-                        //主题收藏
-                        scope.top = scope.detail.tab
-                    })
+                scope.init = function(){
+                    $http({
+                            method: "get",
+                            url: "https://cnodejs.org/api/v1/topic/" + scope.id
+                        }).then(function(data) {
+                            scope.detail = data.data.data;
+                            scope.html = scope.detail.content;
+                            //主题收藏
+                            scope.top = scope.detail.tab
+                            //初始化评论信息列表
+                            scope.reply = data.data.data.replies
+                        }) 
+                }
+                scope.init();
                     //默认红心状态;
                 $http({
                     method: 'post',
@@ -268,7 +273,6 @@
                 scope.change = function() {
                     if (scope.state) {
                         scope.state = false
-                        console.log(store.getState().accesstoken)
                         $http({
                             method: 'post',
                             url: 'https://cnodejs.org/api/v1/topic_collect/de_collect',
@@ -308,6 +312,35 @@
 
                     }
 
+                }
+
+                //新增评论功能;
+                scope.value = '说点什么吧'
+                scope.comment = function() {
+                    let topic_id = $location.$$url.split('/')[2];
+
+                    $http({
+                        method: 'post',
+                        url: 'https://cnodejs.org/api/v1/topic/'+topic_id+'/replies',
+                        data: {
+                            accesstoken: store.getState().accesstoken,
+                            content:scope.value
+                        },
+                        headers: {
+                            'Content-Type': "application/json;charset=UTF-8"
+                        }
+                    }).then(function(data) {
+                            scope.init();
+                    }, function(err) {
+                        console.log(err.data.error_msg) //打印错误信息
+
+                    });
+                }
+
+                //评论的字体长度设置;
+                scope.length = 0;
+                scope.len =function(value){
+                    scope.length = value.length
                 }
 
             }
