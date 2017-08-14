@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>jsonp的再复习</title>
+</head>
+<script>
+//$().jquery 查看JQuery的版本号;
+
+/*
+  jsonp的原理:
+  	1.通过script 的 src 属性发起一个get请求取代xhr请求(不支持post请求);
+	2.需要服务器提供必要的支持;(返回函数的执行而不是单单的json数据)
+
+  jsonp传参;
+  	url + 哈希值 (?callback = getWeather)
+
+  demo:
+  ```JS
+  function getTest(data){
+		console.log(data)
+		//得到数据后删除script标签;避免资源占用;
+		document.head.remove
+	}
+	var script = document.createElement('script');
+	script.src = "http://m.kugou.com/rank/list&json=true";
+	document.head.appendChild(script);
+  ```
+
+  //老谢 案例 :ajax专题  百度搜索提示;  
+
+  拓展 跨域Jsonp的联想
+	Img src 跨域请求服务器图片;
+	Link css 跨域请求服务器样式;
+	script src 跨域请求服务器地址; 实现较简单;
+	iframe src 跨域请求服务器地址; 实现较复杂;
+*/
+</script>
+
+<body>
+</body>
+
+</html>
