@@ -5,16 +5,33 @@
     <meta charset="UTF-8">
     <title></title>
     <script>
-    
+    //ES6的解构  从数组 /对象中提取值, 对变量进行赋值;
+        //同时声明多个变量, 数组解构
+        let [a,b,c] = [1,2,3]
+        console.log(a,b,c)
+        //对象解构
+        /*   
+            let cat = 'ken'
+            let dog = 'lili'
+            let zoo = {
+                cat,
+                dog
+            }
+            console.log(zoo)
+        */
+    //ES6的默认值default   ===替代 ES5默认值的 type = type ||'cat' 写法
+       function animal(type = "cat") {
 
-    //ES6的解构 
-    let cat = 'ken'
-    let dog = 'lili'
-    let zoo = {
-        cat,
-        dog
+        console.log(type)
     }
-    console.log(zoo)
+    //Es6的传递多个参数 rest语法(剩余参数)   ===替代 ES5的arguments
+       
+        function animal(...type) {
+
+            console.log(type)
+        }
+        animal('cat','dog','fish')
+
     </script>
 </head>
 
